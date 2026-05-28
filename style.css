@@ -249,47 +249,58 @@ body {
 /* Modernized Scroll Indicator Mouse Icon */
 .scroll-indicator {
     bottom: 2rem !important;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: auto !important;
 }
 
 .scroll-indicator span {
     font-size: 0.68rem !important;
     letter-spacing: 0.22em !important;
-    font-weight: 600;
-    color: #64748b;
-    margin-bottom: 0.5rem;
-    text-align: center;
-    display: block;
+    margin-right: -0.22em !important; /* Offset letter-spacing to align text visual center perfectly */
+    font-weight: 600 !important;
+    color: #64748b !important;
+    margin-bottom: 0.5rem !important;
+    text-align: center !important;
+    display: block !important;
 }
 
 .scroll-indicator .ri-arrow-down-line {
+    font-family: sans-serif !important; /* Strip Remix Icon font */
+    font-style: normal !important;
+    font-weight: normal !important;
     display: block !important;
-    width: 20px;
-    height: 32px;
-    border: 2px solid rgba(100, 116, 139, 0.45);
-    border-radius: 99px;
-    position: relative;
-    margin: 0.5rem auto 0 auto !important;
+    width: 20px !important;
+    height: 32px !important;
+    border: 2px solid rgba(100, 116, 139, 0.45) !important;
+    border-radius: 99px !important;
+    position: relative !important;
+    margin: 0.5rem 0 0 0 !important;
+    padding: 0 !important;
     color: transparent !important;
     font-size: 0 !important;
+    line-height: 0 !important;
     animation: none !important;
-    box-sizing: border-box;
+    transform: none !important;
+    box-sizing: border-box !important;
 }
 
 .scroll-indicator .ri-arrow-down-line::before {
-    content: '';
-    width: 4px;
-    height: 8px;
-    background-color: #0c75e6;
-    border-radius: 99px;
-    position: absolute;
-    top: 6px;
-    left: 50%;
-    transform: translateX(-50%);
-    animation: scrollWheel 1.6s infinite cubic-bezier(0.16, 1, 0.3, 1);
+    content: '' !important;
+    font-family: sans-serif !important;
+    width: 4px !important;
+    height: 8px !important;
+    background-color: #0c75e6 !important;
+    border-radius: 99px !important;
+    position: absolute !important;
+    top: 6px !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    animation: scrollWheel 1.6s infinite cubic-bezier(0.16, 1, 0.3, 1) !important;
     display: block !important;
 }
 
