@@ -55,33 +55,82 @@ body {
     pointer-events: none;
 }
 
-#main-header.scrolled {
-    background-color: rgba(255, 255, 255, 0.85);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border-bottom: 1px solid #e2e8f0;
-    box-shadow: 0 2px 8px -1px rgba(16, 34, 62, 0.03);
-    padding: 0.85rem 0 !important;
-}
-
-.nav-link::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
+/* Premium Floating Glassmorphic Header */
+#main-header {
+    position: fixed;
+    top: 0;
     left: 0;
-    width: 0;
-    height: 2px;
-    background-color: #0c75e6;
-    transition: all 0.25s ease;
+    width: 100%;
+    z-index: 1000;
+    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    padding: 1.5rem 0;
+    background: transparent !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    border-bottom: none !important;
+    box-shadow: none !important;
 }
 
-.nav-link:hover::after,
-.nav-link.active::after {
+#main-header > div {
+    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    border: 1px solid transparent;
+    padding: 0.5rem 1.5rem;
     width: 100%;
+}
+
+#main-header.scrolled {
+    padding: 0.5rem 0 !important;
+}
+
+#main-header.scrolled > div {
+    background: rgba(255, 255, 255, 0.72) !important;
+    backdrop-filter: blur(20px) saturate(190%) !important;
+    -webkit-backdrop-filter: blur(20px) saturate(190%) !important;
+    border: 1px solid rgba(226, 232, 240, 0.75) !important;
+    box-shadow: 0 12px 30px -10px rgba(16, 34, 62, 0.08), 
+                0 1px 3px rgba(16, 34, 62, 0.02) !important;
+    border-radius: 9999px;
+    padding: 0.65rem 2rem;
+    max-w-[950px];
+    margin: 0.75rem auto 0 auto;
+}
+
+/* Logo Transform on Hover */
+#main-header a[href*="index.html"],
+#main-header a[href="#"] {
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    display: inline-block;
+}
+
+#main-header a[href*="index.html"]:hover,
+#main-header a[href="#"]:hover {
+    transform: scale(1.06);
+}
+
+/* Dynamic Nav Links */
+.nav-link {
+    position: relative;
+    padding: 0.45rem 1.1rem !important;
+    border-radius: 9999px;
+    color: #475569 !important;
+    font-size: 0.88rem;
+    font-weight: 500;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.nav-link:hover {
+    color: #0c75e6 !important;
+    background: rgba(12, 117, 230, 0.05);
 }
 
 .nav-link.active {
     color: #0c75e6 !important;
+    background: rgba(12, 117, 230, 0.08);
+}
+
+/* Remove old underline */
+.nav-link::after {
+    display: none !important;
 }
 
 .animate-fade-in-up {
