@@ -63,7 +63,7 @@ body {
     width: 100%;
     z-index: 1000;
     transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-    padding: 1.5rem 0;
+    padding: 0.75rem 0 !important;
     background: transparent !important;
     backdrop-filter: none !important;
     -webkit-backdrop-filter: none !important;
@@ -73,26 +73,24 @@ body {
 
 #main-header > div {
     transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-    border: 1px solid transparent;
-    padding: 0.5rem 1.5rem;
-    width: 100%;
-}
-
-#main-header.scrolled {
-    padding: 0.5rem 0 !important;
+    background: rgba(255, 255, 255, 0.85) !important;
+    backdrop-filter: blur(20px) saturate(190%) !important;
+    -webkit-backdrop-filter: blur(20px) saturate(190%) !important;
+    border: 1px solid rgba(226, 232, 240, 0.85) !important;
+    box-shadow: 0 8px 24px -8px rgba(16, 34, 62, 0.05) !important;
+    border-radius: 9999px;
+    padding: 0.65rem 2rem;
+    max-w-[980px];
+    margin: 0.5rem auto 0 auto;
+    width: 90%;
 }
 
 #main-header.scrolled > div {
-    background: rgba(255, 255, 255, 0.72) !important;
-    backdrop-filter: blur(20px) saturate(190%) !important;
-    -webkit-backdrop-filter: blur(20px) saturate(190%) !important;
-    border: 1px solid rgba(226, 232, 240, 0.75) !important;
+    background: rgba(255, 255, 255, 0.76) !important;
     box-shadow: 0 12px 30px -10px rgba(16, 34, 62, 0.08), 
                 0 1px 3px rgba(16, 34, 62, 0.02) !important;
-    border-radius: 9999px;
-    padding: 0.65rem 2rem;
-    max-w-[950px];
-    margin: 0.75rem auto 0 auto;
+    max-w-[940px];
+    margin-top: 0.75rem;
 }
 
 /* Logo Transform on Hover */
@@ -251,6 +249,10 @@ body {
 /* Modernized Scroll Indicator Mouse Icon */
 .scroll-indicator {
     bottom: 2rem !important;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 .scroll-indicator span {
@@ -259,36 +261,36 @@ body {
     font-weight: 600;
     color: #64748b;
     margin-bottom: 0.5rem;
+    text-align: center;
+    display: block;
 }
 
 .scroll-indicator .ri-arrow-down-line {
-    display: none !important;
-}
-
-.scroll-indicator::after {
-    content: '';
+    display: block !important;
     width: 20px;
     height: 32px;
-    border: 2px solid rgba(100, 116, 139, 0.4);
+    border: 2px solid rgba(100, 116, 139, 0.45);
     border-radius: 99px;
     position: relative;
-    display: block;
-    margin-top: 0.25rem;
-    transition: border-color 0.3s ease;
+    margin: 0.5rem auto 0 auto !important;
+    color: transparent !important;
+    font-size: 0 !important;
+    animation: none !important;
+    box-sizing: border-box;
 }
 
-.scroll-indicator::before {
+.scroll-indicator .ri-arrow-down-line::before {
     content: '';
     width: 4px;
     height: 8px;
     background-color: #0c75e6;
     border-radius: 99px;
     position: absolute;
-    bottom: 16px;
+    top: 6px;
     left: 50%;
     transform: translateX(-50%);
     animation: scrollWheel 1.6s infinite cubic-bezier(0.16, 1, 0.3, 1);
-    z-index: 10;
+    display: block !important;
 }
 
 @keyframes scrollWheel {
