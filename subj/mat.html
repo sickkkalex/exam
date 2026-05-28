@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Incidenti Stradali in Italia – Matematica</title>
+    <meta name="description" content="Analisi statistica degli incidenti stradali in Italia (2024‑2025): cause, dati, e impatto sulla salute pubblica." />
+    
+    <!-- Google Fonts & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet" />
+
+    <!-- Tailwind & Config -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#10223e',
+                        accent: '#e11d48',
+                        'accent-hover': '#b71c39',
+                        'accent-soft': 'rgba(225, 29, 72, 0.06)',
+                        'text-dark': '#1e293b',
+                        'text-medium': '#475569',
+                        'text-light': '#64748b',
+                        'bg-light': '#f8fafc',
+                        'border-color': '#e2e8f0',
+                        'mat-dark': '#1c1917',
+                        'mat-accent': '#e11d48'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+                        display: ['Outfit', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="../style.css" />
+    
+    <style>
+        .glass-panel { background: rgba(255,255,255,0.75); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid rgba(226,232,240,0.8); }
+        .hero-gradient { background: radial-gradient(circle at 10% 20%, rgba(225,29,72,0.04) 0%, rgba(255,255,255,0) 90%); }
+        
+        .stat-card {
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px -10px rgba(225,29,72,0.15);
+            border-color: rgba(225,29,72,0.2);
+        }
+    </style>
+</head>
+
+<body class="bg-white text-text-dark font-sans antialiased overflow-x-hidden">
+
+    <!-- Scroll Progress Indicator -->
+    <div id="scroll-progress" class="fixed top-0 left-0 h-0.5 bg-mat-accent z-[9999] transition-all duration-100 ease-out" style="width:0%"></div>
+
+    <!-- Header -->
+    <header id="main-header" class="fixed top-0 left-0 w-full z-[1000] transition-all duration-500 py-6 border-b border-transparent bg-white/90 backdrop-blur-md">
+        <div class="max-w-[1200px] mx-auto px-6 flex items-center justify-between">
+            <a href="../index.html" class="font-display text-2.2xl md:text-2.5xl font-extrabold text-primary tracking-[-0.03em]"><span class="text-accent">A</span>S</a>
+            <nav id="nav-menu" class="hidden md:block">
+                <ul class="flex items-center gap-9">
+                    <li><a href="../index.html#hero" class="nav-link text-[0.92rem] font-medium text-text-medium hover:text-primary transition-all relative py-1">Home</a></li>
+                    <li><a href="../index.html#presentazione" class="nav-link text-[0.92rem] font-medium text-text-medium hover:text-primary transition-all relative py-1">Chi Sono</a></li>
+                    <li><a href="../nav items/edc.html" class="nav-link active text-[0.92rem] font-medium text-text-medium hover:text-primary transition-all relative py-1">Educazione Civica</a></li>
+                    <li><a href="../nav items/pcto.html" class="nav-link text-[0.92rem] font-medium text-text-medium hover:text-primary transition-all relative py-1">PCTO</a></li>
+                    <li><a href="../nav items/capolavori.html" class="nav-link text-[0.92rem] font-medium text-text-medium hover:text-primary transition-all relative py-1">Capolavori</a></li>
+                </ul>
+            </nav>
+            <div class="header-cta hidden md:block">
+                <a href="../nav items/edc.html" class="btn btn-sm btn-outline text-accent border border-accent hover:bg-accent hover:text-white px-5 py-2 rounded font-medium text-sm transition-all flex items-center gap-1.5"><i class="ri-arrow-left-line"></i> Torna a Ed. Civica</a>
+            </div>
+            <button class="mobile-nav-toggle md:hidden bg-transparent border-0 text-2xl text-primary cursor-pointer z-[1001]" id="mobile-toggle" aria-label="Apri menu"><i class="ri-menu-line"></i></button>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative pt-36 pb-20 md:pt-48 md:pb-24 border-b border-border-color hero-gradient overflow-hidden">
+        <div class="max-w-[1200px] mx-auto px-6 relative z-[2]">
+            <div class="flex items-center gap-2 mb-6 animate-fade-in-up" style="animation-delay:100ms;">
+                <a href="../index.html" class="text-xs uppercase tracking-[0.1em] text-accent font-bold hover:underline flex items-center gap-1"><i class="ri-home-4-line"></i> Home</a>
+                <span class="text-xs text-text-light"><i class="ri-arrow-right-s-line"></i></span>
+                <a href="../nav items/edc.html" class="text-xs uppercase tracking-[0.1em] text-accent font-bold hover:underline">Educazione Civica</a>
+                <span class="text-xs text-text-light"><i class="ri-arrow-right-s-line"></i></span>
+                <span class="text-xs uppercase tracking-[0.1em] text-text-light font-bold">Matematica & Sicurezza</span>
+            </div>
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+                <div class="lg:col-span-7 reveal-on-scroll">
+                    <span class="text-xs uppercase tracking-[0.2em] bg-rose-50 text-mat-accent font-bold px-3 py-1.5 rounded mb-4 inline-block">Statistica Stradale</span>
+                    <h1 class="font-display text-4xl md:text-[3.5rem] font-extrabold text-mat-dark tracking-[-0.03em] leading-[1.08] mb-6">Matematica degli <span class="text-mat-accent">Incidenti</span></h1>
+                    <p class="text-lg md:text-xl text-text-medium leading-relaxed mb-8">Un’analisi numerica dei dati ACI‑Istat (2024‑2025) per comprendere le dinamiche, le cause principali e le aree di intervento più urgenti in tema di salute pubblica e sicurezza stradale.</p>
+                    <div class="flex gap-3 flex-wrap">
+                        <span class="text-[0.78rem] font-semibold uppercase tracking-wider bg-bg-light text-text-medium px-4 py-2 rounded border border-border-color flex items-center gap-1.5">
+                            <i class="ri-bar-chart-box-line text-mat-accent text-sm"></i> Dati ACI-Istat
+                        </span>
+                        <span class="text-[0.78rem] font-semibold uppercase tracking-wider bg-bg-light text-text-medium px-4 py-2 rounded border border-border-color flex items-center gap-1.5">
+                            <i class="ri-shield-cross-line text-mat-accent text-sm"></i> Sicurezza
+                        </span>
+                    </div>
+                </div>
+                <div class="lg:col-span-5 reveal-on-scroll" style="animation-delay:200ms;">
+                    <div class="relative w-full aspect-[4/5] rounded-2xl overflow-hidden group shadow-2xl">
+                        <div class="absolute inset-0 bg-mat-dark/10 group-hover:bg-transparent transition-colors duration-500 z-10"></div>
+                        <img src="https://www.soluzionisas.it/wp-content/uploads/2024/02/incidente_stradale_Vicenza_Infortunistica-Grande.jpg"
+                             alt="Incidente stradale"
+                             class="w-full h-full object-cover filter grayscale-[30%] group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700 ease-out" />
+                        <div class="absolute bottom-6 left-6 right-6 z-20 glass-panel p-4 rounded-xl opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500">
+                            <p class="text-[0.8rem] font-bold text-mat-dark uppercase tracking-wider mb-1">Traffico e Sinistri</p>
+                            <p class="text-[0.75rem] text-text-medium leading-tight">Analisi statistica delle infrazioni.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Key Statistics Section -->
+    <section class="py-16 bg-white border-b border-border-color">
+        <div class="max-w-[1200px] mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="stat-card bg-bg-light border border-border-color p-8 rounded-2xl reveal-on-scroll text-center">
+                    <div class="w-12 h-12 rounded-full bg-rose-50 text-mat-accent flex items-center justify-center text-xl mx-auto mb-4">
+                        <i class="ri-car-line"></i>
+                    </div>
+                    <h3 class="font-display text-4xl font-extrabold text-mat-dark tracking-tight mb-2">173.364</h3>
+                    <p class="text-sm font-semibold uppercase tracking-widest text-mat-accent mb-1">Incidenti (2024)</p>
+                    <p class="text-[0.85rem] text-text-medium">Sinistri con lesioni a persone registrati sul territorio nazionale.</p>
+                </div>
+                
+                <div class="stat-card bg-bg-light border border-border-color p-8 rounded-2xl reveal-on-scroll text-center" style="animation-delay: 100ms;">
+                    <div class="w-12 h-12 rounded-full bg-rose-50 text-mat-accent flex items-center justify-center text-xl mx-auto mb-4">
+                        <i class="ri-skull-2-line"></i>
+                    </div>
+                    <h3 class="font-display text-4xl font-extrabold text-mat-dark tracking-tight mb-2">3.030</h3>
+                    <p class="text-sm font-semibold uppercase tracking-widest text-mat-accent mb-1">Vittime</p>
+                    <p class="text-[0.85rem] text-text-medium">Decessi causati da incidenti stradali, un dato che allarma la salute pubblica.</p>
+                </div>
+                
+                <div class="stat-card bg-bg-light border border-border-color p-8 rounded-2xl reveal-on-scroll text-center" style="animation-delay: 200ms;">
+                    <div class="w-12 h-12 rounded-full bg-rose-50 text-mat-accent flex items-center justify-center text-xl mx-auto mb-4">
+                        <i class="ri-hospital-line"></i>
+                    </div>
+                    <h3 class="font-display text-4xl font-extrabold text-mat-dark tracking-tight mb-2">233.853</h3>
+                    <p class="text-sm font-semibold uppercase tracking-widest text-mat-accent mb-1">Feriti</p>
+                    <p class="text-[0.85rem] text-text-medium">Persone che hanno riportato danni fisici a seguito di impatti.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content Essay -->
+    <section class="py-20 md:py-32 bg-white">
+        <div class="max-w-[1200px] mx-auto px-6">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 relative">
+                
+                <!-- Left Column: Discursive Text -->
+                <div class="lg:col-span-7 space-y-16">
+                    
+                    <div class="reveal-on-scroll">
+                        <div class="flex items-center gap-3 mb-4">
+                            <span class="w-8 h-8 rounded-full bg-rose-50 text-mat-accent flex items-center justify-center font-bold text-sm">1</span>
+                            <h2 class="font-display text-2xl md:text-[1.75rem] font-bold text-mat-dark">La Distrazione: Il Nemico Silenzioso</h2>
+                        </div>
+                        <div class="text-[1.05rem] text-text-medium leading-relaxed space-y-5">
+                            <p>
+                                Analizzando i dati, emerge con chiarezza che la causa scatenante della stragrande maggioranza degli incidenti è riconducibile a comportamenti errati. La <strong>"guida distratta"</strong> si conferma come la prima causa di incidentalità.
+                            </p>
+                            <p>
+                                Essa include l'uso del cellulare, la regolazione dell'autoradio o l'essere persi nei propri pensieri. Nel 2024, la distrazione è stata la causa principale del <strong>30,2% degli incidenti mortali</strong>. L'uso del cellulare viene percepito come il pericolo maggiore dal 64% degli intervistati, rendendolo una minaccia costante e trasversale.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="reveal-on-scroll">
+                        <div class="flex items-center gap-3 mb-4">
+                            <span class="w-8 h-8 rounded-full bg-rose-50 text-mat-accent flex items-center justify-center font-bold text-sm">2</span>
+                            <h2 class="font-display text-2xl md:text-[1.75rem] font-bold text-mat-dark">Velocità e Mancata Precedenza</h2>
+                        </div>
+                        <div class="text-[1.05rem] text-text-medium leading-relaxed space-y-5">
+                            <p>
+                                Guidare a velocità eccessiva non adeguata alle condizioni del traffico aumenta in modo esponenziale la probabilità di perdere il controllo e la gravità delle conseguenze.
+                            </p>
+                            <p>
+                                La <strong>velocità eccessiva</strong> è stata responsabile del <strong>34,8% dei decessi</strong> nel 2024. Segue, come fattore di rischio, il mancato rispetto delle precedenze, un'infrazione particolarmente frequente negli incroci urbani, che si conferma costantemente tra le prime cause di sinistro.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="reveal-on-scroll">
+                        <div class="flex items-center gap-3 mb-4">
+                            <span class="w-8 h-8 rounded-full bg-rose-50 text-mat-accent flex items-center justify-center font-bold text-sm">3</span>
+                            <h2 class="font-display text-2xl md:text-[1.75rem] font-bold text-mat-dark">Alcol, Droga e Stanchezza</h2>
+                        </div>
+                        <div class="text-[1.05rem] text-text-medium leading-relaxed space-y-5">
+                            <p>
+                                Condurre un veicolo in stato di alterazione riduce drasticamente i riflessi e altera la capacità di giudizio. Nonostante i controlli, la guida in <strong>stato di ebbrezza</strong> o sotto l'effetto di sostanze rimane tra le prime cinque cause. A questa si aggiunge la <em>stanchezza</em>, capace di provocare colpi di sonno letali.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="reveal-on-scroll">
+                        <div class="flex items-center gap-3 mb-4">
+                            <span class="w-8 h-8 rounded-full bg-rose-50 text-mat-accent flex items-center justify-center font-bold text-sm">4</span>
+                            <h2 class="font-display text-2xl md:text-[1.75rem] font-bold text-mat-dark">I Fattori Contestuali</h2>
+                        </div>
+                        <div class="text-[1.05rem] text-text-medium leading-relaxed space-y-5">
+                            <p>
+                                Non si possono trascurare i fattori infrastrutturali: asfalto sconnesso, segnaletica assente e scarsa illuminazione. Statisticamente, gli incidenti sono più frequenti sulle <strong>strade urbane (73,3% nel primo semestre 2025)</strong>, mentre la maggiore gravità, con il più alto numero di vittime, si registra su strade extraurbane e autostrade, proprio per l'aumento della velocità cinetica.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column: Interactive Chart -->
+                <div class="lg:col-span-5 relative">
+                    <div class="sticky top-32 space-y-8">
+                        
+                        <div class="bg-bg-light border border-border-color rounded-2xl p-8 shadow-sm reveal-on-scroll">
+                            <h3 class="font-display text-xl font-bold text-mat-dark mb-2 text-center">Cause degli Incidenti Mortali</h3>
+                            <p class="text-[0.75rem] uppercase tracking-wider text-text-light text-center mb-8">Statistica Nazionale (Stima Base 2024)</p>
+                            
+                            <div class="relative max-w-[320px] mx-auto">
+                                <canvas id="causeChart" width="400" height="400"></canvas>
+                                
+                                <!-- Center Text for Doughnut Chart -->
+                                <div class="absolute inset-0 flex flex-col items-center justify-center pointer-events-none mt-2">
+                                    <span class="text-3xl font-extrabold text-mat-dark">65%</span>
+                                    <span class="text-[0.65rem] uppercase font-semibold text-text-light tracking-widest text-center mt-1">Velocità &<br>Distrazione</span>
+                                </div>
+                            </div>
+                            
+                            <div class="mt-8 p-4 bg-white border border-border-color rounded-lg text-[0.85rem] text-text-medium text-center shadow-inner">
+                                <p>Oltre i due terzi dei sinistri fatali sono causati unicamente da una distrazione visiva o dall'eccesso di velocità.</p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-primary text-white/70 py-16 border-t border-white/5">
+        <div class="max-w-[1200px] mx-auto px-6 text-center">
+            <a href="../index.html" class="font-display text-[2rem] font-extrabold text-white mb-4 inline-block tracking-[-0.03em]">
+                <span class="text-accent">A</span>S
+            </a>
+            <p class="text-sm text-white/50 mb-6">Portfolio Esame di Stato 2025/2026</p>
+            <div class="border-t border-white/10 pt-6 text-xs text-white/40">
+                <p>&copy; 2026 Alessio Saulli. Tutti i diritti riservati.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Initialization Scripts -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const ctx = document.getElementById('causeChart').getContext('2d');
+            
+            // Creazione del grafico a Ciambella
+            new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Eccesso di Velocità', 'Distrazione', 'Mancata Precedenza', 'Alcol/Droghe', 'Altre Cause'],
+                    datasets: [{
+                        data: [34.8, 30.2, 15.0, 12.0, 8.0],
+                        backgroundColor: [
+                            '#e11d48', // Velocità (accent rosso)
+                            '#0f172a', // Distrazione (primario scuro)
+                            '#f59e0b', // Precedenza (ambra)
+                            '#0ea5e9', // Alcol (celeste)
+                            '#cbd5e1'  // Altro (grigio)
+                        ],
+                        borderWidth: 3,
+                        borderColor: '#f8fafc', // bg-light color to match background
+                        hoverOffset: 8
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    cutout: '75%', // Spessore della ciambella (più sottile = più moderno)
+                    plugins: {
+                        legend: {
+                            display: false // Nascondiamo la legenda default per renderlo più pulito
+                        },
+                        tooltip: {
+                            backgroundColor: '#1c1917',
+                            titleFont: { family: 'Inter', size: 12 },
+                            bodyFont: { family: 'Inter', size: 12, weight: 'bold' },
+                            padding: 12,
+                            callbacks: {
+                                label: function(context) {
+                                    return ' ' + context.label + ': ' + context.raw + '%';
+                                }
+                            }
+                        }
+                    },
+                    animation: {
+                        animateScale: true,
+                        animateRotate: true,
+                        duration: 1500,
+                        easing: 'easeOutQuart'
+                    }
+                }
+            });
+        });
+    </script>
+    <script src="../app.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>La Malattia come Ordigno Moderno – Freud & Svevo</title>
+    <meta name="description"
+        content="Percorso interdisciplinare tra la rivoluzione psicoanalitica di Sigmund Freud e la narrativa d'avanguardia di Italo Svevo. Analisi clinica, letteraria e civica della salute mentale." />
+    
+    <!-- Google Fonts & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet" />
+
+    <!-- Tailwind & Custom Config -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#10223e',
+                        accent: '#0c75e6',
+                        'accent-hover': '#0a5db8',
+                        'accent-soft': 'rgba(12, 117, 230, 0.06)',
+                        'text-dark': '#1e293b',
+                        'text-medium': '#475569',
+                        'text-light': '#64748b',
+                        'bg-light': '#f8fafc',
+                        'border-color': '#e2e8f0',
+                        'psycho-dark': '#0f172a',
+                        'psycho-accent': '#06b6d4'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+                        display: ['Outfit', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="../style.css" />
+    
+    <style>
+        /* Custom dynamic scroll effects and interactive component styling */
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+        }
+        
+        .hero-gradient {
+            background: radial-gradient(circle at 10% 20%, rgba(12, 117, 230, 0.04) 0%, rgba(255, 255, 255, 0) 90%);
+        }
+
+        .tab-btn.active {
+            color: #0c75e6;
+            border-color: #0c75e6;
+            background: rgba(12, 117, 230, 0.04);
+        }
+
+        /* Pulsing node animations for the associative map */
+        @keyframes pulse-slow {
+            0%, 100% {
+                transform: scale(1);
+                opacity: 0.2;
+            }
+            50% {
+                transform: scale(1.08);
+                opacity: 0.4;
+            }
+        }
+
+        .pulse-layer {
+            animation: pulse-slow 4s infinite ease-in-out;
+        }
+
+        /* Iceberg Hover States */
+        .iceberg-part {
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            cursor: pointer;
+        }
+        
+        .iceberg-part:hover {
+            fill-opacity: 0.15;
+            stroke-width: 2px;
+        }
+
+        .iceberg-part.active {
+            fill-opacity: 0.25;
+            stroke: #0c75e6;
+            stroke-width: 3px;
+        }
+
+        /* Connecting lines for mixed time diagram */
+        .svg-connect-line {
+            stroke-dasharray: 6;
+            animation: dash 30s linear infinite;
+        }
+
+        @keyframes dash {
+            to {
+                stroke-dashoffset: -1000;
+            }
+        }
+    </style>
+</head>
+
+<body class="bg-white text-text-dark font-sans antialiased overflow-x-hidden">
+
+    <!-- Scroll Progress Indicator -->
+    <div id="scroll-progress" class="fixed top-0 left-0 h-0.5 bg-accent z-[9999] transition-all duration-100 ease-out"
+        style="width: 0%;"></div>
+
+    <!-- Navigation Header -->
+    <header id="main-header"
+        class="fixed top-0 left-0 w-full z-[1000] transition-all duration-500 py-6 border-b border-transparent">
+        <div class="max-w-[1200px] mx-auto px-6 flex items-center justify-between">
+            <a href="../index.html" class="font-display text-2.2xl md:text-2.5xl font-extrabold text-primary tracking-[-0.03em]">
+                <span class="text-accent">A</span>S
+            </a>
+
+            <nav id="nav-menu" class="hidden md:block">
+                <ul class="flex items-center gap-9">
+                    <li><a href="../index.html#hero"
+                            class="nav-link text-[0.92rem] font-medium text-text-medium hover:text-primary transition-all relative py-1">Home</a>
+                    </li>
+                    <li><a href="../index.html#presentazione"
+                            class="nav-link text-[0.92rem] font-medium text-text-medium hover:text-primary transition-all relative py-1">Chi
+                            Sono</a></li>
+                    <li><a href="../nav items/edc.html"
+                            class="nav-link active text-[0.92rem] font-medium text-text-medium hover:text-primary transition-all relative py-1">Educazione Civica</a></li>
+                    <li><a href="../nav items/pcto.html"
+                            class="nav-link text-[0.92rem] font-medium text-text-medium hover:text-primary transition-all relative py-1">PCTO</a>
+                    </li>
+                    <li><a href="../nav items/capolavori.html"
+                            class="nav-link text-[0.92rem] font-medium text-text-medium hover:text-primary transition-all relative py-1">Capolavori</a>
+                    </li>
+                </ul>
+            </nav>
+
+            <div class="header-cta hidden md:block">
+                <a href="../nav items/edc.html"
+                    class="btn btn-sm btn-outline text-accent border border-accent hover:bg-accent hover:text-white px-5 py-2 rounded font-medium text-sm transition-all flex items-center gap-1.5"><i
+                        class="ri-arrow-left-line"></i> Torna a Ed. Civica</a>
+            </div>
+
+            <button
+                class="mobile-nav-toggle md:hidden bg-transparent border-0 text-2xl text-primary cursor-pointer z-[1001]"
+                id="mobile-toggle" aria-label="Apri menu">
+                <i class="ri-menu-line"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Hero Title Section -->
+    <section class="relative pt-36 pb-20 md:pt-48 md:pb-32 border-b border-border-color hero-gradient overflow-hidden">
+        <div class="max-w-[1200px] mx-auto px-6 relative z-[2]">
+            <!-- Breadcrumbs -->
+            <div class="flex items-center gap-2 mb-6 animate-fade-in-up" style="animation-delay: 100ms;">
+                <a href="../index.html" class="text-xs uppercase tracking-[0.1em] text-accent font-bold hover:underline flex items-center gap-1">
+                    <i class="ri-home-4-line"></i> Home
+                </a>
+                <span class="text-xs text-text-light"><i class="ri-arrow-right-s-line"></i></span>
+                <a href="../nav items/edc.html" class="text-xs uppercase tracking-[0.1em] text-accent font-bold hover:underline">
+                    Educazione Civica
+                </a>
+                <span class="text-xs text-text-light"><i class="ri-arrow-right-s-line"></i></span>
+                <span class="text-xs uppercase tracking-[0.1em] text-text-light font-bold">Italiano & Psicoanalisi</span>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+                <!-- Text Intro -->
+                <div class="lg:col-span-7 reveal-on-scroll">
+                    <span class="text-xs uppercase tracking-[0.2em] bg-accent-soft text-accent font-bold px-3 py-1.5 rounded mb-4 inline-block">
+                        Italiano & Educazione Civica
+                    </span>
+                    <h1 class="font-display text-4xl md:text-[3.5rem] font-extrabold text-primary tracking-[-0.03em] leading-[1.08] mb-6">
+                        La Malattia come <span class="text-accent">Ordigno</span> Moderno
+                    </h1>
+                    <p class="text-lg md:text-xl text-text-medium leading-relaxed mb-8">
+                        La rivoluzione scientifica di Sigmund Freud incontra la decostruzione letteraria di Italo Svevo. Un viaggio interdisciplinare nella nevrosi dell'Io, nella frantumazione del romanzo classico e nella consapevolezza civile della salute mentale.
+                    </p>
+                    <div class="flex gap-3 flex-wrap">
+                        <span class="text-[0.78rem] font-semibold uppercase tracking-wider bg-bg-light text-text-medium px-4 py-2 rounded border border-border-color flex items-center gap-1.5">
+                            <i class="ri-heart-pulse-line text-accent text-sm"></i> Diritto alla Salute Mentale
+                        </span>
+                        <span class="text-[0.78rem] font-semibold uppercase tracking-wider bg-bg-light text-text-medium px-4 py-2 rounded border border-border-color flex items-center gap-1.5">
+                            <i class="ri-book-open-line text-accent text-sm"></i> La Coscienza di Zeno
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Freud Image Portrait -->
+                <div class="lg:col-span-5 reveal-on-scroll" style="animation-delay: 200ms;">
+                    <div class="relative group">
+                        <!-- Abstract glow effect behind -->
+                        <div class="absolute -inset-1.5 bg-gradient-to-r from-accent to-[#06b6d4] rounded-2xl blur opacity-25 group-hover:opacity-40 transition duration-1000 group-hover:duration-200"></div>
+                        <div class="relative bg-white p-4 rounded-2xl border border-border-color shadow-xl">
+                            <div class="aspect-[4/5] overflow-hidden rounded-xl bg-bg-light relative">
+                                <img src="https://www.illibraio.it/wp-content/uploads/2021/02/sigmund-freud.jpg"
+                                    alt="Sigmund Freud"
+                                    class="w-full h-full object-cover grayscale-[10%] group-hover:grayscale-0 group-hover:scale-[1.03] transition-all duration-700" />
+                            </div>
+                            <div class="mt-4 flex items-center justify-between px-1">
+                                <div>
+                                    <h4 class="font-display font-bold text-primary text-sm">Sigmund Freud</h4>
+                                    <p class="text-xs text-text-light">Fondatore della Psicoanalisi (1856-1939)</p>
+                                </div>
+                                <span class="text-[0.7rem] font-bold tracking-wider uppercase bg-accent-soft text-accent px-2 py-1 rounded">
+                                    Psiche
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content Section -->
+    <section class="py-20 md:py-28 bg-white">
+        <div class="max-w-[1200px] mx-auto px-6">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
+                
+                <!-- Sidebar Reading Index -->
+                <div class="lg:col-span-4 hidden lg:block">
+                    <div class="sticky top-28 bg-bg-light/80 backdrop-blur border border-border-color p-8 rounded-2xl">
+                        <h3 class="font-display font-bold text-primary text-lg mb-6 flex items-center gap-2">
+                            <i class="ri-menu-2-line text-accent"></i> Indice del Percorso
+                        </h3>
+                        <ul class="space-y-4">
+                            <li>
+                                <a href="#cap-freud" class="group flex items-center gap-3 text-text-medium hover:text-accent font-medium text-[0.93rem] transition-colors">
+                                    <span class="w-7 h-7 rounded-lg bg-accent-soft text-accent text-xs font-bold flex items-center justify-center group-hover:bg-accent group-hover:text-white transition-all">01</span>
+                                    La Concezione Freudiana
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#cap-svevo" class="group flex items-center gap-3 text-text-medium hover:text-accent font-medium text-[0.93rem] transition-colors">
+                                    <span class="w-7 h-7 rounded-lg bg-accent-soft text-accent text-xs font-bold flex items-center justify-center group-hover:bg-accent group-hover:text-white transition-all">02</span>
+                                    L'Inettitudine e Svevo
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#cap-critica" class="group flex items-center gap-3 text-text-medium hover:text-accent font-medium text-[0.93rem] transition-colors">
+                                    <span class="w-7 h-7 rounded-lg bg-accent-soft text-accent text-xs font-bold flex items-center justify-center group-hover:bg-accent group-hover:text-white transition-all">03</span>
+                                    La Psicoanalisi come Ordigno
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#cap-romanzo" class="group flex items-center gap-3 text-text-medium hover:text-accent font-medium text-[0.93rem] transition-colors">
+                                    <span class="w-7 h-7 rounded-lg bg-accent-soft text-accent text-xs font-bold flex items-center justify-center group-hover:bg-accent group-hover:text-white transition-all">04</span>
+                                    Il Rinnovamento del Romanzo
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#cap-civica" class="group flex items-center gap-3 text-text-medium hover:text-accent font-medium text-[0.93rem] transition-colors pt-4 border-t border-border-color">
+                                    <span class="w-7 h-7 rounded-lg bg-emerald-50 text-emerald-600 text-xs font-bold flex items-center justify-center group-hover:bg-emerald-600 group-hover:text-white transition-all">
+                                        <i class="ri-government-line"></i>
+                                    </span>
+                                    Educazione Civica & Agenda 2030
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Academic Essays and Discursive Texts -->
+                <div class="lg:col-span-8 space-y-20">
+                    
+                    <!-- Chapter 1 -->
+                    <div id="cap-freud" class="scroll-mt-28 reveal-on-scroll">
+                        <div class="flex items-center gap-3 mb-4">
+                            <span class="text-xs font-bold uppercase tracking-widest text-accent">Capitolo I</span>
+                            <div class="h-[1px] bg-border-color flex-grow"></div>
+                        </div>
+                        <h2 class="font-display text-2.5xl md:text-3xl font-bold text-primary mb-6">
+                            La Concezione Freudiana della Malattia Psicologica
+                        </h2>
+                        
+                        <div class="prose prose-slate text-[1.02rem] text-text-medium leading-relaxed space-y-6">
+                            <p>
+                                Sigmund Freud rivoluzionò radicalmente la comprensione medica e antropologica della malattia mentale, sostenendo per la prima volta che questa non dipendesse da una lesione fisica o biologica del cervello, bensì da un’<strong>origine prettamente psichica</strong>. Al centro della sua monumentale teoria vi è la scoperta dell’<strong>inconscio</strong>, inteso come l’immensa regione della psiche umana che non emerge alla coscienza vigile ma che raccoglie in sé le matrici e le dinamiche di tutti i nostri processi mentali.
+                            </p>
+                            <p>
+                                Secondo la dottrina freudiana, la malattia nervosa per eccellenza — la <strong>nevrosi</strong> — affonda le sue radici profonde nel meccanismo della <strong>rimozione</strong>. Questo processo scatta quando il soggetto censura e relega nell'inconscio desideri, traumi, impulsi e pulsioni (spesso di natura sessuale o erotica) considerati inaccettabili dalla coscienza morale, nel disperato tentativo di preservare l’equilibrio psichico conscio.
+                            </p>
+                            
+                            <!-- Highlight Box -->
+                            <div class="bg-bg-light border-l-4 border-accent p-6 rounded-r-xl my-8">
+                                <p class="italic font-medium text-primary mb-2">"Questi contenuti rimossi non svaniscono nel nulla: rimangono attivi all'insaputa del soggetto, cercando costantemente vie di fuga."</p>
+                                <span class="text-xs text-text-light">— Sigmund Freud, Introduzione alla Psicoanalisi</span>
+                            </div>
+
+                            <p>
+                                La psiche viene così schematizzata da Freud in una celebre struttura a <strong>tre istanze</strong>:
+                            </p>
+                            <ul class="list-none space-y-3 pl-0 my-6">
+                                <li class="flex items-start gap-3">
+                                    <span class="w-6 h-6 rounded bg-primary text-white text-xs font-bold flex items-center justify-center mt-1">Es</span>
+                                    <span><strong>L’Es:</strong> Il serbatoio caotico e primordiale delle pulsioni incontrollate, che risponde esclusivamente al principio del piacere.</span>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <span class="w-6 h-6 rounded bg-accent text-white text-xs font-bold flex items-center justify-center mt-1">Io</span>
+                                    <span><strong>L’Io:</strong> L'istanza cosciente e razionale, costretta a fare da mediatore tra le pretese cieche dell'Es, le restrizioni della realtà e la severità del Super-Io.</span>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <span class="w-6 h-6 rounded bg-text-light text-white text-xs font-bold flex items-center justify-center mt-1">S‑I</span>
+                                    <span><strong>Il Super-Io:</strong> La coscienza morale interiorizzata attraverso l'educazione e le norme sociali, che impone divieti e ideali.</span>
+                                </li>
+                            </ul>
+                            
+                            <p>
+                                Lo scontro perenne tra le pulsioni dell’Es e le censure del Super-Io, che l’Io fatica drammaticamente a mediare, genera la nevrosi. In quest'ottica, la malattia smette di essere considerata un "difetto" individuale o una disfunzione organica: essa diventa un vero e proprio <strong>rifugio</strong>, un compromesso psicologico in cui il sintomo rappresenta un soddisfacimento sostitutivo a bisogni erotici o affettivi che la realtà esterna ha negato.
+                            </p>
+                        </div>
+
+                        <!-- Interactive Freud Iceberg Widget -->
+                        <div class="mt-12 bg-bg-light border border-border-color p-8 rounded-2xl">
+                            <h4 class="font-display font-bold text-primary text-md mb-2 flex items-center gap-2">
+                                <i class="ri-bubble-chart-line text-accent"></i> Visualizzazione Interattiva: La Struttura della Mente
+                            </h4>
+                            <p class="text-xs text-text-light mb-6">Clicca sulle diverse sezioni dell'Iceberg per esplorare come l'inconscio genera i sintomi e come si collegano al disagio di Zeno Cosini.</p>
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
+                                <div class="md:col-span-6 flex justify-center">
+                                    <!-- Interactive SVG Iceberg -->
+                                    <svg width="240" height="300" viewBox="0 0 200 250" class="overflow-visible select-none">
+                                        <!-- Sky background -->
+                                        <rect x="0" y="0" width="200" height="70" fill="#e0f2fe" rx="8" />
+                                        <!-- Water background -->
+                                        <rect x="0" y="70" width="200" height="180" fill="#bae6fd" rx="8" />
+                                        <!-- Water Line -->
+                                        <line x1="0" y1="70" x2="200" y2="70" stroke="#0c75e6" stroke-width="2" />
+                                        
+                                        <!-- Conscious (Io) -->
+                                        <polygon id="iceberg-io" points="100,15 140,70 60,70" class="iceberg-part fill-white/80 stroke-primary/30 active" onclick="selectIceberg('io', this)" />
+                                        <text x="100" y="55" font-family="Inter" font-weight="bold" font-size="11" fill="#10223e" text-anchor="middle" pointer-events="none">CONSCIO (Io)</text>
+                                        
+                                        <!-- Preconscious -->
+                                        <polygon id="iceberg-pre" points="60,70 140,70 150,110 50,110" class="iceberg-part fill-white/40 stroke-primary/20" onclick="selectIceberg('pre', this)" />
+                                        <text x="100" y="93" font-family="Inter" font-weight="bold" font-size="10" fill="#1e293b" text-anchor="middle" pointer-events="none">PRECONSCIO</text>
+                                        
+                                        <!-- Unconscious (Es & Super-Io) -->
+                                        <polygon id="iceberg-es" points="50,110 150,110 120,230 80,230" class="iceberg-part fill-[#0c75e6]/20 stroke-accent/40" onclick="selectIceberg('es', this)" />
+                                        <text x="100" y="160" font-family="Inter" font-weight="bold" font-size="11" fill="#0a5db8" text-anchor="middle" pointer-events="none">INCONSCIO</text>
+                                        <text x="100" y="180" font-family="Inter" font-size="9" fill="#475569" text-anchor="middle" pointer-events="none">(Es & Super-Io)</text>
+                                    </svg>
+                                </div>
+                                <div class="md:col-span-6">
+                                    <!-- Info display card -->
+                                    <div id="iceberg-info-card" class="bg-white border border-border-color p-6 rounded-xl shadow-sm min-h-[170px] flex flex-col justify-between">
+                                        <div>
+                                            <span id="iceberg-label" class="text-xs uppercase tracking-wider font-bold text-accent mb-2 block">Istanze Superiori</span>
+                                            <h5 id="iceberg-title" class="font-display font-bold text-primary text-base mb-2">L'Io Conscio (La Razionalità)</h5>
+                                            <p id="iceberg-desc" class="text-xs text-text-medium leading-relaxed">
+                                                La parte visibile dell'iceberg. Rappresenta la nostra identità razionale, che cerca costantemente di mediare con la realtà esterna. Zeno Cosini cerca continuamente di giustificare le proprie inettitudini e nevrosi con spiegazioni logiche e alibi razionali.
+                                            </p>
+                                        </div>
+                                        <div class="mt-4 pt-3 border-t border-border-color flex justify-between items-center">
+                                            <span class="text-[0.68rem] text-text-light uppercase tracking-wider font-medium">Collegamento con Zeno:</span>
+                                            <span id="iceberg-badge" class="text-[0.68rem] font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded">Alibi Razionali</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Chapter 2 -->
+                    <div id="cap-svevo" class="scroll-mt-28 reveal-on-scroll">
+                        <div class="flex items-center gap-3 mb-4">
+                            <span class="text-xs font-bold uppercase tracking-widest text-accent">Capitolo II</span>
+                            <div class="h-[1px] bg-border-color flex-grow"></div>
+                        </div>
+                        <h2 class="font-display text-2.5xl md:text-3xl font-bold text-primary mb-6">
+                            L'Inettitudine Sveviana e la Rappresentazione della Malattia
+                        </h2>
+                        
+                        <div class="prose prose-slate text-[1.02rem] text-text-medium leading-relaxed space-y-6">
+                            <p>
+                                La rivoluzionaria concezione freudiana della mente trova in letteratura uno straordinario specchio e un'originale applicazione nella produzione di <strong>Italo Svevo</strong>. I due temi conduttori della narrativa sveviana sono infatti la <strong>malattia</strong> e l'<strong>inettitudine</strong>: l'incapacità congenita di adeguarsi alla realtà pratica, di prendere decisioni definitive e di affrontare in modo risoluto la vita quotidiana.
+                            </p>
+                            <p>
+                                Se nei primi due romanzi, <i>Una vita</i> e <i>Senilità</i>, i protagonisti Alfonso Nitti ed Emilio Brentani vivono la loro inettitudine in modo tragico, soccombendo di fronte alla realtà amorosa e professionale, è nel capolavoro <strong>La coscienza di Zeno</strong> che la nevrosi si trasforma nel motore strutturale e narrativo primario.
+                            </p>
+                            <p>
+                                Zeno Cosini, il protagonista, è affetto da una nevrosi ossessiva che sfocia in ipocondria e continui <strong>problemi psicosomatici</strong> (come una persistente e misteriosa zoppia). Egli è fermamente convinto di essere malato e cerca continuamente diagnosi e cure, nonostante i medici non riscontrino in lui alcuna patologia organica. Questa malattia è la metafora perfetta del <strong>disagio esistenziale dell'uomo moderno</strong>, smarrito in un mondo borghese privo di certezze assolute.
+                            </p>
+                            
+                            <!-- Comparison Grid -->
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 my-10">
+                                <div class="bg-rose-50/50 border border-rose-100 p-6 rounded-xl">
+                                    <h5 class="font-display font-bold text-rose-950 text-sm uppercase tracking-wider mb-2">I "Sani" (Cristallizzati)</h5>
+                                    <p class="text-xs text-rose-900 leading-relaxed">
+                                        Personaggi come il suocero Giovanni Malfenti o la moglie Augusta appaiono perfettamente sani, sicuri e adattati alla società. Tuttavia, Svevo li descrive come figure rigide, cristallizzate in forme immobili, prive di profondità intellettuale o capacità di evolversi.
+                                    </p>
+                                </div>
+                                <div class="bg-emerald-50/50 border border-emerald-100 p-6 rounded-xl">
+                                    <h5 class="font-display font-bold text-emerald-950 text-sm uppercase tracking-wider mb-2">L'Inetto (Zeno)</h5>
+                                    <p class="text-xs text-emerald-900 leading-relaxed">
+                                        Zeno è instabile, perennemente malato e insicuro. Eppure, proprio questa sua nevrosi lo rende flessibile, aperto al cambiamento e ironicamente disponibile verso l'esperienza. Svevo ribalta la diagnosi classica: l'inettitudine diventa l'unica vera forma di salute potenziale.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <p>
+                                La grande innovazione sveviana risiede nel <strong>tono ironico</strong>: la nevrosi di Zeno non viene vissuta con drammaticità nichilista, ma con una serena e distaccata disponibilità al divenire. La consapevolezza della propria malattia si rivela alla fine l'unico strumento di autentica salute e adattamento al caos del mondo.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Chapter 3 -->
+                    <div id="cap-critica" class="scroll-mt-28 reveal-on-scroll">
+                        <div class="flex items-center gap-3 mb-4">
+                            <span class="text-xs font-bold uppercase tracking-widest text-accent">Capitolo III</span>
+                            <div class="h-[1px] bg-border-color flex-grow"></div>
+                        </div>
+                        <h2 class="font-display text-2.5xl md:text-3xl font-bold text-primary mb-6">
+                            La Ricezione Critica e l'Uso Narrativo della Psicoanalisi
+                        </h2>
+                        
+                        <div class="prose prose-slate text-[1.02rem] text-text-medium leading-relaxed space-y-6">
+                            <p>
+                                Il rapporto di Italo Svevo con la psicoanalisi freudiana è straordinariamente complesso e privo di una passiva sottomissione intellettuale. Lo scrittore triestino entrò in contatto con la psicoanalisi nel 1908, per ragioni familiari (un cognato era in cura a Vienna dallo stesso Freud), e lesse assiduamente le opere del medico austriaco, traducendo persino in italiano <i>L'interpretazione dei sogni</i>. 
+                            </p>
+                            <p>
+                                Tuttavia, Svevo rifiutò sempre fermamente la psicoanalisi come terapia medica volta alla "guarigione" clinica (ritenendola anzi inefficace e pericolosa per l'originalità dell'individuo), accogliendola invece con entusiasmo come un formidabile <strong>strumento di conoscenza e ordigno letterario</strong>.
+                            </p>
+                            <p>
+                                Questa ambivalenza strutturale è iscritta nella genesi del romanzo: <i>La coscienza di Zeno</i> è presentata come la trascrizione del memoriale del paziente, pubblicato per vendetta dal suo psicoanalista, il <strong>dottor S.</strong> (la cui iniziale rimanda ironicamente sia a Sigmund Freud che a Svevo stesso), indispettito dall'improvviso abbandono della terapia da parte di Zeno.
+                            </p>
+                            <p>
+                                La voce che espone la psicoanalisi nel romanzo è quella di Zeno, un <strong>narratore palesemente inattendibile</strong>, che mente a se stesso e al lettore, distorcendo continuamente la realtà per giustificare le proprie debolezze. Come osservato dalla critica letteraria più acuta:
+                            </p>
+                            
+                            <blockquote class="border-l-4 border-accent pl-6 py-2 my-8 italic text-primary font-medium text-[1.05rem]">
+                                "La psicoanalisi in Svevo agisce come una carica esplosiva che disintegra la struttura lineare della storia, riducendo l'intreccio romanzesco a una nebulosa di frammenti associativi, dove i sogni e i lapsus sfuggono a ogni interpretazione univoca e perentoria."
+                            </blockquote>
+                        </div>
+                    </div>
+
+                    <!-- Chapter 4 -->
+                    <div id="cap-romanzo" class="scroll-mt-28 reveal-on-scroll">
+                        <div class="flex items-center gap-3 mb-4">
+                            <span class="text-xs font-bold uppercase tracking-widest text-accent">Capitolo IV</span>
+                            <div class="h-[1px] bg-border-color flex-grow"></div>
+                        </div>
+                        <h2 class="font-display text-2.5xl md:text-3xl font-bold text-primary mb-6">
+                            La Psicoanalisi come Strumento di Rinnovamento del Romanzo
+                        </h2>
+                        
+                        <div class="prose prose-slate text-[1.02rem] text-text-medium leading-relaxed space-y-6">
+                            <p>
+                                L'eccezionale contributo storico di Italo Svevo non consiste tanto nell'aver descritto la nevrosi come tema, quanto nell'aver saputo <strong>tradurre la psicoanalisi in una tecnica formale di scrittura</strong>, scardinando per sempre le coordinate del romanzo naturalista ottocentesco.
+                            </p>
+                            <p>
+                                Nel testo operano concretamente i meccanismi dell'inconscio freudiano: <strong>gli atti mancati, i lapsus linguistici e le libere associazioni</strong>. La narrazione abbandona del tutto l'ordine cronologico lineare per articolarsi attorno a nuclei tematici ed emotivi (<i>il fumo, la morte del padre, la storia del mio matrimonio</i>). 
+                            </p>
+                            <p>
+                                Il tempo della narrazione diventa così il <strong>"tempo misto"</strong> della coscienza, in cui passato, presente e aspettativa futura si sovrappongono e si intrecciano continuamente, mimando fedelmente il flusso dei ricordi e delle censure del paziente.
+                            </p>
+                        </div>
+
+                        <!-- Interactive Diagram: Linear vs Mixed Time -->
+                        <div class="mt-12 bg-bg-light border border-border-color p-8 rounded-2xl">
+                            <h4 class="font-display font-bold text-primary text-md mb-2 flex items-center gap-2">
+                                <i class="ri-git-commit-line text-accent"></i> Struttura del Tempo: Romanzo Classico vs Romanzo d'Avanguardia
+                            </h4>
+                            <p class="text-xs text-text-light mb-6">Seleziona la modalità temporale per visualizzare l'effetto sulla progressione della narrazione.</p>
+                            
+                            <div class="flex gap-2 mb-6">
+                                <button onclick="selectTimeMode('linear')" id="btn-time-linear" class="tab-btn active px-4 py-2 text-xs font-semibold uppercase tracking-wider rounded-lg border border-border-color transition-all">
+                                    Tempo Lineare (Ottocento)
+                                </button>
+                                <button onclick="selectTimeMode('mixed')" id="btn-time-mixed" class="tab-btn px-4 py-2 text-xs font-semibold uppercase tracking-wider rounded-lg border border-border-color transition-all">
+                                    Tempo Misto (Svevo)
+                                </button>
+                            </div>
+
+                            <div class="bg-white border border-border-color rounded-xl p-6 min-h-[160px] flex flex-col justify-center relative overflow-hidden">
+                                <!-- Visual Flow container -->
+                                <div id="time-flow-visual" class="flex justify-between items-center relative py-6 px-4">
+                                    <!-- Dynamic content will be injected by JS -->
+                                </div>
+                                <p id="time-flow-desc" class="text-xs text-text-medium text-center mt-4 italic">
+                                    <!-- Description -->
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="prose prose-slate text-[1.02rem] text-text-medium leading-relaxed space-y-6 mt-8">
+                            <p>
+                                Svevo comprese genialmente che la psicoanalisi non offriva alla letteratura solo una nuova materia clinica da raccontare, ma un <strong>nuovo metodo ermeneutico</strong> per esplorare la frammentazione e la perdita di unità dell'individuo moderno. Se Freud è lo scienziato che ascolta il malato, Svevo è l'artista che trasforma l'incoerenza di quel racconto in pura opera d'arte.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- elegant Chart.js segment -->
+                    <div class="scroll-mt-28 reveal-on-scroll bg-bg-light border border-border-color p-8 rounded-2xl">
+                        <h3 class="font-display text-xl font-bold text-primary mb-2 text-center">
+                            Il Paradosso Sveviano della Malattia
+                        </h3>
+                        <p class="text-xs text-text-light text-center mb-6">
+                            Confronto metrico tra la nevrosi dinamica di Zeno e la salute rigida (cristallizzazione) dei personaggi sani.
+                        </p>
+                        <div class="max-w-[420px] mx-auto">
+                            <canvas id="svevoChart" width="400" height="300"></canvas>
+                        </div>
+                        <p class="text-xs text-text-medium text-center mt-6 italic">
+                            Nota: Mentre il "Sano" ha parametri stabili ma privi di flessibilità e autocoscienza, l'inettitudine di Zeno rappresenta un'infinita disponibilità evolutiva.
+                        </p>
+                    </div>
+
+                    <!-- Educazione Civica Segment -->
+                    <div id="cap-civica" class="scroll-mt-28 reveal-on-scroll border-t-2 border-emerald-500/20 pt-16">
+                        <div class="flex items-center gap-3 mb-6">
+                            <span class="text-xs font-bold uppercase tracking-widest text-emerald-600 bg-emerald-50 px-3 py-1 rounded">Educazione Civica</span>
+                            <div class="h-[1px] bg-emerald-500/20 flex-grow"></div>
+                        </div>
+                        
+                        <div class="bg-gradient-to-br from-emerald-500/5 to-teal-500/5 border border-emerald-500/20 p-8 rounded-2xl">
+                            <h2 class="font-display text-2.5xl font-bold text-emerald-950 mb-6 flex items-center gap-3">
+                                <i class="ri-government-line text-emerald-600 text-3xl"></i> La Salute Mentale come Diritto e Benessere Collettivo
+                            </h2>
+                            
+                            <div class="prose prose-emerald text-[1rem] text-emerald-900 leading-relaxed space-y-6">
+                                <p>
+                                    Nel contesto dell'<strong>Educazione Civica</strong>, l'indagine freudiana e sveviana sulla nevrosi assume una straordinaria rilevanza contemporanea. Nell'Europa di inizio Novecento, la malattia psicologica era considerata un "difetto" caratteriale, una tara genetica o un elemento di esclusione sociale. Oggi, la nostra coscienza democratica e costituzionale ha ribaltato questo paradigma ideologico.
+                                </p>
+                                
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 my-8">
+                                    <div class="bg-white border border-emerald-500/10 p-6 rounded-xl">
+                                        <h4 class="font-display font-bold text-emerald-950 text-xs uppercase tracking-wider mb-2 flex items-center gap-2">
+                                            <i class="ri-shield-line text-emerald-600"></i> Articolo 32 Costituzione
+                                        </h4>
+                                        <p class="text-xs text-emerald-900 leading-relaxed">
+                                            La Repubblica Italiana tutela la salute come fondamentale diritto dell'individuo e interesse della collettività. Questo include in modo inalienabile il benessere psichico, superando lo stigma sociale legato al disagio psicologico.
+                                        </p>
+                                    </div>
+                                    <div class="bg-white border border-emerald-500/10 p-6 rounded-xl">
+                                        <h4 class="font-display font-bold text-emerald-950 text-xs uppercase tracking-wider mb-2 flex items-center gap-2">
+                                            <i class="ri-global-line text-emerald-600"></i> Agenda 2030 - Goal 3
+                                        </h4>
+                                        <p class="text-xs text-emerald-900 leading-relaxed">
+                                            L'Obiettivo 3 delle Nazioni Unite si propone di assicurare la salute e il benessere per tutti. Promuovere la prevenzione e la cura dei disturbi mentali (ansia, depressione) è diventato un pilastro fondamentale dello sviluppo sociale sostenibile.
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <p class="font-medium text-emerald-950">
+                                    L'ironica intuizione di Svevo anticipa la moderna visione dell'inclusione: la sofferenza psichica non definisce la minorità di un cittadino, bensì costituisce un aspetto inalienabile della sensibilità umana. Prendersi cura della salute mentale, abbattendo ogni forma di stigma o barriera sociale, è un dovere civico irrinunciabile per una società autenticamente inclusiva e solidale.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-primary text-white/70 py-20 border-t border-white/5">
+        <div class="max-w-[1200px] mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-16 mb-16">
+                <div class="footer-brand">
+                    <a href="../index.html"
+                        class="font-display text-[2.2rem] font-extrabold text-white mb-4 display-inline-block tracking-[-0.03em]">
+                        <span class="text-accent">A</span>S
+                    </a>
+                    <p class="text-sm text-white/50 max-w-[320px] leading-relaxed">Portfolio dello studente Alessio
+                        Saulli per l'Esame di Stato / Maturità 2025/2026.</p>
+                </div>
+                <div class="footer-links">
+                    <h4 class="text-white text-sm font-semibold uppercase tracking-wider mb-6">Mappa del Sito</h4>
+                    <ul class="flex flex-col gap-3">
+                        <li><a href="../index.html#hero" class="text-sm hover:text-white hover:translate-x-1 transition-all inline-block">Home</a></li>
+                        <li><a href="../index.html#presentazione" class="text-sm hover:text-white hover:translate-x-1 transition-all inline-block">Chi Sono</a></li>
+                        <li><a href="../nav items/edc.html" class="text-sm hover:text-white hover:translate-x-1 transition-all inline-block">Educazione Civica</a></li>
+                        <li><a href="../index.html#pcto" class="text-sm hover:text-white hover:translate-x-1 transition-all inline-block">PCTO</a></li>
+                        <li><a href="../index.html#capolavori" class="text-sm hover:text-white hover:translate-x-1 transition-all inline-block">Capolavori</a></li>
+                    </ul>
+                </div>
+                <div class="footer-info">
+                    <h4 class="text-white text-sm font-semibold uppercase tracking-wider mb-6">Informazioni</h4>
+                    <p class="text-[0.95rem] text-white/60 mb-3 flex items-center gap-2"><i class="ri-graduation-cap-line text-accent"></i> Esame di Stato 2025/2026</p>
+                    <p class="text-[0.95rem] text-white/60 mb-3 flex items-center gap-2"><i class="ri-calendar-event-line text-accent"></i> Data Sessione: Giugno 2026</p>
+                </div>
+            </div>
+            <div class="border-t border-white/8 pt-8 text-center text-xs text-white/40">
+                <p>&copy; 2026 Alessio Saulli. Tutti i diritti riservati. Realizzato con passione e dedizione.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Interactive Scripts -->
+    <script>
+        // Iceberg Interaction logic
+        const icebergData = {
+            io: {
+                label: "Contenuto Cosciente",
+                title: "L'Io Conscio (Razionalità e Mediazione)",
+                desc: "Rappresenta la parte visibile dell'iceberg. L'Io deve mediare tra gli istinti ciechi (Es), la morale severa (Super-Io) e le esigenze della vita reale. Nel romanzo, Zeno cerca costantemente di ingannare il proprio Io formulando spiegazioni razionali e alibi psicologici per le sue debolezze.",
+                badge: "Alibi Razionali"
+            },
+            pre: {
+                label: "Contenuto Preconscio",
+                title: "Il Preconscio (Soglia della Coscienza)",
+                desc: "La zona intermedia. Raccoglie i ricordi, i pensieri latenti e le informazioni che non sono attivamente nella coscienza ma che possono essere richiamate con un piccolo sforzo volontario. È la soglia in cui agisce il lapsus e il recupero della memoria guidato.",
+                badge: "Lapsus & Atti Mancati"
+            },
+            es: {
+                label: "Contenuto Inconscio",
+                title: "L'Inconscio profondo (Es & Super-Io)",
+                desc: "La parte sommersa e mastodontica. Qui risiede l'Es (impulsi primordiali, desideri repressi) e il Super-Io (regole sociali interiorizzate). Lo scontro represso tra queste istanze si traduce in dolori psicosomatici (la misteriosa zoppia di Zeno) e nevrosi ossessive.",
+                badge: "Nevrosi & Sintomi"
+            }
+        };
+
+        function selectIceberg(section, el) {
+            // Remove active classes
+            document.querySelectorAll('.iceberg-part').forEach(part => part.classList.remove('active'));
+            // Add active to selected
+            el.classList.add('active');
+            
+            const data = icebergData[section];
+            document.getElementById('iceberg-label').textContent = data.label;
+            document.getElementById('iceberg-title').textContent = data.title;
+            document.getElementById('iceberg-desc').textContent = data.desc;
+            
+            const badge = document.getElementById('iceberg-badge');
+            badge.textContent = data.badge;
+            if (section === 'es') {
+                badge.className = "text-[0.68rem] font-bold text-rose-600 bg-rose-50 px-2 py-0.5 rounded";
+            } else if (section === 'pre') {
+                badge.className = "text-[0.68rem] font-bold text-amber-600 bg-amber-50 px-2 py-0.5 rounded";
+            } else {
+                badge.className = "text-[0.68rem] font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded";
+            }
+        }
+
+        // Timeline Time Mode Logic
+        const timeModes = {
+            linear: {
+                desc: "La struttura lineare classica: gli eventi scorrono cronologicamente dal passato al futuro in modo ordinato e rassicurante.",
+                html: `
+                    <div class="flex items-center w-full justify-between relative">
+                        <div class="absolute left-0 right-0 h-1 bg-slate-200 top-1/2 -translate-y-1/2"></div>
+                        <div class="w-10 h-10 rounded-full bg-primary text-white font-bold flex items-center justify-center relative z-10 text-xs shadow">Inizio</div>
+                        <div class="w-10 h-10 rounded-full bg-primary text-white font-bold flex items-center justify-center relative z-10 text-xs shadow">Svolgimento</div>
+                        <div class="w-10 h-10 rounded-full bg-primary text-white font-bold flex items-center justify-center relative z-10 text-xs shadow">Fine</div>
+                        <!-- Arrow -->
+                        <div class="absolute right-0 top-1/2 -translate-y-1/2 translate-x-2 text-primary"><i class="ri-arrow-right-s-line text-2xl font-bold"></i></div>
+                    </div>
+                `
+            },
+            mixed: {
+                desc: "Il 'Tempo Misto' sveviano: il tempo è soggettivo, procede per libere associazioni mentali, continui salti cronologici e ripetizioni concentriche.",
+                html: `
+                    <div class="w-full h-24 relative flex items-center justify-center">
+                        <svg class="absolute inset-0 w-full h-full" viewBox="0 0 500 100" preserveAspectRatio="none">
+                            <!-- Curved loop lines for mixed time -->
+                            <path d="M 40,50 Q 150,-10 250,50 T 460,50" fill="none" stroke="#0c75e6" stroke-width="2" class="svg-connect-line" />
+                            <path d="M 40,50 Q 200,110 320,50 T 460,50" fill="none" stroke="#0c75e6" stroke-width="1" stroke-opacity="0.4" class="svg-connect-line" />
+                        </svg>
+                        <div class="flex justify-between w-full relative z-10 px-2">
+                            <div class="w-12 h-12 rounded-full bg-accent text-white font-bold flex flex-col items-center justify-center text-[0.65rem] shadow hover:scale-110 transition-transform">
+                                <span>Presente</span>
+                            </div>
+                            <div class="w-12 h-12 rounded-full bg-accent text-white font-bold flex flex-col items-center justify-center text-[0.65rem] shadow hover:scale-110 transition-transform mt-6">
+                                <span>Memoria</span>
+                            </div>
+                            <div class="w-12 h-12 rounded-full bg-accent text-white font-bold flex flex-col items-center justify-center text-[0.65rem] shadow hover:scale-110 transition-transform -mt-4">
+                                <span>Infanzia</span>
+                            </div>
+                            <div class="w-12 h-12 rounded-full bg-accent text-white font-bold flex flex-col items-center justify-center text-[0.65rem] shadow hover:scale-110 transition-transform mt-4">
+                                <span>Sogno</span>
+                            </div>
+                        </div>
+                    </div>
+                `
+            }
+        };
+
+        function selectTimeMode(mode) {
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.getElementById(`btn-time-${mode}`).classList.add('active');
+            
+            const container = document.getElementById('time-flow-visual');
+            container.style.opacity = '0';
+            
+            setTimeout(() => {
+                container.innerHTML = timeModes[mode].html;
+                document.getElementById('time-flow-desc').textContent = timeModes[mode].desc;
+                container.style.opacity = '1';
+            }, 200);
+        }
+
+        // Initialize timeline mode
+        selectTimeMode('mixed');
+
+        // Scroll Progress & Header Logic
+        window.addEventListener('scroll', () => {
+            const scrollProgress = document.getElementById('scroll-progress');
+            const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
+            if (totalHeight > 0) {
+                const scrolled = (window.scrollY / totalHeight) * 100;
+                scrollProgress.style.width = `${scrolled}%`;
+            }
+            
+            const header = document.getElementById('main-header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Mobile Nav Toggle
+        const mobileToggle = document.getElementById('mobile-toggle');
+        const navMenu = document.getElementById('nav-menu');
+        if (mobileToggle && navMenu) {
+            mobileToggle.addEventListener('click', () => {
+                const isActive = navMenu.classList.toggle('active');
+                const icon = mobileToggle.querySelector('i');
+                if (isActive) {
+                    icon.className = 'ri-close-line';
+                    document.body.style.overflow = 'hidden';
+                } else {
+                    icon.className = 'ri-menu-line';
+                    document.body.style.overflow = '';
+                }
+            });
+        }
+
+        // Setup Chart.js
+        document.addEventListener('DOMContentLoaded', () => {
+            const ctx = document.getElementById('svevoChart').getContext('2d');
+            const svevoChart = new Chart(ctx, {
+                type: 'radar',
+                data: {
+                    labels: [
+                        'Flessibilità (Adattamento)',
+                        'Profondità Analitica',
+                        'Capacità di Cambiamento',
+                        'Autoconsapevolezza',
+                        'Rigidità Sociale'
+                    ],
+                    datasets: [
+                        {
+                            label: 'Zeno Cosini (Nevrosi "In Divenire")',
+                            data: [95, 90, 85, 95, 20],
+                            backgroundColor: 'rgba(12, 117, 230, 0.15)',
+                            borderColor: '#0c75e6',
+                            borderWidth: 2,
+                            pointBackgroundColor: '#0c75e6',
+                            pointHoverRadius: 6
+                        },
+                        {
+                            label: 'I "Sani" Borghesi (Cristallizzati)',
+                            data: [30, 25, 15, 20, 95],
+                            backgroundColor: 'rgba(16, 34, 62, 0.1)',
+                            borderColor: '#10223e',
+                            borderWidth: 2,
+                            pointBackgroundColor: '#10223e',
+                            pointHoverRadius: 6
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    scales: {
+                        r: {
+                            angleLines: { color: 'rgba(226, 232, 240, 0.8)' },
+                            grid: { color: 'rgba(226, 232, 240, 0.8)' },
+                            pointLabels: {
+                                font: {
+                                    family: 'Inter',
+                                    size: 10,
+                                    weight: 'bold'
+                                },
+                                color: '#475569'
+                            },
+                            ticks: {
+                                display: false,
+                                maxTicksLimit: 5
+                            },
+                            suggestedMin: 0,
+                            suggestedMax: 100
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                font: {
+                                    family: 'Inter',
+                                    size: 11
+                                },
+                                boxWidth: 12,
+                                padding: 15,
+                                color: '#1e293b'
+                            }
+                        },
+                        tooltip: {
+                            backgroundColor: '#10223e',
+                            titleFont: { family: 'Inter', size: 12 },
+                            bodyFont: { family: 'Inter', size: 11 },
+                            padding: 10
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+    <script src="../app.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Informatica & Smart Working – Educazione Civica</title>
+    <meta name="description"
+        content="Percorso interdisciplinare sullo Smart Working, la differenza con il telelavoro, diritti costituzionali e diritto alla disconnessione." />
+
+    <!-- Google Fonts & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet" />
+
+    <!-- Tailwind & Custom Config -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#10223e',
+                        accent: '#0ea5e9', // Sky blue
+                        'accent-hover': '#0284c7',
+                        'accent-soft': 'rgba(14, 165, 233, 0.06)',
+                        'text-dark': '#1e293b',
+                        'text-medium': '#475569',
+                        'text-light': '#64748b',
+                        'bg-light': '#f8fafc',
+                        'border-color': '#e2e8f0',
+                        'sky-dark': '#072e42',
+                        'sky-accent': '#38bdf8'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+                        display: ['Outfit', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="../style.css" />
+
+    <style>
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+        }
+
+        .hero-gradient {
+            background: radial-gradient(circle at 10% 20%, rgba(14, 165, 233, 0.05) 0%, rgba(255, 255, 255, 0) 90%);
+        }
+
+        .toggle-btn-active {
+            background: #0ea5e9;
+            color: #ffffff;
+            border-color: #0ea5e9;
+        }
+    </style>
+</head>
+
+<body class="bg-white text-text-dark font-sans antialiased overflow-x-hidden">
+
+    <!-- Scroll Progress Indicator -->
+    <div id="scroll-progress" class="fixed top-0 left-0 h-0.5 bg-accent z-[9999] transition-all duration-100 ease-out"
+        style="width: 0%;"></div>
+
+    <!-- Navigation Header -->
+    <header id="main-header"
+        class="fixed top-0 left-0 w-full z-[1000] transition-all duration-500 py-6 border-b border-transparent bg-white/90 backdrop-blur-md">
+        <div class="max-w-[1200px] mx-auto px-6 flex items-center justify-between">
+            <a href="../index.html" class="font-display text-2.2xl md:text-2.5xl font-extrabold text-primary tracking-[-0.03em]">
+                <span class="text-accent">A</span>S
+            </a>
+
+            <nav id="nav-menu" class="hidden md:block">
+                <ul class="flex items-center gap-9">
+                    <li><a href="../index.html#hero"
+                            class="nav-link text-[0.92rem] font-medium text-text-medium hover:text-primary transition-all relative py-1">Home</a>
+                    </li>
+                    <li><a href="../index.html#presentazione"
+                            class="nav-link text-[0.92rem] font-medium text-text-medium hover:text-primary transition-all relative py-1">Chi
+                            Sono</a></li>
+                    <li><a href="../nav items/edc.html"
+                            class="nav-link active text-[0.92rem] font-medium text-text-medium hover:text-primary transition-all relative py-1">Educazione Civica</a></li>
+                    <li><a href="../nav items/pcto.html"
+                            class="nav-link text-[0.92rem] font-medium text-text-medium hover:text-primary transition-all relative py-1">PCTO</a>
+                    </li>
+                    <li><a href="../nav items/capolavori.html"
+                            class="nav-link text-[0.92rem] font-medium text-text-medium hover:text-primary transition-all relative py-1">Capolavori</a>
+                    </li>
+                </ul>
+            </nav>
+
+            <div class="header-cta hidden md:block">
+                <a href="../nav items/edc.html"
+                    class="btn btn-sm btn-outline text-accent border border-accent hover:bg-accent hover:text-white px-5 py-2 rounded font-medium text-sm transition-all flex items-center gap-1.5"><i
+                        class="ri-arrow-left-line"></i> Torna a Ed. Civica</a>
+            </div>
+
+            <button
+                class="mobile-nav-toggle md:hidden bg-transparent border-0 text-2xl text-primary cursor-pointer z-[1001]"
+                id="mobile-toggle" aria-label="Apri menu">
+                <i class="ri-menu-line"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative pt-36 pb-20 md:pt-48 md:pb-32 border-b border-border-color hero-gradient overflow-hidden">
+        <div class="max-w-[1200px] mx-auto px-6 relative z-[2]">
+            <!-- Breadcrumbs -->
+            <div class="flex items-center gap-2 mb-6 animate-fade-in-up" style="animation-delay: 100ms;">
+                <a href="../index.html" class="text-xs uppercase tracking-[0.1em] text-accent font-bold hover:underline flex items-center gap-1">
+                    <i class="ri-home-4-line"></i> Home
+                </a>
+                <span class="text-xs text-text-light"><i class="ri-arrow-right-s-line"></i></span>
+                <a href="../nav items/edc.html" class="text-xs uppercase tracking-[0.1em] text-accent font-bold hover:underline">
+                    Educazione Civica
+                </a>
+                <span class="text-xs text-text-light"><i class="ri-arrow-right-s-line"></i></span>
+                <span class="text-xs uppercase tracking-[0.1em] text-text-light font-bold">Informatica & Smart Working</span>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+                <!-- Text Intro -->
+                <div class="lg:col-span-7 reveal-on-scroll">
+                    <span class="text-xs uppercase tracking-[0.2em] bg-sky-50 text-accent font-bold px-3 py-1.5 rounded mb-4 inline-block">
+                        Informatica & Cittadinanza Attiva
+                    </span>
+                    <h1 class="font-display text-4xl md:text-[3.5rem] font-extrabold text-primary tracking-[-0.03em] leading-[1.08] mb-6">
+                        Smart Working & <span class="text-accent">Lavoro Agile</span>
+                    </h1>
+                    <p class="text-lg md:text-xl text-text-medium leading-relaxed mb-8">
+                        L'evoluzione tecnologica degli ambienti di lavoro. Dalla distinzione giuridica con il telelavoro alle garanzie costituzionali, il diritto alla disconnessione e l'allineamento con gli obiettivi globali di sostenibilità dell'Agenda 2030.
+                    </p>
+                    <div class="flex gap-3 flex-wrap">
+                        <span class="text-[0.78rem] font-semibold uppercase tracking-wider bg-bg-light text-text-medium px-4 py-2 rounded border border-border-color flex items-center gap-1.5">
+                            <i class="ri-computer-line text-accent text-sm"></i> Work-Life Balance
+                        </span>
+                        <span class="text-[0.78rem] font-semibold uppercase tracking-wider bg-bg-light text-text-medium px-4 py-2 rounded border border-border-color flex items-center gap-1.5">
+                            <i class="ri-wifi-off-line text-accent text-sm"></i> Diritto alla Disconnessione
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Portrait Graphic -->
+                <div class="lg:col-span-5 reveal-on-scroll" style="animation-delay: 200ms;">
+                    <div class="relative w-full aspect-[4/5] rounded-2xl overflow-hidden group shadow-2xl">
+                        <div class="absolute inset-0 bg-sky-dark/20 group-hover:bg-transparent transition-colors duration-500 z-10"></div>
+                        <img src="https://www.repstatic.it/content/nazionale/img/2021/03/12/182650191-e1c4abc9-32a7-4f4f-bfc4-f31168173076.jpg" 
+                             alt="Smart Working" 
+                             class="w-full h-full object-cover group-hover:scale-105 transition-all duration-700 ease-out" />
+                        
+                        <div class="absolute bottom-6 left-6 right-6 z-20 glass-panel p-4 rounded-xl opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500">
+                            <p class="text-[0.8rem] font-bold text-primary uppercase tracking-wider mb-1">Flessibilità Digitale</p>
+                            <p class="text-[0.75rem] text-text-medium leading-tight">Autonomia oraria e geografica basata sulla fiducia e sul risultato.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Essay Content -->
+    <section class="py-20 md:py-32 bg-white">
+        <div class="max-w-[1200px] mx-auto px-6">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 relative">
+                
+                <!-- Left Column: Discursive Text -->
+                <div class="lg:col-span-7 space-y-16">
+                    
+                    <!-- Section 1 -->
+                    <div class="reveal-on-scroll">
+                        <div class="flex items-center gap-3 mb-4">
+                            <span class="w-8 h-8 rounded-full bg-sky-50 text-accent flex items-center justify-center font-bold text-sm">1</span>
+                            <h2 class="font-display text-2xl md:text-[1.75rem] font-bold text-primary">Smart Working vs. Telelavoro</h2>
+                        </div>
+                        <div class="text-[1.05rem] text-text-medium leading-relaxed space-y-5">
+                            <p>
+                                Lo **smart working**, o lavoro agile, è una modalità organizzativa caratterizzata da un'ampia flessibilità, dall'autonomia nella gestione dei tempi e degli spazi di lavoro e da un forte orientamento ai risultati, superando la tradizionale logica della presenza fisica fissa in ufficio. 
+                            </p>
+                            <p>
+                                È di fondamentale importanza **non confonderlo con il telelavoro**, date le profonde differenze di paradigma:
+                            </p>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-6">
+                                <div class="bg-bg-light p-5 rounded-xl border border-border-color">
+                                    <h4 class="font-bold text-primary text-sm uppercase tracking-wider mb-2 text-accent">Telelavoro</h4>
+                                    <p class="text-xs leading-relaxed">
+                                        Il dipendente lavora da una postazione remota fissa (prevalentemente il proprio domicilio), rispettando rigorosamente gli stessi orari, la stessa rigidità contrattuale e lo stesso controllo diretto dell'ufficio tradizionale.
+                                    </p>
+                                </div>
+                                <div class="bg-bg-light p-5 rounded-xl border border-border-color">
+                                    <h4 class="font-bold text-primary text-sm uppercase tracking-wider mb-2 text-accent">Smart Working</h4>
+                                    <p class="text-xs leading-relaxed">
+                                        Il luogo di lavoro è dinamico ed a discrezione del dipendente, gli orari sono autogestiti nel rispetto delle scadenze e la valutazione della performance poggia esclusivamente sulla qualità del risultato consegnato.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Section 2 -->
+                    <div class="reveal-on-scroll">
+                        <div class="flex items-center gap-3 mb-4">
+                            <span class="w-8 h-8 rounded-full bg-sky-50 text-accent flex items-center justify-center font-bold text-sm">2</span>
+                            <h2 class="font-display text-2xl md:text-[1.75rem] font-bold text-primary">Riferimento Normativo e Diritti Costituzionali</h2>
+                        </div>
+                        <div class="text-[1.05rem] text-text-medium leading-relaxed space-y-5">
+                            <p>
+                                In Italia, il lavoro agile trova la sua disciplina giuridica all'interno della **Legge 22 maggio 2017, n. 81** (articoli 18-23). La norma lo definisce come una modalità di esecuzione del rapporto di lavoro subordinato stabilita mediante **accordo individuale scritto** tra le parti, da depositare telematicamente presso il Ministero del Lavoro. È importante evidenziare che la legge sancisce la parità di trattamento economico e normativo rispetto ai colleghi in presenza e mantiene in capo al datore di lavoro la responsabilità della sicurezza e della salute del dipendente anche fuori dai locali aziendali.
+                            </p>
+                            <p>
+                                Questa modalità coinvolge ed evolve importanti tutele sancite dalla nostra **Costituzione**:
+                            </p>
+                            <ul class="list-none space-y-3 pl-4 border-l-2 border-accent/25 my-4">
+                                <li class="flex items-start gap-2 text-[0.98rem]">
+                                    <i class="ri-article-line text-accent mt-1"></i>
+                                    <span><strong>Articoli 1 e 4:</strong> Il valore fondante e il diritto inalienabile al lavoro inteso come progresso sociale ed individuale.</span>
+                                </li>
+                                <li class="flex items-start gap-2 text-[0.98rem]">
+                                    <i class="ri-heart-pulse-line text-accent mt-1"></i>
+                                    <span><strong>Articolo 32:</strong> La salute psicofisica della persona intesa come fondamentale diritto dell'individuo e interesse della collettività.</span>
+                                </li>
+                                <li class="flex items-start gap-2 text-[0.98rem]">
+                                    <i class="ri-shield-user-line text-accent mt-1"></i>
+                                    <span><strong>Articolo 35:</strong> La tutela del lavoro in tutte le sue forme ed applicazioni organizzative.</span>
+                                </li>
+                            </ul>
+                            <p>
+                                A livello europeo, lo smart working risponde pienamente alla **Carta dei Diritti Fondamentali dell’Unione Europea**, in particolare sui principi cardine della dignità umana, di condizioni di lavoro giuste, della conciliazione tra vita familiare e professionale (*work-life balance*) e della tutela della privacy.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Section 3 -->
+                    <div class="reveal-on-scroll">
+                        <div class="flex items-center gap-3 mb-4">
+                            <span class="w-8 h-8 rounded-full bg-sky-50 text-accent flex items-center justify-center font-bold text-sm">3</span>
+                            <h2 class="font-display text-2xl md:text-[1.75rem] font-bold text-primary">Il Diritto alla Disconnessione</h2>
+                        </div>
+                        <div class="text-[1.05rem] text-text-medium leading-relaxed space-y-5">
+                            <p>
+                                Con l'abbattimento delle barriere fisiche dell'ufficio, è emerso il rischio concreto di reperibilità continua. Per contrastare questa problematica, il legislatore ha introdotto e normato il **Diritto alla Disconnessione**. 
+                            </p>
+                            <blockquote class="border-l-4 border-accent bg-accent-soft p-4 rounded-r-xl my-4 text-[0.98rem] italic text-primary leading-relaxed">
+                                "Il lavoratore agile ha il diritto di disattivare i propri dispositivi tecnologici e di comunicazione al di fuori dell'orario di lavoro concordato, senza che questo possa in alcun modo comportare sanzioni disciplinari o penalizzazioni sul piano professionale."
+                            </blockquote>
+                            <p>
+                                Questo diritto è una barriera di salvaguardia cruciale per proteggere il riposo, preservare lo spazio della vita privata ed impedire l'insorgere del fenomeno patologico dell'**always-on** (iper-connessione costante e incapacità di staccare la mente dal lavoro).
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Section 4 -->
+                    <div class="reveal-on-scroll">
+                        <div class="flex items-center gap-3 mb-4">
+                            <span class="w-8 h-8 rounded-full bg-sky-50 text-accent flex items-center justify-center font-bold text-sm">4</span>
+                            <h2 class="font-display text-2xl md:text-[1.75rem] font-bold text-primary">I Vantaggi dello Smart Working</h2>
+                        </div>
+                        <div class="text-[1.05rem] text-text-medium leading-relaxed space-y-4">
+                            <p>
+                                L'introduzione strutturata del lavoro agile genera riscontri altamente positivi su tre livelli:
+                            </p>
+                            <div class="space-y-4 my-6">
+                                <div class="flex items-start gap-4">
+                                    <div class="w-10 h-10 rounded-lg bg-sky-50 text-accent flex items-center justify-center text-lg flex-shrink-0"><i class="ri-user-smile-line"></i></div>
+                                    <div>
+                                        <h4 class="font-bold text-primary text-sm">Per il Lavoratore</h4>
+                                        <p class="text-xs text-text-medium mt-1">Ottimizzazione del work-life balance, eliminazione dello stress e dei costi del pendolarismo quotidiano, e una accresciuta responsabilizzazione professionale.</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start gap-4">
+                                    <div class="w-10 h-10 rounded-lg bg-sky-50 text-accent flex items-center justify-center text-lg flex-shrink-0"><i class="ri-building-line"></i></div>
+                                    <div>
+                                        <h4 class="font-bold text-primary text-sm">Per l'Azienda</h4>
+                                        <p class="text-xs text-text-medium mt-1">Forte incremento della produttività legato agli obiettivi, drastica riduzione delle spese fisse gestionali (spazi fisici, utenze) e maggiore capacità di attrarre talenti.</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start gap-4">
+                                    <div class="w-10 h-10 rounded-lg bg-sky-50 text-accent flex items-center justify-center text-lg flex-shrink-0"><i class="ri-global-line"></i></div>
+                                    <div>
+                                        <h4 class="font-bold text-primary text-sm">Per la Società</h4>
+                                        <p class="text-xs text-text-medium mt-1">Abbattimento del traffico urbano e delle relative emissioni inquinanti (CO₂), decongestionamento delle grandi metropoli e rilancio economico delle aree periferiche.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Section 5 -->
+                    <div class="reveal-on-scroll">
+                        <div class="flex items-center gap-3 mb-4">
+                            <span class="w-8 h-8 rounded-full bg-sky-50 text-accent flex items-center justify-center font-bold text-sm">5</span>
+                            <h2 class="font-display text-2xl md:text-[1.75rem] font-bold text-primary">Gli Svantaggi e i Rischi</h2>
+                        </div>
+                        <div class="text-[1.05rem] text-text-medium leading-relaxed space-y-5">
+                            <p>
+                                A fronte di molteplici benefici, lo smart working espone i soggetti a rischi insidiosi da non sottovalutare:
+                            </p>
+                            <ul class="list-none space-y-3 pl-4 border-l-2 border-red-200 my-4">
+                                <li class="flex items-start gap-2 text-[0.98rem]">
+                                    <i class="ri-alert-line text-red-500 mt-1"></i>
+                                    <span><strong>Rischi Fisici:</strong> Spazi casalinghi carenti sotto il profilo ergonomico (sedute inadatte, illuminazione scorretta) che causano disturbi posturali e affaticamento visivo.</span>
+                                </li>
+                                <li class="flex items-start gap-2 text-[0.98rem]">
+                                    <i class="ri-alert-line text-red-500 mt-1"></i>
+                                    <span><strong>Rischi Psicosociali:</strong> Insorgenza del senso di isolamento dai colleghi, difficoltà comunicative ed elevato rischio di burnout da sovrapposizione degli spazi domestici e lavorativi.</span>
+                                </li>
+                                <li class="flex items-start gap-2 text-[0.98rem]">
+                                    <i class="ri-alert-line text-red-500 mt-1"></i>
+                                    <span><strong>Rischi Informatici (Cybersecurity):</strong> L'utilizzo di connessioni domestiche non protette e dispositivi privati (BYOD) apre gravi falle di sicurezza esponendo l'azienda a data breach e attacchi informatici.</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Section 6 -->
+                    <div class="reveal-on-scroll">
+                        <div class="flex items-center gap-3 mb-4">
+                            <span class="w-8 h-8 rounded-full bg-sky-50 text-accent flex items-center justify-center font-bold text-sm">6</span>
+                            <h2 class="font-display text-2xl md:text-[1.75rem] font-bold text-primary">Responsabilità Individuale e Buone Pratiche</h2>
+                        </div>
+                        <div class="text-[1.05rem] text-text-medium leading-relaxed space-y-5">
+                            <p>
+                                Lavorare in modalità agile richiede un radicale cambiamento culturale: **passare dalla cultura del controllo visivo alla cultura della fiducia e della responsabilità reciproca**. Una minore sorveglianza impone al lavoratore un maggior rigore etico e organizzativo. 
+                            </p>
+                            <p>
+                                Per garantire un'ottima riuscita del lavoro agile è opportuno adottare costantemente specifiche **buone pratiche**: pianificare la propria giornata rispettando le scadenze concordate, proteggere i dati aziendali evitando reti Wi-Fi pubbliche, separare fisicamente gli spazi casalinghi adibiti al lavoro, effettuare reali pause digitali di disconnessione e alimentare attivamente le relazioni umane con il proprio team.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Section 7 -->
+                    <div class="reveal-on-scroll">
+                        <div class="flex items-center gap-3 mb-4">
+                            <span class="w-8 h-8 rounded-full bg-sky-50 text-accent flex items-center justify-center font-bold text-sm">7</span>
+                            <h2 class="font-display text-2xl md:text-[1.75rem] font-bold text-primary">Lo Smart Working e l’Agenda 2030</h2>
+                        </div>
+                        <div class="text-[1.05rem] text-text-medium leading-relaxed space-y-5">
+                            <p>
+                                Lo smart working si colloca come un pilastro abilitante per il conseguimento di diversi traguardi dell'**Agenda 2030 delle Nazioni Unite**:
+                            </p>
+                            <ul class="list-none space-y-3 pl-4 border-l-2 border-accent/25 my-4">
+                                <li class="flex items-start gap-2 text-[0.98rem]">
+                                    <i class="ri-checkbox-circle-line text-accent mt-1"></i>
+                                    <span><strong>Obiettivo 3 (Salute e Benessere):</strong> Riduzione del burnout e dello stress da pendolarismo, promuovendo il riposo e l'equilibrio psicofisico.</span>
+                                </li>
+                                <li class="flex items-start gap-2 text-[0.98rem]">
+                                    <i class="ri-checkbox-circle-line text-accent mt-1"></i>
+                                    <span><strong>Obiettivo 8 (Lavoro Dignitoso e Crescita):</strong> Promozione di un lavoro più moderno, inclusivo, orientato al valore umano e slegato da vincoli geografici.</span>
+                                </li>
+                                <li class="flex items-start gap-2 text-[0.98rem]">
+                                    <i class="ri-checkbox-circle-line text-accent mt-1"></i>
+                                    <span><strong>Obiettivo 10 (Ridurre le Disuguaglianze):</strong> Facilitare l'inclusione lavorativa di categorie con limitata mobilità o disabilità motorie.</span>
+                                </li>
+                                <li class="flex items-start gap-2 text-[0.98rem]">
+                                    <i class="ri-checkbox-circle-line text-accent mt-1"></i>
+                                    <span><strong>Obiettivo 11 & 13 (Città Sostenibili & Clima):</strong> Riduzione del traffico veicolare, abbattendo inquinamento atmosferico e l'impronta carbonica complessiva.</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Right Column: Interactive Simulator & Radar Chart -->
+                <div class="lg:col-span-5 relative">
+                    <div class="sticky top-32 space-y-8">
+                        
+                        <!-- Workday Simulator Widget -->
+                        <div class="bg-bg-light border border-border-color rounded-2xl p-6 shadow-sm reveal-on-scroll">
+                            <h3 class="font-display text-lg font-bold text-primary mb-1">Smart Workday Simulator</h3>
+                            <p class="text-xs text-text-light mb-6">Confronta l'impatto di una giornata di lavoro standard con una giornata in modalità Agile.</p>
+                            
+                            <!-- Toggle switch -->
+                            <div class="grid grid-cols-2 gap-2 border border-border-color p-1 rounded-lg mb-6 bg-white">
+                                <button id="mode-office" class="py-2 text-xs font-bold rounded-md border border-transparent toggle-btn-active transition-all">
+                                    <i class="ri-building-4-line mr-1"></i> Ufficio
+                                </button>
+                                <button id="mode-smart" class="py-2 text-xs font-bold rounded-md border border-transparent text-text-medium hover:bg-bg-light transition-all">
+                                    <i class="ri-home-wifi-line mr-1"></i> Smart Working
+                                </button>
+                            </div>
+
+                            <!-- Dynamic Parameters Panel -->
+                            <div class="space-y-4">
+                                <div class="flex justify-between items-center text-xs font-semibold">
+                                    <span class="text-text-medium">Tempo Pendolarismo:</span>
+                                    <span id="commute-val" class="text-primary font-bold">2 ore</span>
+                                </div>
+                                <div class="flex justify-between items-center text-xs font-semibold">
+                                    <span class="text-text-medium">Flessibilità Pause:</span>
+                                    <span id="breaks-val" class="text-primary font-bold">Rigida (1 sola)</span>
+                                </div>
+                                <div class="flex justify-between items-center text-xs font-semibold">
+                                    <span class="text-text-medium">Autonomia Organizzativa:</span>
+                                    <span id="autonomy-val" class="text-accent font-bold">Bassa</span>
+                                </div>
+                            </div>
+                            
+                            <!-- Simulation Metrics Results -->
+                            <div class="mt-8 pt-6 border-t border-border-color space-y-4">
+                                <div class="flex justify-between items-center">
+                                    <span class="text-xs font-bold text-text-medium uppercase tracking-wider">Livello di Stress</span>
+                                    <span class="text-2xl font-extrabold text-red-500" id="stress-val">85%</span>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-xs font-bold text-text-medium uppercase tracking-wider">Produttività Stimata</span>
+                                    <span class="text-lg font-bold text-text-dark" id="prod-val">60%</span>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-xs font-bold text-text-medium uppercase tracking-wider">Impronta Carbonio CO₂</span>
+                                    <span class="text-lg font-bold text-red-500 font-mono" id="co2-val">+4.8 kg</span>
+                                </div>
+                                <div class="flex justify-between items-center text-[0.8rem] bg-accent-soft p-3.5 rounded-lg border border-accent/15" id="savings-box">
+                                    <span class="text-text-medium font-medium leading-tight">Costi di Viaggio Giornalieri:</span>
+                                    <span class="font-extrabold text-accent text-[1.1rem]" id="savings-val">6.50 €</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Chart.js - Comparison Radar Chart -->
+                        <div class="bg-bg-light border border-border-color rounded-2xl p-6 shadow-sm reveal-on-scroll" style="animation-delay: 150ms;">
+                            <h3 class="font-display text-lg font-bold text-primary mb-1 text-center">Confronto Modelli</h3>
+                            <p class="text-[0.7rem] uppercase tracking-wider text-text-light text-center mb-6">Analisi qualitativa e quantitativa delle modalità</p>
+                            
+                            <div class="max-w-[90%] mx-auto">
+                                <canvas id="radarChart" width="300" height="300"></canvas>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-primary text-white/70 py-16 border-t border-white/5">
+        <div class="max-w-[1200px] mx-auto px-6 text-center">
+            <a href="../index.html" class="font-display text-[2rem] font-extrabold text-white mb-4 inline-block tracking-[-0.03em]">
+                <span class="text-accent">A</span>S
+            </a>
+            <p class="text-sm text-white/50 mb-6">Portfolio Esame di Stato 2025/2026</p>
+            <div class="border-t border-white/10 pt-6 text-xs text-white/40">
+                <p>&copy; 2026 Alessio Saulli. Tutti i diritti riservati.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Interactive Simulation Scripts -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Simulator Buttons
+            const btnOffice = document.getElementById('mode-office');
+            const btnSmart = document.getElementById('mode-smart');
+
+            // Values to change
+            const commuteVal = document.getElementById('commute-val');
+            const breaksVal = document.getElementById('breaks-val');
+            const autonomyVal = document.getElementById('autonomy-val');
+            const stressVal = document.getElementById('stress-val');
+            const prodVal = document.getElementById('prod-val');
+            const co2Val = document.getElementById('co2-val');
+            const savingsVal = document.getElementById('savings-val');
+            const savingsBox = document.getElementById('savings-box');
+
+            btnOffice.addEventListener('click', function() {
+                // Toggle active buttons
+                btnOffice.className = "py-2 text-xs font-bold rounded-md border border-transparent toggle-btn-active transition-all";
+                btnSmart.className = "py-2 text-xs font-bold rounded-md border border-transparent text-text-medium hover:bg-bg-light transition-all";
+
+                // Values Update
+                commuteVal.textContent = "2 ore";
+                breaksVal.textContent = "Rigida (1 sola)";
+                autonomyVal.textContent = "Bassa";
+                autonomyVal.className = "text-red-500 font-bold";
+
+                stressVal.textContent = "85%";
+                stressVal.className = "text-2xl font-extrabold text-red-500";
+
+                prodVal.textContent = "60%";
+                prodVal.className = "text-lg font-bold text-text-dark";
+
+                co2Val.textContent = "+4.8 kg";
+                co2Val.className = "text-lg font-bold text-red-500 font-mono";
+
+                savingsBox.className = "flex justify-between items-center text-[0.8rem] bg-red-50 p-3.5 rounded-lg border border-red-100";
+                savingsBox.children[0].textContent = "Costi di Viaggio Giornalieri:";
+                savingsVal.textContent = "6.50 €";
+                savingsVal.className = "font-extrabold text-red-500 text-[1.1rem]";
+            });
+
+            btnSmart.addEventListener('click', function() {
+                // Toggle active buttons
+                btnSmart.className = "py-2 text-xs font-bold rounded-md border border-transparent toggle-btn-active transition-all";
+                btnOffice.className = "py-2 text-xs font-bold rounded-md border border-transparent text-text-medium hover:bg-bg-light transition-all";
+
+                // Values Update
+                commuteVal.textContent = "0 ore";
+                breaksVal.textContent = "Autonoma (micro-pause)";
+                autonomyVal.textContent = "Massima";
+                autonomyVal.className = "text-emerald-500 font-bold";
+
+                stressVal.textContent = "30%";
+                stressVal.className = "text-2xl font-extrabold text-emerald-500";
+
+                prodVal.textContent = "85%";
+                prodVal.className = "text-lg font-bold text-emerald-500";
+
+                co2Val.textContent = "0.0 kg (Annullata!)";
+                co2Val.className = "text-lg font-bold text-emerald-500 font-mono";
+
+                savingsBox.className = "flex justify-between items-center text-[0.8rem] bg-accent-soft p-3.5 rounded-lg border border-accent/15";
+                savingsBox.children[0].textContent = "Risparmio di Viaggio Stimato:";
+                savingsVal.textContent = "+6.50 €";
+                savingsVal.className = "font-extrabold text-accent text-[1.1rem]";
+            });
+
+            // Radar Chart Comparison
+            const ctx = document.getElementById('radarChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'radar',
+                data: {
+                    labels: ['Flessibilità Oraria', 'Autonomia spaziale', 'Work-Life Balance', 'Socializzazione', 'Cybersecurity'],
+                    datasets: [
+                        {
+                            label: 'Smart Working',
+                            data: [95, 90, 85, 45, 55],
+                            backgroundColor: 'rgba(14, 165, 233, 0.2)',
+                            borderColor: '#0ea5e9',
+                            borderWidth: 2,
+                            pointBackgroundColor: '#0ea5e9'
+                        },
+                        {
+                            label: 'Telelavoro',
+                            data: [40, 70, 60, 35, 65],
+                            backgroundColor: 'rgba(71, 85, 105, 0.1)',
+                            borderColor: '#475569',
+                            borderWidth: 1.5,
+                            pointBackgroundColor: '#475569'
+                        },
+                        {
+                            label: 'Ufficio Classico',
+                            data: [20, 10, 35, 90, 85],
+                            backgroundColor: 'rgba(239, 68, 68, 0.05)',
+                            borderColor: 'rgba(239, 68, 68, 0.5)',
+                            borderWidth: 1.5,
+                            pointBackgroundColor: 'rgba(239, 68, 68, 0.5)'
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    scales: {
+                        r: {
+                            angleLines: { color: '#e2e8f0' },
+                            grid: { color: '#e2e8f0' },
+                            pointLabels: {
+                                font: { family: 'Inter', size: 9, weight: 'bold' },
+                                color: '#475569'
+                            },
+                            ticks: {
+                                display: false,
+                                max: 100,
+                                stepSize: 20
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                font: { family: 'Inter', size: 9 },
+                                color: '#475569',
+                                boxWidth: 10
+                            }
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+    <script src="../app.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Educazione Civica - Alessio Saulli | Portfolio</title>
+    <meta name="description"
+        content="Approfondimento interdisciplinare di Educazione Civica per l'Esame di Stato di Alessio Saulli. Raccolta di tutte le materie collegate.">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap"
+        rel="stylesheet">
+
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#10223e',
+                        accent: '#0c75e6',
+                        'accent-hover': '#0a5db8',
+                        'accent-soft': 'rgba(12, 117, 230, 0.06)',
+                        'text-dark': '#1e293b',
+                        'text-medium': '#475569',
+                        'text-light': '#64748b',
+                        'bg-light': '#f8fafc',
+                        'border-color': '#e2e8f0',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', 'sans-serif'],
+                        display: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <link rel="stylesheet" href="../style.css">
+</head>
+
+<body class="bg-white text-text-dark font-sans antialiased overflow-x-hidden">
+
+    <div id="scroll-progress" class="fixed top-0 left-0 h-0.5 bg-accent z-[9999] transition-all duration-100 ease-out"
+        style="width: 0%;"></div>
+
+    <header id="main-header"
+        class="fixed top-0 left-0 w-full z-[1000] transition-all duration-500 py-6 border-b border-transparent">
+        <div class="max-w-[1200px] mx-auto px-6 flex items-center justify-between">
+            <a href="index.html"
+                class="font-display text-2.2xl md:text-2.5xl font-extrabold text-primary tracking-[-0.03em]">
+                <span class="text-accent">A</span>S
+            </a>
+
+            <nav id="nav-menu" class="hidden md:block">
+                <ul class="flex items-center gap-9">
+                    <li><a href="/index.html"
+                            class="nav-link text-[0.92rem] font-medium text-text-medium hover:text-primary transition-all relative py-1">Home</a>
+                    </li>
+                    <li><a href="/index.html#presentazione"
+                            class="nav-link text-[0.92rem] font-medium text-text-medium hover:text-primary transition-all relative py-1">Chi
+                            Sono</a></li>
+                    <li><a href="nav items/edc.html"
+                            class="nav-link active text-[0.92rem] font-medium text-text-medium hover:text-primary transition-all relative py-1">Educazione
+                            Civica</a></li>
+                    <li><a href="/nav items/pcto.html"
+                            class="nav-link text-[0.92rem] font-medium text-text-medium hover:text-primary transition-all relative py-1">PCTO</a>
+                    </li>
+                    <li><a href="/nav items/capolavori.html"
+                            class="nav-link text-[0.92rem] font-medium text-text-medium hover:text-primary transition-all relative py-1">Capolavori</a>
+                    </li>
+                </ul>
+            </nav>
+
+            <div class="header-cta hidden md:block">
+                <a href="/index.html"
+                    class="btn btn-sm btn-outline text-accent border border-accent hover:bg-accent hover:text-white px-5 py-2 rounded font-medium text-sm transition-all flex items-center gap-1.5"><i
+                        class="ri-arrow-left-line"></i> Torna alla Home</a>
+            </div>
+
+            <button
+                class="mobile-nav-toggle md:hidden bg-transparent border-0 text-2xl text-primary cursor-pointer z-[1001]"
+                id="mobile-toggle" aria-label="Apri menu">
+                <i class="ri-menu-line"></i>
+            </button>
+        </div>
+    </header>
+
+    <section class="relative bg-bg-light pt-36 pb-20 md:pt-44 md:pb-28 border-b border-border-color overflow-hidden">
+        <div class="absolute inset-0 opacity-[0.05] filter grayscale pointer-events-none"
+            style="background-image: url('bg.jpg'); background-size: cover; background-position: center;"></div>
+        <div class="max-w-[1200px] mx-auto px-6 relative z-[2]">
+            <div class="flex items-center gap-2 mb-4 animate-fade-in-up" style="animation-delay: 100ms;">
+                <a href="/index.html"
+                    class="text-xs uppercase tracking-[0.1em] text-accent font-bold hover:underline flex items-center gap-1"><i
+                        class="ri-home-4-line"></i> Home</a>
+                <span class="text-xs text-text-light"><i class="ri-arrow-right-s-line"></i></span>
+                <span class="text-xs uppercase tracking-[0.1em] text-text-light font-bold">Educazione Civica</span>
+            </div>
+            <h1 class="font-display text-4xl md:text-[3.25rem] font-extrabold text-primary tracking-[-0.03em] mb-6 leading-tight animate-fade-in-up"
+                style="animation-delay: 200ms;">
+                Educazione Civica
+            </h1>
+            <p class="text-lg text-text-medium max-w-[700px] leading-relaxed animate-fade-in-up"
+                style="animation-delay: 300ms;">
+                Il quadro interdisciplinare che raccoglie tutte le riflessioni e le attività scolastiche collegate ai
+                tre macrotemi fondamentali: Costituzione, Sviluppo Sostenibile e Cittadinanza Digitale.
+            </p>
+        </div>
+    </section>
+
+    <section class="py-20 md:py-28 bg-white">
+        <div class="max-w-[1200px] mx-auto px-6">
+
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="civica-grid">
+
+                <!-- Card Italiano & Ed. Civica (Salute e Benessere) -->
+                <div class="group civica-card-item bg-white border border-border-color rounded-2xl shadow-sm hover:shadow-xl hover:-translate-y-2 hover:border-accent/30 transition-all duration-500 flex flex-col overflow-hidden reveal-on-scroll"
+                    data-category="sostenibilita">
+                    <div class="w-full h-56 overflow-hidden relative">
+                        <div class="absolute inset-0 bg-gradient-to-t from-primary/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10"></div>
+                        <img src="https://www.illibraio.it/wp-content/uploads/2021/02/sigmund-freud.jpg"
+                            alt="Sigmund Freud"
+                            class="w-full h-full object-cover group-hover:scale-108 transition-transform duration-700 ease-out">
+                        <span class="absolute top-4 right-4 bg-white/95 backdrop-blur-md text-primary text-[0.68rem] font-bold uppercase tracking-wider px-3.5 py-1.5 rounded-full shadow-sm z-20 border border-border-color/30 group-hover:bg-accent group-hover:text-white group-hover:border-accent transition-all duration-350">
+                            Salute & Benessere
+                        </span>
+                    </div>
+                    <div class="p-7 flex flex-col flex-grow">
+                        <h3 class="text-xl font-bold text-primary mb-3.5 group-hover:text-accent transition-colors duration-300">Italiano & Psicoanalisi</h3>
+                        <p class="text-[0.92rem] text-text-medium mb-6 flex-grow leading-relaxed">
+                            La concezione freudiana della malattia mentale e la sua reinterpretazione in Svevo. Un nesso profondo con il diritto civile alla salute e al benessere (Agenda 2030 / Art. 32).
+                        </p>
+                        <div class="flex items-center justify-between pt-5 border-t border-border-color/60 mt-auto">
+                            <div class="flex gap-1.5 flex-wrap">
+                                <span class="text-[0.68rem] font-bold uppercase tracking-wider bg-bg-light text-text-medium px-3.5 py-1.5 rounded-lg border border-border-color group-hover:bg-accent/5 group-hover:text-accent group-hover:border-accent/10 transition-colors duration-300">Italiano</span>
+                                <span class="text-[0.68rem] font-bold uppercase tracking-wider bg-bg-light text-text-medium px-3.5 py-1.5 rounded-lg border border-border-color group-hover:bg-accent/5 group-hover:text-accent group-hover:border-accent/10 transition-colors duration-300">Salute</span>
+                            </div>
+                            <a href="../subj/ita.html"
+                                class="text-xs font-bold text-accent hover:text-accent-hover flex items-center gap-1.5 group/link">
+                                Apri Percorso <i class="ri-arrow-right-line transition-transform group-hover/link:translate-x-1 duration-300"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card Storia & Legalità (Gaetano Salvemini) -->
+                <div class="group civica-card-item bg-white border border-border-color rounded-2xl shadow-sm hover:shadow-xl hover:-translate-y-2 hover:border-accent/30 transition-all duration-500 flex flex-col overflow-hidden reveal-on-scroll"
+                    data-category="legalita">
+                    <div class="w-full h-56 overflow-hidden relative">
+                        <div class="absolute inset-0 bg-gradient-to-t from-primary/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10"></div>
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/2/2b/Gaetano_Salvemini_official.jpg"
+                            alt="Gaetano Salvemini"
+                            class="w-full h-full object-cover group-hover:scale-108 transition-transform duration-700 ease-out">
+                        <span class="absolute top-4 right-4 bg-white/95 backdrop-blur-md text-primary text-[0.68rem] font-bold uppercase tracking-wider px-3.5 py-1.5 rounded-full shadow-sm z-20 border border-border-color/30 group-hover:bg-accent group-hover:text-white group-hover:border-accent transition-all duration-350">
+                            Democrazia & Legalità
+                        </span>
+                    </div>
+                    <div class="p-7 flex flex-col flex-grow">
+                        <h3 class="text-xl font-bold text-primary mb-3.5 group-hover:text-accent transition-colors duration-300">Storia & Legalità</h3>
+                        <p class="text-[0.92rem] text-text-medium mb-6 flex-grow leading-relaxed">
+                            La denuncia di Gaetano Salvemini contro il "Ministro della malavita" e i brogli elettorali del 1913. Una riflessione fondamentale sull'importanza del suffragio libero e delle istituzioni.
+                        </p>
+                        <div class="flex items-center justify-between pt-5 border-t border-border-color/60 mt-auto">
+                            <div class="flex gap-1.5 flex-wrap">
+                                <span class="text-[0.68rem] font-bold uppercase tracking-wider bg-bg-light text-text-medium px-3.5 py-1.5 rounded-lg border border-border-color group-hover:bg-accent/5 group-hover:text-accent group-hover:border-accent/10 transition-colors duration-300">Storia</span>
+                                <span class="text-[0.68rem] font-bold uppercase tracking-wider bg-bg-light text-text-medium px-3.5 py-1.5 rounded-lg border border-border-color group-hover:bg-accent/5 group-hover:text-accent group-hover:border-accent/10 transition-colors duration-300">Legalità</span>
+                            </div>
+                            <a href="../subj/sto.html"
+                                class="text-xs font-bold text-accent hover:text-accent-hover flex items-center gap-1.5 group/link">
+                                Apri Percorso <i class="ri-arrow-right-line transition-transform group-hover/link:translate-x-1 duration-300"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card Matematica (Statistica Stradale) -->
+                <div class="group civica-card-item bg-white border border-border-color rounded-2xl shadow-sm hover:shadow-xl hover:-translate-y-2 hover:border-accent/30 transition-all duration-500 flex flex-col overflow-hidden reveal-on-scroll"
+                    data-category="salute">
+                    <div class="w-full h-56 overflow-hidden relative">
+                        <div class="absolute inset-0 bg-gradient-to-t from-primary/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10"></div>
+                        <img src="https://www.soluzionisas.it/wp-content/uploads/2024/02/incidente_stradale_Vicenza_Infortunistica-Grande.jpg"
+                            alt="Incidente Stradale"
+                            class="w-full h-full object-cover group-hover:scale-108 transition-transform duration-700 ease-out">
+                        <span class="absolute top-4 right-4 bg-white/95 backdrop-blur-md text-primary text-[0.68rem] font-bold uppercase tracking-wider px-3.5 py-1.5 rounded-full shadow-sm z-20 border border-border-color/30 group-hover:bg-accent group-hover:text-white group-hover:border-accent transition-all duration-350">
+                            Sicurezza Stradale
+                        </span>
+                    </div>
+                    <div class="p-7 flex flex-col flex-grow">
+                        <h3 class="text-xl font-bold text-primary mb-3.5 group-hover:text-accent transition-colors duration-300">Matematica & Sicurezza</h3>
+                        <p class="text-[0.92rem] text-text-medium mb-6 flex-grow leading-relaxed">
+                            Analisi matematica e statistica del fenomeno degli incidenti stradali in Italia (Dati ACI-Istat 2024-25). L'importanza della prevenzione e del rispetto delle regole stradali.
+                        </p>
+                        <div class="flex items-center justify-between pt-5 border-t border-border-color/60 mt-auto">
+                            <div class="flex gap-1.5 flex-wrap">
+                                <span class="text-[0.68rem] font-bold uppercase tracking-wider bg-bg-light text-text-medium px-3.5 py-1.5 rounded-lg border border-border-color group-hover:bg-accent/5 group-hover:text-accent group-hover:border-accent/10 transition-colors duration-300">Matematica</span>
+                                <span class="text-[0.68rem] font-bold uppercase tracking-wider bg-bg-light text-text-medium px-3.5 py-1.5 rounded-lg border border-border-color group-hover:bg-accent/5 group-hover:text-accent group-hover:border-accent/10 transition-colors duration-300">Statistica</span>
+                            </div>
+                            <a href="../subj/mat.html"
+                                class="text-xs font-bold text-accent hover:text-accent-hover flex items-center gap-1.5 group/link">
+                                Apri Percorso <i class="ri-arrow-right-line transition-transform group-hover/link:translate-x-1 duration-300"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card Sistemi & Green Computing -->
+                <div class="group civica-card-item bg-white border border-border-color rounded-2xl shadow-sm hover:shadow-xl hover:-translate-y-2 hover:border-accent/30 transition-all duration-500 flex flex-col overflow-hidden reveal-on-scroll"
+                    data-category="sostenibilita">
+                    <div class="w-full h-56 overflow-hidden relative">
+                        <div class="absolute inset-0 bg-gradient-to-t from-primary/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10"></div>
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQBlaTHQnhNwqoNWZI9m_l2Ltuod-y9TMeR0Q&s"
+                            alt="Green Computing"
+                            class="w-full h-full object-cover group-hover:scale-108 transition-transform duration-700 ease-out">
+                        <span class="absolute top-4 right-4 bg-white/95 backdrop-blur-md text-primary text-[0.68rem] font-bold uppercase tracking-wider px-3.5 py-1.5 rounded-full shadow-sm z-20 border border-border-color/30 group-hover:bg-accent group-hover:text-white group-hover:border-accent transition-all duration-350">
+                            Sostenibilità Digitale
+                        </span>
+                    </div>
+                    <div class="p-7 flex flex-col flex-grow">
+                        <h3 class="text-xl font-bold text-primary mb-3.5 group-hover:text-accent transition-colors duration-300">Sistemi & Green Computing</h3>
+                        <p class="text-[0.92rem] text-text-medium mb-6 flex-grow leading-relaxed">
+                            L'informatica verde e la sostenibilità digitale: dall'impronta di carbonio della rete alla neutralità climatica, il Green Deal e gli obiettivi dell'Agenda 2030.
+                        </p>
+                        <div class="flex items-center justify-between pt-5 border-t border-border-color/60 mt-auto">
+                            <div class="flex gap-1.5 flex-wrap">
+                                <span class="text-[0.68rem] font-bold uppercase tracking-wider bg-bg-light text-text-medium px-3.5 py-1.5 rounded-lg border border-border-color group-hover:bg-accent/5 group-hover:text-accent group-hover:border-accent/10 transition-colors duration-300">Sistemi</span>
+                                <span class="text-[0.68rem] font-bold uppercase tracking-wider bg-bg-light text-text-medium px-3.5 py-1.5 rounded-lg border border-border-color group-hover:bg-accent/5 group-hover:text-accent group-hover:border-accent/10 transition-colors duration-300">Green Computing</span>
+                            </div>
+                            <a href="../subj/sis.html"
+                                class="text-xs font-bold text-accent hover:text-accent-hover flex items-center gap-1.5 group/link">
+                                Apri Percorso <i class="ri-arrow-right-line transition-transform group-hover/link:translate-x-1 duration-300"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card TPSIT & Blockchain -->
+                <div class="group civica-card-item bg-white border border-border-color rounded-2xl shadow-sm hover:shadow-xl hover:-translate-y-2 hover:border-accent/30 transition-all duration-500 flex flex-col overflow-hidden reveal-on-scroll"
+                    data-category="digitale">
+                    <div class="w-full h-56 overflow-hidden relative">
+                        <div class="absolute inset-0 bg-gradient-to-t from-primary/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10"></div>
+                        <img src="https://imgcdn.agendadigitale.eu/wp-content/uploads/2019/01/22074125/blockchain-1.jpg"
+                            alt="Blockchain"
+                            class="w-full h-full object-cover group-hover:scale-108 transition-transform duration-700 ease-out">
+                        <span class="absolute top-4 right-4 bg-white/95 backdrop-blur-md text-primary text-[0.68rem] font-bold uppercase tracking-wider px-3.5 py-1.5 rounded-full shadow-sm z-20 border border-border-color/30 group-hover:bg-accent group-hover:text-white group-hover:border-accent transition-all duration-350">
+                            Cittadinanza Digitale
+                        </span>
+                    </div>
+                    <div class="p-7 flex flex-col flex-grow">
+                        <h3 class="text-xl font-bold text-primary mb-3.5 group-hover:text-accent transition-colors duration-300">TPSIT & Blockchain</h3>
+                        <p class="text-[0.92rem] text-text-medium mb-6 flex-grow leading-relaxed">
+                            Le origini storiche e il funzionamento crittografico della catena di blocchi. Dalla struttura del blocco con hash e Proof of Work fino ai nodi decentralizzati P2P e smart contract.
+                        </p>
+                        <div class="flex items-center justify-between pt-5 border-t border-border-color/60 mt-auto">
+                            <div class="flex gap-1.5 flex-wrap">
+                                <span class="text-[0.68rem] font-bold uppercase tracking-wider bg-bg-light text-text-medium px-3.5 py-1.5 rounded-lg border border-border-color group-hover:bg-accent/5 group-hover:text-accent group-hover:border-accent/10 transition-colors duration-300">TPSIT</span>
+                                <span class="text-[0.68rem] font-bold uppercase tracking-wider bg-bg-light text-text-medium px-3.5 py-1.5 rounded-lg border border-border-color group-hover:bg-accent/5 group-hover:text-accent group-hover:border-accent/10 transition-colors duration-300">Blockchain</span>
+                            </div>
+                            <a href="../subj/tps.html"
+                                class="text-xs font-bold text-accent hover:text-accent-hover flex items-center gap-1.5 group/link">
+                                Apri Percorso <i class="ri-arrow-right-line transition-transform group-hover/link:translate-x-1 duration-300"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card Informatica & Lavoro Agile -->
+                <div class="group civica-card-item bg-white border border-border-color rounded-2xl shadow-sm hover:shadow-xl hover:-translate-y-2 hover:border-accent/30 transition-all duration-500 flex flex-col overflow-hidden reveal-on-scroll"
+                    data-category="digitale">
+                    <div class="w-full h-56 overflow-hidden relative">
+                        <div class="absolute inset-0 bg-gradient-to-t from-primary/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10"></div>
+                        <img src="https://www.repstatic.it/content/nazionale/img/2021/03/12/182650191-e1c4abc9-32a7-4f4f-bfc4-f31168173076.jpg"
+                            alt="Smart Working"
+                            class="w-full h-full object-cover group-hover:scale-108 transition-transform duration-700 ease-out">
+                        <span class="absolute top-4 right-4 bg-white/95 backdrop-blur-md text-primary text-[0.68rem] font-bold uppercase tracking-wider px-3.5 py-1.5 rounded-full shadow-sm z-20 border border-border-color/30 group-hover:bg-accent group-hover:text-white group-hover:border-accent transition-all duration-350">
+                            Innovazione Lavorativa
+                        </span>
+                    </div>
+                    <div class="p-7 flex flex-col flex-grow">
+                        <h3 class="text-xl font-bold text-primary mb-3.5 group-hover:text-accent transition-colors duration-300">Informatica & Lavoro Agile</h3>
+                        <p class="text-[0.92rem] text-text-medium mb-6 flex-grow leading-relaxed">
+                            L'evoluzione degli ambienti lavorativi tramite la tecnologia. Differenze con il telelavoro, diritti costituzionali e alla disconnessione, vantaggi, rischi ed Agenda 2030.
+                        </p>
+                        <div class="flex items-center justify-between pt-5 border-t border-border-color/60 mt-auto">
+                            <div class="flex gap-1.5 flex-wrap">
+                                <span class="text-[0.68rem] font-bold uppercase tracking-wider bg-bg-light text-text-medium px-3.5 py-1.5 rounded-lg border border-border-color group-hover:bg-accent/5 group-hover:text-accent group-hover:border-accent/10 transition-colors duration-300">Informatica</span>
+                                <span class="text-[0.68rem] font-bold uppercase tracking-wider bg-bg-light text-text-medium px-3.5 py-1.5 rounded-lg border border-border-color group-hover:bg-accent/5 group-hover:text-accent group-hover:border-accent/10 transition-colors duration-300">Smart Working</span>
+                            </div>
+                            <a href="../subj/inf.html"
+                                class="text-xs font-bold text-accent hover:text-accent-hover flex items-center gap-1.5 group/link">
+                                Apri Percorso <i class="ri-arrow-right-line transition-transform group-hover/link:translate-x-1 duration-300"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card Gestione Progetto & Bioeconomia -->
+                <div class="group civica-card-item bg-white border border-border-color rounded-2xl shadow-sm hover:shadow-xl hover:-translate-y-2 hover:border-accent/30 transition-all duration-500 flex flex-col overflow-hidden reveal-on-scroll"
+                    data-category="sostenibilita">
+                    <div class="w-full h-56 overflow-hidden relative">
+                        <div class="absolute inset-0 bg-gradient-to-t from-primary/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10"></div>
+                        <img src="https://www.corriere.it/methode_image/2020/06/16/Economia/Foto%20Economia%20-%20Trattate/bio-economia-U319013434165303qG-U31901352707025jUE-656x492@Corriere-Web-Sezioni.jpg"
+                            alt="Bioeconomia"
+                            class="w-full h-full object-cover group-hover:scale-108 transition-transform duration-700 ease-out">
+                        <span class="absolute top-4 right-4 bg-white/95 backdrop-blur-md text-primary text-[0.68rem] font-bold uppercase tracking-wider px-3.5 py-1.5 rounded-full shadow-sm z-20 border border-border-color/30 group-hover:bg-accent group-hover:text-white group-hover:border-accent transition-all duration-350">
+                            Economia Circolare
+                        </span>
+                    </div>
+                    <div class="p-7 flex flex-col flex-grow">
+                        <h3 class="text-xl font-bold text-primary mb-3.5 group-hover:text-accent transition-colors duration-300">Gestione Progetto & Bioeconomia</h3>
+                        <p class="text-[0.92rem] text-text-medium mb-6 flex-grow leading-relaxed">
+                            L'evoluzione dei sistemi industriali ed agrari. Dal modello di consumo lineare alla rigenerazione biologica e all'analisi critica del Greenwashing.
+                        </p>
+                        <div class="flex items-center justify-between pt-5 border-t border-border-color/60 mt-auto">
+                            <div class="flex gap-1.5 flex-wrap">
+                                <span class="text-[0.68rem] font-bold uppercase tracking-wider bg-bg-light text-text-medium px-3.5 py-1.5 rounded-lg border border-border-color group-hover:bg-accent/5 group-hover:text-accent group-hover:border-accent/10 transition-colors duration-300">Gestione Progetto</span>
+                                <span class="text-[0.68rem] font-bold uppercase tracking-wider bg-bg-light text-text-medium px-3.5 py-1.5 rounded-lg border border-border-color group-hover:bg-accent/5 group-hover:text-accent group-hover:border-accent/10 transition-colors duration-300">Bioeconomia</span>
+                            </div>
+                            <a href="../subj/ges.html"
+                                class="text-xs font-bold text-accent hover:text-accent-hover flex items-center gap-1.5 group/link">
+                                Apri Percorso <i class="ri-arrow-right-line transition-transform group-hover/link:translate-x-1 duration-300"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div></div>
+            </div>
+
+        </div>
+    </section>
+
+    <footer class="bg-primary text-white/70 py-20 border-t border-white/5">
+        <div class="max-w-[1200px] mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-16 mb-16">
+                <div class="footer-brand">
+                    <a href="index.html"
+                        class="font-display text-[2.2rem] font-extrabold text-white mb-4 display-inline-block tracking-[-0.03em]">
+                        <span class="text-accent">A</span>S
+                    </a>
+                    <p class="text-sm text-white/50 max-w-[320px] leading-relaxed">Portfolio dello studente Alessio
+                        Saulli per l'Esame di Stato / Maturità 2025/2026.</p>
+                </div>
+                <div class="footer-links">
+                    <h4 class="text-white text-sm font-semibold uppercase tracking-wider mb-6">Mappa del Sito</h4>
+                    <ul class="flex flex-col gap-3">
+                        <li><a href="index.html#hero"
+                                class="text-sm hover:text-white hover:translate-x-1 transition-all inline-block">Home</a>
+                        </li>
+                        <li><a href="index.html#presentazione"
+                                class="text-sm hover:text-white hover:translate-x-1 transition-all inline-block">Chi
+                                Sono</a></li>
+                        <li><a href="edc.html"
+                                class="text-sm hover:text-white hover:translate-x-1 transition-all inline-block">Educazione
+                                Civica</a></li>
+                        <li><a href="index.html#pcto"
+                                class="text-sm hover:text-white hover:translate-x-1 transition-all inline-block">PCTO</a>
+                        </li>
+                        <li><a href="index.html#capolavori"
+                                class="text-sm hover:text-white hover:translate-x-1 transition-all inline-block">Capolavori</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="footer-info">
+                    <h4 class="text-white text-sm font-semibold uppercase tracking-wider mb-6">Informazioni</h4>
+                    <p class="text-[0.95rem] text-white/60 mb-3 flex items-center gap-2"><i
+                            class="ri-graduation-cap-line text-accent"></i> Esame di Stato 2025/2026</p>
+                    <p class="text-[0.95rem] text-white/60 mb-3 flex items-center gap-2"><i
+                            class="ri-calendar-event-line text-accent"></i> Data Sessione: Giugno 2026</p>
+                </div>
+            </div>
+            <div class="border-t border-white/8 pt-8 text-center text-xs text-white/40">
+                <p>&copy; 2026 Alessio Saulli. Tutti i diritti riservati. Realizzato con passione e dedizione.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../app.js"></script>
+    <script>
+        function filterCivica(category) {
+            const buttons = document.querySelectorAll('.filter-btn');
+            buttons.forEach(btn => {
+                btn.classList.remove('active', 'bg-accent', 'text-white', 'border-accent');
+                btn.classList.add('bg-bg-light', 'text-text-medium', 'border-border-color');
+            });
+
+            const activeBtn = event.currentTarget;
+            activeBtn.classList.remove('bg-bg-light', 'text-text-medium', 'border-border-color');
+            activeBtn.classList.add('active', 'bg-accent', 'text-white', 'border-accent');
+
+            const cards = document.querySelectorAll('.civica-card-item');
+            cards.forEach(card => {
+                card.style.opacity = '0';
+                card.style.transform = 'scale(0.95)';
+
+                setTimeout(() => {
+                    if (category === 'all' || card.getAttribute('data-category') === category) {
+                        card.style.display = 'flex';
+                        setTimeout(() => {
+                            card.style.opacity = '1';
+                            card.style.transform = 'scale(1)';
+                        }, 50);
+                    } else {
+                        card.style.display = 'none';
+                    }
+                }, 300);
+            });
+        }
+    </script>
+</body>
+
+</html>

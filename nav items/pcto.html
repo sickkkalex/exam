@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PCTO - Alessio Saulli | Portfolio</title>
+    <meta name="description"
+        content="I percorsi per le Competenze Trasversali e per l'Orientamento (PCTO) di Alessio Saulli per l'Esame di Stato.">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap"
+        rel="stylesheet">
+
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#10223e',
+                        accent: '#0c75e6',
+                        'accent-hover': '#0a5db8',
+                        'accent-soft': 'rgba(12, 117, 230, 0.06)',
+                        'text-dark': '#1e293b',
+                        'text-medium': '#475569',
+                        'text-light': '#64748b',
+                        'bg-light': '#f8fafc',
+                        'border-color': '#e2e8f0',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', 'sans-serif'],
+                        display: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <link rel="stylesheet" href="../style.css">
+</head>
+
+<body class="bg-white text-text-dark font-sans antialiased overflow-x-hidden">
+
+    <div id="scroll-progress" class="fixed top-0 left-0 h-0.5 bg-accent z-[9999] transition-all duration-100 ease-out"
+        style="width: 0%;"></div>
+
+    <header id="main-header"
+        class="fixed top-0 left-0 w-full z-[1000] transition-all duration-500 py-6 border-b border-transparent bg-white/90 backdrop-blur-md">
+        <div class="max-w-[1200px] mx-auto px-6 flex items-center justify-between">
+            <a href="../index.html"
+                class="font-display text-2.2xl md:text-2.5xl font-extrabold text-primary tracking-[-0.03em]">
+                <span class="text-accent">A</span>S
+            </a>
+
+            <nav id="nav-menu" class="hidden md:block">
+                <ul class="flex items-center gap-9">
+                    <li><a href="../index.html#hero"
+                            class="nav-link text-[0.92rem] font-medium text-text-medium hover:text-primary transition-all relative py-1">Home</a>
+                    </li>
+                    <li><a href="../index.html#presentazione"
+                            class="nav-link text-[0.92rem] font-medium text-text-medium hover:text-primary transition-all relative py-1">Chi
+                            Sono</a></li>
+                    <li><a href="edc.html"
+                            class="nav-link text-[0.92rem] font-medium text-text-medium hover:text-primary transition-all relative py-1">Educazione
+                            Civica</a></li>
+                    <li><a href="pcto.html"
+                            class="nav-link active text-[0.92rem] font-medium text-text-medium hover:text-primary transition-all relative py-1">PCTO</a>
+                    </li>
+                    <li><a href="capolavori.html"
+                            class="nav-link text-[0.92rem] font-medium text-text-medium hover:text-primary transition-all relative py-1">Capolavori</a>
+                    </li>
+                </ul>
+            </nav>
+
+            <div class="header-cta hidden md:block">
+                <a href="../index.html"
+                    class="btn btn-sm btn-outline text-accent border border-accent hover:bg-accent hover:text-white px-5 py-2 rounded font-medium text-sm transition-all flex items-center gap-1.5"><i
+                        class="ri-arrow-left-line"></i> Torna alla Home</a>
+            </div>
+
+            <button
+                class="mobile-nav-toggle md:hidden bg-transparent border-0 text-2xl text-primary cursor-pointer z-[1001]"
+                id="mobile-toggle" aria-label="Apri menu">
+                <i class="ri-menu-line"></i>
+            </button>
+        </div>
+    </header>
+
+    <section class="relative bg-bg-light pt-36 pb-20 md:pt-44 md:pb-28 border-b border-border-color overflow-hidden">
+        <div class="absolute inset-0 opacity-[0.05] filter grayscale pointer-events-none"
+            style="background-image: url('../bg.jpg'); background-size: cover; background-position: center;"></div>
+        <div class="max-w-[1200px] mx-auto px-6 relative z-[2]">
+            <div class="flex items-center gap-2 mb-4 animate-fade-in-up" style="animation-delay: 100ms;">
+                <a href="../index.html"
+                    class="text-xs uppercase tracking-[0.1em] text-accent font-bold hover:underline flex items-center gap-1"><i
+                        class="ri-home-4-line"></i> Home</a>
+                <span class="text-xs text-text-light"><i class="ri-arrow-right-s-line"></i></span>
+                <span class="text-xs uppercase tracking-[0.1em] text-text-light font-bold">PCTO</span>
+            </div>
+            <h1 class="font-display text-4xl md:text-[3.25rem] font-extrabold text-primary tracking-[-0.03em] mb-6 leading-tight animate-fade-in-up"
+                style="animation-delay: 200ms;">
+                Percorsi per le Competenze Trasversali
+            </h1>
+            <p class="text-lg text-text-medium max-w-[700px] leading-relaxed animate-fade-in-up"
+                style="animation-delay: 300ms;">
+                Esplorazione e approfondimento delle mie esperienze lavorative e professionalizzanti affrontate durante il triennio.
+            </p>
+        </div>
+    </section>
+
+    <section id="pcto" class="py-24 md:py-32 bg-white">
+        <div class="max-w-[1200px] mx-auto px-6">
+            <div class="relative max-w-[900px] mx-auto flex flex-col gap-12 pcto-container">
+                <div class="absolute top-0 left-[27px] h-full w-[2px] bg-border-color z-[1]"></div>
+
+                <div
+                    class="relative z-[2] grid grid-cols-1 md:grid-cols-[200px_1fr] gap-8 md:gap-12 pcto-item reveal-on-scroll">
+                    <div class="flex flex-col items-start pt-6 pl-[45px] md:pl-0">
+                        <div
+                            class="font-display text-4.5xl md:text-[2.75rem] font-extrabold text-border-color line-none mb-2 pcto-number transition-all duration-300">
+                            01</div>
+                        <span class="text-[0.85rem] text-text-light font-medium flex items-center gap-1.5"><i
+                                class="ri-calendar-line text-accent"></i> Giugno - Luglio 2024</span>
+                    </div>
+
+                    <div
+                        class="pcto-body bg-white border border-border-color rounded-lg p-8 md:p-10 shadow-sm hover:shadow-md hover:border-accent/15 transition-all duration-300 relative">
+                        <span
+                            class="text-[0.75rem] font-bold uppercase tracking-wider text-accent mb-2 inline-block">Sviluppo
+                            Software & Web</span>
+                        <h3 class="text-xl md:text-1.4xl font-semibold text-primary mb-4">Junior Full Stack Developer
+                            presso TechSolutions S.r.l.</h3>
+                        <p class="text-[0.98rem] text-text-medium mb-6 leading-relaxed">
+                            Durante questo percorso di 120 ore, ho collaborato attivamente con il team di sviluppo web.
+                            Ho partecipato alla progettazione e all'implementazione di un portale di monitoraggio dati
+                            interno,
+                            affinando le mie competenze in HTML5, CSS3, JavaScript e database relazionali.
+                        </p>
+                        <div class="flex gap-2 flex-wrap">
+                            <span
+                                class="text-[0.8rem] font-medium bg-accent-soft text-accent px-3.5 py-1.5 rounded">HTML/CSS</span>
+                            <span
+                                class="text-[0.8rem] font-medium bg-accent-soft text-accent px-3.5 py-1.5 rounded">JavaScript</span>
+                            <span
+                                class="text-[0.8rem] font-medium bg-accent-soft text-accent px-3.5 py-1.5 rounded">SQL</span>
+                            <span
+                                class="text-[0.8rem] font-medium bg-accent-soft text-accent px-3.5 py-1.5 rounded">Team
+                                Working</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div
+                    class="relative z-[2] grid grid-cols-1 md:grid-cols-[200px_1fr] gap-8 md:gap-12 pcto-item reveal-on-scroll">
+                    <div class="flex flex-col items-start pt-6 pl-[45px] md:pl-0">
+                        <div
+                            class="font-display text-4.5xl md:text-[2.75rem] font-extrabold text-border-color line-none mb-2 pcto-number transition-all duration-300">
+                            02</div>
+                        <span class="text-[0.85rem] text-text-light font-medium flex items-center gap-1.5"><i
+                                class="ri-calendar-line text-accent"></i> Febbraio - Marzo 2025</span>
+                    </div>
+
+                    <div
+                        class="pcto-body bg-white border border-border-color rounded-lg p-8 md:p-10 shadow-sm hover:shadow-md hover:border-accent/15 transition-all duration-300 relative">
+                        <span
+                            class="text-[0.75rem] font-bold uppercase tracking-wider text-accent mb-2 inline-block">Sistemi
+                            e Network Security</span>
+                        <h3 class="text-xl md:text-1.4xl font-semibold text-primary mb-4">Sistemista di Rete &
+                            CyberSecurity presso NetProtect</h3>
+                        <p class="text-[0.98rem] text-text-medium mb-6 leading-relaxed">
+                            Una stimolante esperienza focalizzata sulla gestione delle infrastrutture di rete aziendali
+                            e sulla sicurezza informatica.
+                            Ho affiancamento gli amministratori di sistema nella configurazione di firewall, analisi dei
+                            log di sicurezza
+                            e ottimizzazione dei flussi di rete, comprendendo l'importanza cruciale della sicurezza
+                            delle informazioni.
+                        </p>
+                        <div class="flex gap-2 flex-wrap">
+                            <span
+                                class="text-[0.8rem] font-medium bg-accent-soft text-accent px-3.5 py-1.5 rounded">Cyber
+                                Security</span>
+                            <span
+                                class="text-[0.8rem] font-medium bg-accent-soft text-accent px-3.5 py-1.5 rounded">Networking</span>
+                            <span
+                                class="text-[0.8rem] font-medium bg-accent-soft text-accent px-3.5 py-1.5 rounded">Firewalling</span>
+                            <span
+                                class="text-[0.8rem] font-medium bg-accent-soft text-accent px-3.5 py-1.5 rounded">Problem
+                                Solving</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-primary text-white/70 py-20 border-t border-white/5">
+        <div class="max-w-[1200px] mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-16 mb-16">
+                <div class="footer-brand">
+                    <a href="../index.html"
+                        class="font-display text-[2.2rem] font-extrabold text-white mb-4 display-inline-block tracking-[-0.03em]">
+                        <span class="text-accent">A</span>S
+                    </a>
+                    <p class="text-sm text-white/50 max-w-[320px] leading-relaxed">Portfolio dello studente Alessio
+                        Saulli per l'Esame di Stato / Maturità 2025/2026.</p>
+                </div>
+                <div class="footer-links">
+                    <h4 class="text-white text-sm font-semibold uppercase tracking-wider mb-6">Mappa del Sito</h4>
+                    <ul class="flex flex-col gap-3">
+                        <li><a href="../index.html#hero"
+                                class="text-sm hover:text-white hover:translate-x-1 transition-all inline-block">Home</a>
+                        </li>
+                        <li><a href="../index.html#presentazione"
+                                class="text-sm hover:text-white hover:translate-x-1 transition-all inline-block">Chi
+                                Sono</a></li>
+                        <li><a href="edc.html"
+                                class="text-sm hover:text-white hover:translate-x-1 transition-all inline-block">Educazione
+                                Civica</a></li>
+                        <li><a href="pcto.html"
+                                class="text-sm hover:text-white hover:translate-x-1 transition-all inline-block">PCTO</a>
+                        </li>
+                        <li><a href="capolavori.html"
+                                class="text-sm hover:text-white hover:translate-x-1 transition-all inline-block">Capolavori</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="footer-info">
+                    <h4 class="text-white text-sm font-semibold uppercase tracking-wider mb-6">Informazioni</h4>
+                    <p class="text-[0.95rem] text-white/60 mb-3 flex items-center gap-2"><i
+                            class="ri-graduation-cap-line text-accent"></i> Esame di Stato 2025/2026</p>
+                    <p class="text-[0.95rem] text-white/60 mb-3 flex items-center gap-2"><i
+                            class="ri-calendar-event-line text-accent"></i> Data Sessione: Giugno 2026</p>
+                </div>
+            </div>
+            <div class="border-t border-white/8 pt-8 text-center text-xs text-white/40">
+                <p>&copy; 2026 Alessio Saulli. Tutti i diritti riservati. Realizzato con passione e dedizione.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../app.js"></script>
+</body>
+
+</html>

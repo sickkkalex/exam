@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Capolavori - Alessio Saulli | Portfolio</title>
+    <meta name="description"
+        content="I Capolavori realizzati da Alessio Saulli durante il triennio per l'Esame di Stato.">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap"
+        rel="stylesheet">
+
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#10223e',
+                        accent: '#0c75e6',
+                        'accent-hover': '#0a5db8',
+                        'accent-soft': 'rgba(12, 117, 230, 0.06)',
+                        'text-dark': '#1e293b',
+                        'text-medium': '#475569',
+                        'text-light': '#64748b',
+                        'bg-light': '#f8fafc',
+                        'border-color': '#e2e8f0',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', 'sans-serif'],
+                        display: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <link rel="stylesheet" href="../style.css">
+</head>
+
+<body class="bg-white text-text-dark font-sans antialiased overflow-x-hidden">
+
+    <div id="scroll-progress" class="fixed top-0 left-0 h-0.5 bg-accent z-[9999] transition-all duration-100 ease-out"
+        style="width: 0%;"></div>
+
+    <header id="main-header"
+        class="fixed top-0 left-0 w-full z-[1000] transition-all duration-500 py-6 border-b border-transparent bg-white/90 backdrop-blur-md">
+        <div class="max-w-[1200px] mx-auto px-6 flex items-center justify-between">
+            <a href="../index.html"
+                class="font-display text-2.2xl md:text-2.5xl font-extrabold text-primary tracking-[-0.03em]">
+                <span class="text-accent">A</span>S
+            </a>
+
+            <nav id="nav-menu" class="hidden md:block">
+                <ul class="flex items-center gap-9">
+                    <li><a href="../index.html#hero"
+                            class="nav-link text-[0.92rem] font-medium text-text-medium hover:text-primary transition-all relative py-1">Home</a>
+                    </li>
+                    <li><a href="../index.html#presentazione"
+                            class="nav-link text-[0.92rem] font-medium text-text-medium hover:text-primary transition-all relative py-1">Chi
+                            Sono</a></li>
+                    <li><a href="edc.html"
+                            class="nav-link text-[0.92rem] font-medium text-text-medium hover:text-primary transition-all relative py-1">Educazione
+                            Civica</a></li>
+                    <li><a href="pcto.html"
+                            class="nav-link text-[0.92rem] font-medium text-text-medium hover:text-primary transition-all relative py-1">PCTO</a>
+                    </li>
+                    <li><a href="capolavori.html"
+                            class="nav-link active text-[0.92rem] font-medium text-text-medium hover:text-primary transition-all relative py-1">Capolavori</a>
+                    </li>
+                </ul>
+            </nav>
+
+            <div class="header-cta hidden md:block">
+                <a href="../index.html"
+                    class="btn btn-sm btn-outline text-accent border border-accent hover:bg-accent hover:text-white px-5 py-2 rounded font-medium text-sm transition-all flex items-center gap-1.5"><i
+                        class="ri-arrow-left-line"></i> Torna alla Home</a>
+            </div>
+
+            <button
+                class="mobile-nav-toggle md:hidden bg-transparent border-0 text-2xl text-primary cursor-pointer z-[1001]"
+                id="mobile-toggle" aria-label="Apri menu">
+                <i class="ri-menu-line"></i>
+            </button>
+        </div>
+    </header>
+
+    <section class="relative bg-bg-light pt-36 pb-20 md:pt-44 md:pb-28 border-b border-border-color overflow-hidden">
+        <div class="absolute inset-0 opacity-[0.05] filter grayscale pointer-events-none"
+            style="background-image: url('../bg.jpg'); background-size: cover; background-position: center;"></div>
+        <div class="max-w-[1200px] mx-auto px-6 relative z-[2]">
+            <div class="flex items-center gap-2 mb-4 animate-fade-in-up" style="animation-delay: 100ms;">
+                <a href="../index.html"
+                    class="text-xs uppercase tracking-[0.1em] text-accent font-bold hover:underline flex items-center gap-1"><i
+                        class="ri-home-4-line"></i> Home</a>
+                <span class="text-xs text-text-light"><i class="ri-arrow-right-s-line"></i></span>
+                <span class="text-xs uppercase tracking-[0.1em] text-text-light font-bold">Capolavori</span>
+            </div>
+            <h1 class="font-display text-4xl md:text-[3.25rem] font-extrabold text-primary tracking-[-0.03em] mb-6 leading-tight animate-fade-in-up"
+                style="animation-delay: 200ms;">
+                Capolavori del Triennio
+            </h1>
+            <p class="text-lg text-text-medium max-w-[700px] leading-relaxed animate-fade-in-up"
+                style="animation-delay: 300ms;">
+                Selezione dei lavori personali e di gruppo più significativi, realizzati come espressione delle mie abilità tecniche e creative.
+            </p>
+        </div>
+    </section>
+
+    <section id="capolavori" class="py-24 md:py-32 bg-white">
+        <div class="max-w-[1200px] mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div
+                    class="group capolavoro-card bg-white border border-border-color rounded-lg overflow-hidden shadow-sm hover:shadow-lg hover:border-accent/15 transition-all duration-300 flex flex-col">
+                    <div
+                        class="capolavoro-visual h-[180px] bg-gradient-to-br from-primary to-[#1e3a5f] flex items-center justify-center relative text-white/15 text-[4rem] group-hover:from-accent group-hover:to-primary transition-all duration-500">
+                        <i class="ri-window-line"></i>
+                        <span
+                            class="absolute top-5 left-5 text-[0.75rem] font-bold uppercase tracking-wider bg-white/12 backdrop-blur-md text-white px-3 py-1.5 rounded border border-white/15">Classe
+                            3ª</span>
+                    </div>
+                    <div class="p-8 flex flex-col flex-grow">
+                        <h3 class="text-[1.25rem] font-semibold text-primary mb-3.5 leading-snug">Sito Web Istituzionale
+                            & Gestione Eventi</h3>
+                        <p class="text-[0.95rem] text-text-medium mb-8 flex-grow leading-relaxed">Sviluppo di un
+                            prototipo di sito web per la gestione delle prenotazioni e degli eventi scolastici.
+                            Realizzato con un design responsivo e un pannello amministrativo per la gestione del
+                            database.</p>
+                        <span
+                            class="text-[0.8rem] font-bold text-text-light group-hover:text-accent flex items-center gap-1.5 pt-5 border-t border-border-color transition-colors duration-300">
+                            <i class="ri-code-s-slash-line text-accent"></i> Sviluppo Web
+                        </span>
+                    </div>
+                </div>
+
+                <div
+                    class="group capolavoro-card bg-white border border-border-color rounded-lg overflow-hidden shadow-sm hover:shadow-lg hover:border-accent/15 transition-all duration-300 flex flex-col">
+                    <div
+                        class="capolavoro-visual h-[180px] bg-gradient-to-br from-primary to-[#1e3a5f] flex items-center justify-center relative text-white/15 text-[4rem] group-hover:from-accent group-hover:to-primary transition-all duration-500">
+                        <i class="ri-cpu-line"></i>
+                        <span
+                            class="absolute top-5 left-5 text-[0.75rem] font-bold uppercase tracking-wider bg-white/12 backdrop-blur-md text-white px-3 py-1.5 rounded border border-white/15">Classe
+                            4ª</span>
+                    </div>
+                    <div class="p-8 flex flex-col flex-grow">
+                        <h3 class="text-[1.25rem] font-semibold text-primary mb-3.5 leading-snug">Sistema IoT di
+                            Monitoraggio Ambientale</h3>
+                        <p class="text-[0.95rem] text-text-medium mb-8 flex-grow leading-relaxed">Progetto
+                            hardware/software basato su microcontrollore per la rilevazione di temperatura, umidità e
+                            qualità dell'aria. I dati vengono trasmessi in tempo reale e visualizzati su una dashboard
+                            web remota.</p>
+                        <span
+                            class="text-[0.8rem] font-bold text-text-light group-hover:text-accent flex items-center gap-1.5 pt-5 border-t border-border-color transition-colors duration-300">
+                            <i class="ri-router-line text-accent"></i> IoT & Elettronica
+                        </span>
+                    </div>
+                </div>
+
+                <div
+                    class="group capolavoro-card bg-white border border-border-color rounded-lg overflow-hidden shadow-sm hover:shadow-lg hover:border-accent/15 transition-all duration-300 flex flex-col">
+                    <div
+                        class="capolavoro-visual h-[180px] bg-gradient-to-br from-primary to-[#1e3a5f] flex items-center justify-center relative text-white/15 text-[4rem] group-hover:from-accent group-hover:to-primary transition-all duration-500">
+                        <i class="ri-database-2-line"></i>
+                        <span
+                            class="absolute top-5 left-5 text-[0.75rem] font-bold uppercase tracking-wider bg-white/12 backdrop-blur-md text-white px-3 py-1.5 rounded border border-white/15">Classe
+                            5ª</span>
+                    </div>
+                    <div class="p-8 flex flex-col flex-grow">
+                        <h3 class="text-[1.25rem] font-semibold text-primary mb-3.5 leading-snug">Database Criptato per
+                            Cartelle Cliniche</h3>
+                        <p class="text-[0.95rem] text-text-medium mb-8 flex-grow leading-relaxed">Applicativo
+                            client-server finalizzato alla gestione sicura di dati sensibili sanitari. Integra algoritmi
+                            di crittografia per la tutela della privacy e un sistema granulare di controllo degli
+                            accessi.</p>
+                        <span
+                            class="text-[0.8rem] font-bold text-text-light group-hover:text-accent flex items-center gap-1.5 pt-5 border-t border-border-color transition-colors duration-300">
+                            <i class="ri-shield-keyhole-line text-accent"></i> Cyber Security
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-primary text-white/70 py-20 border-t border-white/5">
+        <div class="max-w-[1200px] mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-16 mb-16">
+                <div class="footer-brand">
+                    <a href="../index.html"
+                        class="font-display text-[2.2rem] font-extrabold text-white mb-4 display-inline-block tracking-[-0.03em]">
+                        <span class="text-accent">A</span>S
+                    </a>
+                    <p class="text-sm text-white/50 max-w-[320px] leading-relaxed">Portfolio dello studente Alessio
+                        Saulli per l'Esame di Stato / Maturità 2025/2026.</p>
+                </div>
+                <div class="footer-links">
+                    <h4 class="text-white text-sm font-semibold uppercase tracking-wider mb-6">Mappa del Sito</h4>
+                    <ul class="flex flex-col gap-3">
+                        <li><a href="../index.html#hero"
+                                class="text-sm hover:text-white hover:translate-x-1 transition-all inline-block">Home</a>
+                        </li>
+                        <li><a href="../index.html#presentazione"
+                                class="text-sm hover:text-white hover:translate-x-1 transition-all inline-block">Chi
+                                Sono</a></li>
+                        <li><a href="edc.html"
+                                class="text-sm hover:text-white hover:translate-x-1 transition-all inline-block">Educazione
+                                Civica</a></li>
+                        <li><a href="pcto.html"
+                                class="text-sm hover:text-white hover:translate-x-1 transition-all inline-block">PCTO</a>
+                        </li>
+                        <li><a href="capolavori.html"
+                                class="text-sm hover:text-white hover:translate-x-1 transition-all inline-block">Capolavori</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="footer-info">
+                    <h4 class="text-white text-sm font-semibold uppercase tracking-wider mb-6">Informazioni</h4>
+                    <p class="text-[0.95rem] text-white/60 mb-3 flex items-center gap-2"><i
+                            class="ri-graduation-cap-line text-accent"></i> Esame di Stato 2025/2026</p>
+                    <p class="text-[0.95rem] text-white/60 mb-3 flex items-center gap-2"><i
+                            class="ri-calendar-event-line text-accent"></i> Data Sessione: Giugno 2026</p>
+                </div>
+            </div>
+            <div class="border-t border-white/8 pt-8 text-center text-xs text-white/40">
+                <p>&copy; 2026 Alessio Saulli. Tutti i diritti riservati. Realizzato con passione e dedizione.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../app.js"></script>
+</body>
+
+</html>

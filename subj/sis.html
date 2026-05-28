@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sistemi & Green Computing – Educazione Civica</title>
+    <meta name="description"
+        content="Percorso interdisciplinare sull'impatto ambientale delle tecnologie digitali: Carbon Footprint, Green Computing, Green Deal e Agenda 2030." />
+
+    <!-- Google Fonts & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet" />
+
+    <!-- Tailwind & Custom Config -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#10223e',
+                        accent: '#14b8a6', // Teal brillante
+                        'accent-hover': '#0d9488',
+                        'accent-soft': 'rgba(20, 184, 166, 0.06)',
+                        'text-dark': '#1e293b',
+                        'text-medium': '#475569',
+                        'text-light': '#64748b',
+                        'bg-light': '#f8fafc',
+                        'border-color': '#e2e8f0',
+                        'green-dark': '#0b2e24',
+                        'green-accent': '#10b981'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+                        display: ['Outfit', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="../style.css" />
+
+    <style>
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+        }
+
+        .hero-gradient {
+            background: radial-gradient(circle at 10% 20%, rgba(20, 184, 166, 0.05) 0%, rgba(255, 255, 255, 0) 90%);
+        }
+
+        .custom-slider {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 6px;
+            background: #e2e8f0;
+            border-radius: 999px;
+            outline: none;
+        }
+
+        .custom-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: #14b8a6;
+            cursor: pointer;
+            transition: transform 0.1s ease;
+        }
+
+        .custom-slider::-webkit-slider-thumb:hover {
+            transform: scale(1.2);
+        }
+    </style>
+</head>
+
+<body class="bg-white text-text-dark font-sans antialiased overflow-x-hidden">
+
+    <!-- Scroll Progress Indicator -->
+    <div id="scroll-progress" class="fixed top-0 left-0 h-0.5 bg-accent z-[9999] transition-all duration-100 ease-out"
+        style="width: 0%;"></div>
+
+    <!-- Navigation Header -->
+    <header id="main-header"
+        class="fixed top-0 left-0 w-full z-[1000] transition-all duration-500 py-6 border-b border-transparent bg-white/90 backdrop-blur-md">
+        <div class="max-w-[1200px] mx-auto px-6 flex items-center justify-between">
+            <a href="../index.html" class="font-display text-2.2xl md:text-2.5xl font-extrabold text-primary tracking-[-0.03em]">
+                <span class="text-accent">A</span>S
+            </a>
+
+            <nav id="nav-menu" class="hidden md:block">
+                <ul class="flex items-center gap-9">
+                    <li><a href="../index.html#hero"
+                            class="nav-link text-[0.92rem] font-medium text-text-medium hover:text-primary transition-all relative py-1">Home</a>
+                    </li>
+                    <li><a href="../index.html#presentazione"
+                            class="nav-link text-[0.92rem] font-medium text-text-medium hover:text-primary transition-all relative py-1">Chi
+                            Sono</a></li>
+                    <li><a href="../nav items/edc.html"
+                            class="nav-link active text-[0.92rem] font-medium text-text-medium hover:text-primary transition-all relative py-1">Educazione Civica</a></li>
+                    <li><a href="../nav items/pcto.html"
+                            class="nav-link text-[0.92rem] font-medium text-text-medium hover:text-primary transition-all relative py-1">PCTO</a>
+                    </li>
+                    <li><a href="../nav items/capolavori.html"
+                            class="nav-link text-[0.92rem] font-medium text-text-medium hover:text-primary transition-all relative py-1">Capolavori</a>
+                    </li>
+                </ul>
+            </nav>
+
+            <div class="header-cta hidden md:block">
+                <a href="../nav items/edc.html"
+                    class="btn btn-sm btn-outline text-accent border border-accent hover:bg-accent hover:text-white px-5 py-2 rounded font-medium text-sm transition-all flex items-center gap-1.5"><i
+                        class="ri-arrow-left-line"></i> Torna a Ed. Civica</a>
+            </div>
+
+            <button
+                class="mobile-nav-toggle md:hidden bg-transparent border-0 text-2xl text-primary cursor-pointer z-[1001]"
+                id="mobile-toggle" aria-label="Apri menu">
+                <i class="ri-menu-line"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative pt-36 pb-20 md:pt-48 md:pb-32 border-b border-border-color hero-gradient overflow-hidden">
+        <div class="max-w-[1200px] mx-auto px-6 relative z-[2]">
+            <!-- Breadcrumbs -->
+            <div class="flex items-center gap-2 mb-6 animate-fade-in-up" style="animation-delay: 100ms;">
+                <a href="../index.html" class="text-xs uppercase tracking-[0.1em] text-accent font-bold hover:underline flex items-center gap-1">
+                    <i class="ri-home-4-line"></i> Home
+                </a>
+                <span class="text-xs text-text-light"><i class="ri-arrow-right-s-line"></i></span>
+                <a href="../nav items/edc.html" class="text-xs uppercase tracking-[0.1em] text-accent font-bold hover:underline">
+                    Educazione Civica
+                </a>
+                <span class="text-xs text-text-light"><i class="ri-arrow-right-s-line"></i></span>
+                <span class="text-xs uppercase tracking-[0.1em] text-text-light font-bold">Sistemi & Green Computing</span>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+                <!-- Text Intro -->
+                <div class="lg:col-span-7 reveal-on-scroll">
+                    <span class="text-xs uppercase tracking-[0.2em] bg-teal-50 text-accent font-bold px-3 py-1.5 rounded mb-4 inline-block">
+                        Sistemi & Sostenibilità
+                    </span>
+                    <h1 class="font-display text-4xl md:text-[3.5rem] font-extrabold text-primary tracking-[-0.03em] leading-[1.08] mb-6">
+                        Informatica Verde & <span class="text-accent">Sostenibilità</span>
+                    </h1>
+                    <p class="text-lg md:text-xl text-text-medium leading-relaxed mb-8">
+                        Il connubio tra architetture di rete ed ecologia digitale. Dall'analisi dell'impronta di carbonio delle nostre attività quotidiane al paradigma del Green Computing e le direttive del Green Deal europeo.
+                    </p>
+                    <div class="flex gap-3 flex-wrap">
+                        <span class="text-[0.78rem] font-semibold uppercase tracking-wider bg-bg-light text-text-medium px-4 py-2 rounded border border-border-color flex items-center gap-1.5">
+                            <i class="ri-leaf-line text-accent text-sm"></i> Green Computing
+                        </span>
+                        <span class="text-[0.78rem] font-semibold uppercase tracking-wider bg-bg-light text-text-medium px-4 py-2 rounded border border-border-color flex items-center gap-1.5">
+                            <i class="ri-global-line text-accent text-sm"></i> Agenda 2030
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Custom Systems & Networks Graphic -->
+                <div class="lg:col-span-5 reveal-on-scroll" style="animation-delay: 200ms;">
+                    <div class="relative w-full aspect-[4/5] rounded-2xl overflow-hidden group shadow-2xl">
+                        <div class="absolute inset-0 bg-green-dark/25 group-hover:bg-transparent transition-colors duration-500 z-10"></div>
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQBlaTHQnhNwqoNWZI9m_l2Ltuod-y9TMeR0Q&s" 
+                             alt="Green Computing & Energy Efficiency" 
+                             class="w-full h-full object-cover group-hover:scale-105 transition-all duration-700 ease-out" />
+                        
+                        <div class="absolute bottom-6 left-6 right-6 z-20 glass-panel p-4 rounded-xl opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500">
+                            <p class="text-[0.8rem] font-bold text-primary uppercase tracking-wider mb-1">Ecologia Digitale</p>
+                            <p class="text-[0.75rem] text-text-medium leading-tight">Ottimizzazione delle risorse hardware, software e di rete.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Essay Content -->
+    <section class="py-20 md:py-32 bg-white">
+        <div class="max-w-[1200px] mx-auto px-6">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 relative">
+                
+                <!-- Left Column: Discursive Text -->
+                <div class="lg:col-span-7 space-y-16">
+                    
+                    <!-- Item 1: Carbon Footprint -->
+                    <div class="reveal-on-scroll">
+                        <div class="flex items-center gap-3 mb-4">
+                            <span class="w-8 h-8 rounded-full bg-teal-50 text-accent flex items-center justify-center font-bold text-sm">1</span>
+                            <h2 class="font-display text-2xl md:text-[1.75rem] font-bold text-primary">Carbon Footprint (Impronta di Carbonio)</h2>
+                        </div>
+                        <div class="text-[1.05rem] text-text-medium leading-relaxed space-y-5">
+                            <p>
+                                La <strong>carbon footprint</strong>, o impronta di carbonio, rappresenta la quantità totale di gas serra emessi in atmosfera, espressa in tonnellate di CO₂ equivalente. Questa misura può essere applicata direttamente o indirettamente a una persona, a un singolo prodotto, a un'attività o a un'intera organizzazione. Essa tiene conto di tutte le fasi del <strong>ciclo di vita</strong> del bene: dall'estrazione delle materie prime, alla produzione, al trasporto, fino all'utilizzo finale e allo smaltimento.
+                            </p>
+                            <p>
+                                Calcolare l’impronta di carbonio serve a prendere coscienza di quanto inquiniamo e ad individuare i punti in cui è possibile tagliare le emissioni. A livello personale e infrastrutturale, possiamo intervenire ottimizzando i consumi elettrici, scegliendo mezzi di trasporto a basso impatto ambientale (come treni o biciclette) o potenziando l’efficienza energetica e termica delle nostre abitazioni e uffici. In sintesi, è la base scientifica di ogni politica ecologica moderna.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Item 2: Carbon Neutrality -->
+                    <div class="reveal-on-scroll">
+                        <div class="flex items-center gap-3 mb-4">
+                            <span class="w-8 h-8 rounded-full bg-teal-50 text-accent flex items-center justify-center font-bold text-sm">2</span>
+                            <h2 class="font-display text-2xl md:text-[1.75rem] font-bold text-primary">Carbon Neutrality (Neutralità Climatica)</h2>
+                        </div>
+                        <div class="text-[1.05rem] text-text-medium leading-relaxed space-y-5">
+                            <p>
+                                La <strong>carbon neutrality</strong> è lo stato di perfetto equilibrio in cui le emissioni di anidride carbonica antropiche vengono completamente bilanciate da attività di rimozione o assorbimento equivalenti, portando ad un bilancio finale pari a <strong>zero emissioni nette</strong>. Tutta la CO₂ che immettiamo nell'ecosistema deve quindi essere "catturata" per non alterare l'effetto serra del pianeta.
+                            </p>
+                            <p>
+                                Il raggiungimento di questo traguardo si basa su due pilastri fondamentali. Il primo è la <strong>riduzione drastica delle emissioni alla sorgente</strong>, convertendo l'approvvigionamento energetico verso fonti rinnovabili (solare, eolico, idroelettrico) ed incrementando l'efficienza. Il secondo pilastro è la <strong>compensazione attiva</strong>, ovvero la rimozione fisica della CO₂ tramite la riforestazione e lo sviluppo di tecnologie innovative di cattura e stoccaggio geologico del carbonio (CCS - Carbon Capture and Storage).
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Item 3: Green Computing -->
+                    <div class="reveal-on-scroll">
+                        <div class="flex items-center gap-3 mb-4">
+                            <span class="w-8 h-8 rounded-full bg-teal-50 text-accent flex items-center justify-center font-bold text-sm">3</span>
+                            <h2 class="font-display text-2xl md:text-[1.75rem] font-bold text-primary">Green Computing (Informatica Verde)</h2>
+                        </div>
+                        <div class="text-[1.05rem] text-text-medium leading-relaxed space-y-5">
+                            <p>
+                                Il <strong>green computing</strong> è la disciplina dell'ingegneria informatica che studia la progettazione, la produzione, l'utilizzo e lo smaltimento delle tecnologie in modo ecosostenibile. Spesso riteniamo che il mondo digitale non inquini, ma i server, i giganteschi data center che ospitano il Cloud e i miliardi di dispositivi connessi consumano ogni giorno una quantità enorme di energia elettrica, contribuendo in modo significativo alle emissioni globali.
+                            </p>
+                            <p>
+                                Questa disciplina focalizza la sua attenzione su quattro aree d'azione:
+                            </p>
+                            <ul class="list-none space-y-3 pl-4 border-l-2 border-accent/25 my-4">
+                                <li class="flex items-start gap-2 text-[0.98rem]">
+                                    <i class="ri-checkbox-circle-line text-accent mt-1"></i>
+                                    <span><strong>Efficienza Hardware:</strong> Progettare processori e chip a basso consumo.</span>
+                                </li>
+                                <li class="flex items-start gap-2 text-[0.98rem]">
+                                    <i class="ri-checkbox-circle-line text-accent mt-1"></i>
+                                    <span><strong>Data Center Ecosostenibili:</strong> Migliorare il PUE (Power Usage Effectiveness) tramite raffreddamento avanzato e alimentazione 100% verde.</span>
+                                </li>
+                                <li class="flex items-start gap-2 text-[0.98rem]">
+                                    <i class="ri-checkbox-circle-line text-accent mt-1"></i>
+                                    <span><strong>Riduzione dei Rifiuti Elettronici (E-waste):</strong> Combattere l'obsolescenza programmata riciclando i metalli preziosi contenuti nei device.</span>
+                                </li>
+                                <li class="flex items-start gap-2 text-[0.98rem]">
+                                    <i class="ri-checkbox-circle-line text-accent mt-1"></i>
+                                    <span><strong>Algoritmi e Software Green:</strong> Sviluppare codice leggero, ottimizzato e reattivo che riduce i cicli di clock della CPU/GPU.</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Item 4: Green Deal Europeo -->
+                    <div class="reveal-on-scroll">
+                        <div class="flex items-center gap-3 mb-4">
+                            <span class="w-8 h-8 rounded-full bg-teal-50 text-accent flex items-center justify-center font-bold text-sm">4</span>
+                            <h2 class="font-display text-2xl md:text-[1.75rem] font-bold text-primary">Green Deal Europeo</h2>
+                        </div>
+                        <div class="text-[1.05rem] text-text-medium leading-relaxed space-y-5">
+                            <p>
+                                Il <strong>Green Deal europeo</strong> è il piano d'azione strategico e legislativo varato dall'Unione Europea con lo scopo ambizioso di attuare una profonda transizione ecologica ed economica per rendere l'intera Europa il primo continente a impatto climatico zero. Questo processo di trasformazione tocca in maniera trasversale l'industria pesante, la mobilità, il settore agrario, le reti energetiche e l'edilizia civile.
+                            </p>
+                            <p>
+                                Tra le scadenze legali definite dal patto vi è la riduzione netta delle emissioni di gas serra di almeno il <strong>55% entro il 2030</strong> rispetto ai livelli registrati nel 1990, per giungere poi alla <strong>completa neutralità climatica entro il 2050</strong>. La strategia poggia sull'impulso all'economia circolare, sulla progressiva elettrificazione del trasporto pubblico e privato, e sul finanziamento di progetti infrastrutturali ecologici per garantire una crescita inclusiva e rispettosa delle risorse terrestri.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Item 5: Agenda 2030 -->
+                    <div class="reveal-on-scroll">
+                        <div class="flex items-center gap-3 mb-4">
+                            <span class="w-8 h-8 rounded-full bg-teal-50 text-accent flex items-center justify-center font-bold text-sm">5</span>
+                            <h2 class="font-display text-2xl md:text-[1.75rem] font-bold text-primary">Agenda 2030 delle Nazioni Unite</h2>
+                        </div>
+                        <div class="text-[1.05rem] text-text-medium leading-relaxed space-y-5">
+                            <p>
+                                Adottata da tutti i 193 Paesi membri dell'ONU nel 2015, l'<strong>Agenda 2030 per lo Sviluppo Sostenibile</strong> è un programma d'azione globale strutturato in <strong>17 Obiettivi di Sviluppo Sostenibile</strong> (SDGs - Sustainable Development Goals) e 169 traguardi specifici. Il piano unisce in modo indissolubile la sostenibilità ambientale al progresso sociale ed economico, focalizzandosi anche su istruzione, uguaglianza sociale ed eliminazione della povertà estrema.
+                            </p>
+                            <p>
+                                All'interno dell'Agenda, le materie scientifiche ed informatiche giocano un ruolo cruciale nel raggiungimento di obiettivi chiave come l'<strong>Obiettivo 7</strong> (Energia pulita e accessibile), l'<strong>Obiettivo 12</strong> (Consumo e produzione responsabili) e l'<strong>Obiettivo 13</strong> (Lotta al cambiamento climatico), offrendo soluzioni concrete per ottimizzare le reti di distribuzione e monitorare l'inquinamento atmosferico su scala globale.
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Right Column: Interactive Widgets -->
+                <div class="lg:col-span-5 relative">
+                    <div class="sticky top-32 space-y-8">
+                        
+                        <!-- Interactive Carbon Footprint Calculator -->
+                        <div class="bg-bg-light border border-border-color rounded-2xl p-6 shadow-sm reveal-on-scroll">
+                            <h3 class="font-display text-lg font-bold text-primary mb-1">Calcolatore di CO₂ Digitale</h3>
+                            <p class="text-xs text-text-light mb-6">Misura l'impatto ambientale giornaliero dei tuoi consumi di rete.</p>
+                            
+                            <div class="space-y-5">
+                                <!-- Stream slider -->
+                                <div class="space-y-2">
+                                    <div class="flex justify-between text-xs font-semibold text-text-dark">
+                                        <span>Streaming Video (HD)</span>
+                                        <span id="streaming-val" class="text-accent">2 ore</span>
+                                    </div>
+                                    <input type="range" min="0" max="10" value="2" class="custom-slider" id="streaming-slider">
+                                </div>
+
+                                <!-- Emails slider -->
+                                <div class="space-y-2">
+                                    <div class="flex justify-between text-xs font-semibold text-text-dark">
+                                        <span>E-mail inviate/ricevute</span>
+                                        <span id="email-val" class="text-accent">20 email</span>
+                                    </div>
+                                    <input type="range" min="0" max="100" value="20" class="custom-slider" id="email-slider">
+                                </div>
+
+                                <!-- Social slider -->
+                                <div class="space-y-2">
+                                    <div class="flex justify-between text-xs font-semibold text-text-dark">
+                                        <span>Social Media Scroll</span>
+                                        <span id="social-val" class="text-accent">1 ora</span>
+                                    </div>
+                                    <input type="range" min="0" max="8" value="1" class="custom-slider" id="social-slider">
+                                </div>
+                            </div>
+                            
+                            <!-- Dynamic Results Panel -->
+                            <div class="mt-8 pt-6 border-t border-border-color space-y-4">
+                                <div class="flex justify-between items-center">
+                                    <span class="text-xs font-semibold text-text-medium uppercase tracking-wider">CO₂ prodotta al giorno</span>
+                                    <span class="text-2xl font-extrabold text-primary" id="daily-co2">0.52 kg</span>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-xs font-semibold text-text-medium uppercase tracking-wider">CO₂ prodotta all'anno</span>
+                                    <span class="text-lg font-bold text-accent" id="yearly-co2">189.8 kg</span>
+                                </div>
+                                <div class="flex justify-between items-center text-[0.8rem] bg-accent-soft p-3.5 rounded-lg border border-accent/15">
+                                    <span class="text-text-medium font-medium leading-tight">Alberi necessari all'anno per assorbirla:</span>
+                                    <span class="font-extrabold text-accent text-[1.1rem]" id="trees-required">9 alberi</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Chart.js - Carbon Share of Digital Infrastructure -->
+                        <div class="bg-bg-light border border-border-color rounded-2xl p-6 shadow-sm reveal-on-scroll" style="animation-delay: 150ms;">
+                            <h3 class="font-display text-lg font-bold text-primary mb-1 text-center">Consumo Energetico ICT</h3>
+                            <p class="text-[0.7rem] uppercase tracking-wider text-text-light text-center mb-6">Divisione per componenti tecnologici</p>
+                            
+                            <div class="max-w-[85%] mx-auto">
+                                <canvas id="greenChart" width="300" height="300"></canvas>
+                            </div>
+                            <p class="text-center text-[0.75rem] text-text-light mt-4 italic">
+                                Fonte: Analisi del Green Computing su Data Center e Reti globali.
+                            </p>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-primary text-white/70 py-16 border-t border-white/5">
+        <div class="max-w-[1200px] mx-auto px-6 text-center">
+            <a href="../index.html" class="font-display text-[2rem] font-extrabold text-white mb-4 inline-block tracking-[-0.03em]">
+                <span class="text-accent">A</span>S
+            </a>
+            <p class="text-sm text-white/50 mb-6">Portfolio Esame di Stato 2025/2026</p>
+            <div class="border-t border-white/10 pt-6 text-xs text-white/40">
+                <p>&copy; 2026 Alessio Saulli. Tutti i diritti riservati.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Initialization Scripts -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // 1. Calculator Logic
+            const streamSlider = document.getElementById('streaming-slider');
+            const emailSlider = document.getElementById('email-slider');
+            const socialSlider = document.getElementById('social-slider');
+
+            const streamVal = document.getElementById('streaming-val');
+            const emailVal = document.getElementById('email-val');
+            const socialVal = document.getElementById('social-val');
+
+            const dailyCo2El = document.getElementById('daily-co2');
+            const yearlyCo2El = document.getElementById('yearly-co2');
+            const treesEl = document.getElementById('trees-required');
+
+            // Emission constants (kg CO2 per unit)
+            // 1 hour HD streaming = ~0.24 kg CO2
+            // 1 email = ~0.004 kg CO2
+            // 1 hour social media scroll = ~0.08 kg CO2
+            // 1 mature tree absorbs ~22 kg CO2 per year
+            const STREAM_CO2 = 0.24;
+            const EMAIL_CO2 = 0.004;
+            const SOCIAL_CO2 = 0.08;
+            const TREE_ABSORPTION = 22;
+
+            function calculateImpact() {
+                const streamHrs = parseFloat(streamSlider.value);
+                const emails = parseFloat(emailSlider.value);
+                const socialHrs = parseFloat(socialSlider.value);
+
+                // Update text
+                streamVal.textContent = streamHrs + (streamHrs === 1 ? ' ora' : ' ore');
+                emailVal.textContent = emails + (emails === 1 ? ' email' : ' email');
+                socialVal.textContent = socialHrs + (socialHrs === 1 ? ' ora' : ' ore');
+
+                // Calculation
+                const daily = (streamHrs * STREAM_CO2) + (emails * EMAIL_CO2) + (socialHrs * SOCIAL_CO2);
+                const yearly = daily * 365;
+                const trees = Math.ceil(yearly / TREE_ABSORPTION);
+
+                // Display
+                dailyCo2El.textContent = daily.toFixed(2) + ' kg';
+                yearlyCo2El.textContent = yearly.toFixed(1) + ' kg';
+                treesEl.textContent = trees + (trees === 1 ? ' albero' : ' alberi');
+            }
+
+            streamSlider.addEventListener('input', calculateImpact);
+            emailSlider.addEventListener('input', calculateImpact);
+            socialSlider.addEventListener('input', calculateImpact);
+
+            calculateImpact(); // Initial run
+
+            // 2. Chart.js Logic
+            const ctx = document.getElementById('greenChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Data Center & Server', 'Dispositivi Utente', 'Infrastruttura di Rete'],
+                    datasets: [{
+                        data: [45, 30, 25],
+                        backgroundColor: [
+                            '#0f766e', // Teal-700
+                            '#14b8a6', // Teal-500
+                            '#5eead4'  // Teal-300
+                        ],
+                        borderWidth: 2,
+                        borderColor: '#f8fafc',
+                        hoverOffset: 6
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    cutout: '70%',
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                font: { family: 'Inter', size: 10 },
+                                color: '#475569',
+                                boxWidth: 10
+                            }
+                        },
+                        tooltip: {
+                            backgroundColor: '#10223e',
+                            titleFont: { family: 'Inter', size: 12 },
+                            bodyFont: { family: 'Inter', size: 11, weight: 'bold' }
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+    <script src="../app.js"></script>
+</body>
+
+</html>

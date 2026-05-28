@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TPSIT & Blockchain – Educazione Civica</title>
+    <meta name="description"
+        content="Percorso interdisciplinare sulla tecnologia Blockchain, la crittografia distribuita, Proof of Work e smart contract." />
+
+    <!-- Google Fonts & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet" />
+
+    <!-- Tailwind & Custom Config -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#10223e',
+                        accent: '#6366f1', // Indigo Cyber
+                        'accent-hover': '#4f46e5',
+                        'accent-soft': 'rgba(99, 102, 241, 0.06)',
+                        'text-dark': '#1e293b',
+                        'text-medium': '#475569',
+                        'text-light': '#64748b',
+                        'bg-light': '#f8fafc',
+                        'border-color': '#e2e8f0',
+                        'cyber-dark': '#0b0f19',
+                        'cyber-accent': '#8b5cf6'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+                        display: ['Outfit', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <link rel="stylesheet" href="../style.css" />
+
+    <style>
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+        }
+
+        .hero-gradient {
+            background: radial-gradient(circle at 10% 20%, rgba(99, 102, 241, 0.05) 0%, rgba(255, 255, 255, 0) 90%);
+        }
+
+        .blockchain-card {
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .block-valid {
+            border-color: rgba(16, 185, 129, 0.4);
+            background: rgba(240, 253, 250, 0.8);
+        }
+
+        .block-invalid {
+            border-color: rgba(239, 68, 68, 0.4);
+            background: rgba(254, 242, 242, 0.8);
+        }
+    </style>
+</head>
+
+<body class="bg-white text-text-dark font-sans antialiased overflow-x-hidden">
+
+    <!-- Scroll Progress Indicator -->
+    <div id="scroll-progress" class="fixed top-0 left-0 h-0.5 bg-accent z-[9999] transition-all duration-100 ease-out"
+        style="width: 0%;"></div>
+
+    <!-- Navigation Header -->
+    <header id="main-header"
+        class="fixed top-0 left-0 w-full z-[1000] transition-all duration-500 py-6 border-b border-transparent bg-white/90 backdrop-blur-md">
+        <div class="max-w-[1200px] mx-auto px-6 flex items-center justify-between">
+            <a href="../index.html" class="font-display text-2.2xl md:text-2.5xl font-extrabold text-primary tracking-[-0.03em]">
+                <span class="text-accent">A</span>S
+            </a>
+
+            <nav id="nav-menu" class="hidden md:block">
+                <ul class="flex items-center gap-9">
+                    <li><a href="../index.html#hero"
+                            class="nav-link text-[0.92rem] font-medium text-text-medium hover:text-primary transition-all relative py-1">Home</a>
+                    </li>
+                    <li><a href="../index.html#presentazione"
+                            class="nav-link text-[0.92rem] font-medium text-text-medium hover:text-primary transition-all relative py-1">Chi
+                            Sono</a></li>
+                    <li><a href="../nav items/edc.html"
+                            class="nav-link active text-[0.92rem] font-medium text-text-medium hover:text-primary transition-all relative py-1">Educazione Civica</a></li>
+                    <li><a href="../nav items/pcto.html"
+                            class="nav-link text-[0.92rem] font-medium text-text-medium hover:text-primary transition-all relative py-1">PCTO</a>
+                    </li>
+                    <li><a href="../nav items/capolavori.html"
+                            class="nav-link text-[0.92rem] font-medium text-text-medium hover:text-primary transition-all relative py-1">Capolavori</a>
+                    </li>
+                </ul>
+            </nav>
+
+            <div class="header-cta hidden md:block">
+                <a href="../nav items/edc.html"
+                    class="btn btn-sm btn-outline text-accent border border-accent hover:bg-accent hover:text-white px-5 py-2 rounded font-medium text-sm transition-all flex items-center gap-1.5"><i
+                        class="ri-arrow-left-line"></i> Torna a Ed. Civica</a>
+            </div>
+
+            <button
+                class="mobile-nav-toggle md:hidden bg-transparent border-0 text-2xl text-primary cursor-pointer z-[1001]"
+                id="mobile-toggle" aria-label="Apri menu">
+                <i class="ri-menu-line"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative pt-36 pb-20 md:pt-48 md:pb-32 border-b border-border-color hero-gradient overflow-hidden">
+        <div class="max-w-[1200px] mx-auto px-6 relative z-[2]">
+            <!-- Breadcrumbs -->
+            <div class="flex items-center gap-2 mb-6 animate-fade-in-up" style="animation-delay: 100ms;">
+                <a href="../index.html" class="text-xs uppercase tracking-[0.1em] text-accent font-bold hover:underline flex items-center gap-1">
+                    <i class="ri-home-4-line"></i> Home
+                </a>
+                <span class="text-xs text-text-light"><i class="ri-arrow-right-s-line"></i></span>
+                <a href="../nav items/edc.html" class="text-xs uppercase tracking-[0.1em] text-accent font-bold hover:underline">
+                    Educazione Civica
+                </a>
+                <span class="text-xs text-text-light"><i class="ri-arrow-right-s-line"></i></span>
+                <span class="text-xs uppercase tracking-[0.1em] text-text-light font-bold">TPSIT & Blockchain</span>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+                <!-- Text Intro -->
+                <div class="lg:col-span-7 reveal-on-scroll">
+                    <span class="text-xs uppercase tracking-[0.2em] bg-indigo-50 text-accent font-bold px-3 py-1.5 rounded mb-4 inline-block">
+                        TPSIT & Cittadinanza Digitale
+                    </span>
+                    <h1 class="font-display text-4xl md:text-[3.5rem] font-extrabold text-primary tracking-[-0.03em] leading-[1.08] mb-6">
+                        Tecnologia <span class="text-accent">Blockchain</span>
+                    </h1>
+                    <p class="text-lg md:text-xl text-text-medium leading-relaxed mb-8">
+                        L'infrastruttura crittografica e distribuita che sta rivoluzionando la certificazione digitale, i contratti intelligenti e il concetto stesso di fiducia digitale e decentralizzazione.
+                    </p>
+                    <div class="flex gap-3 flex-wrap">
+                        <span class="text-[0.78rem] font-semibold uppercase tracking-wider bg-bg-light text-text-medium px-4 py-2 rounded border border-border-color flex items-center gap-1.5">
+                            <i class="ri-safe-2-line text-accent text-sm"></i> Crittografia P2P
+                        </span>
+                        <span class="text-[0.78rem] font-semibold uppercase tracking-wider bg-bg-light text-text-medium px-4 py-2 rounded border border-border-color flex items-center gap-1.5">
+                            <i class="ri-lock-password-line text-accent text-sm"></i> Proof of Work
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Portrait Graphic -->
+                <div class="lg:col-span-5 reveal-on-scroll" style="animation-delay: 200ms;">
+                    <div class="relative w-full aspect-[4/5] rounded-2xl overflow-hidden group shadow-2xl">
+                        <div class="absolute inset-0 bg-cyber-dark/20 group-hover:bg-transparent transition-colors duration-500 z-10"></div>
+                        <img src="https://imgcdn.agendadigitale.eu/wp-content/uploads/2019/01/22074125/blockchain-1.jpg" 
+                             alt="Blockchain Architecture" 
+                             class="w-full h-full object-cover group-hover:scale-105 transition-all duration-700 ease-out" />
+                        
+                        <div class="absolute bottom-6 left-6 right-6 z-20 glass-panel p-4 rounded-xl opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500">
+                            <p class="text-[0.8rem] font-bold text-primary uppercase tracking-wider mb-1">Catena di Blocchi</p>
+                            <p class="text-[0.75rem] text-text-medium leading-tight">Dati protetti da hash concatenati e calcolo crittografico.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Essay Content -->
+    <section class="py-20 md:py-32 bg-white">
+        <div class="max-w-[1200px] mx-auto px-6">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 relative">
+                
+                <!-- Left Column: Discursive Text -->
+                <div class="lg:col-span-7 space-y-16">
+                    
+                    <!-- Section 1 -->
+                    <div class="reveal-on-scroll">
+                        <div class="flex items-center gap-3 mb-4">
+                            <span class="w-8 h-8 rounded-full bg-indigo-50 text-accent flex items-center justify-center font-bold text-sm">1</span>
+                            <h2 class="font-display text-2xl md:text-[1.75rem] font-bold text-primary">Le Origini Storiche della Blockchain</h2>
+                        </div>
+                        <div class="text-[1.05rem] text-text-medium leading-relaxed space-y-5">
+                            <p>
+                                Contrariamente a quanto si possa pensare, la tecnologia alla base delle criptovalute non è recentissima. La blockchain è stata ideata originariamente nel <strong>1991</strong> da due ricercatori americani (Stuart Haber e W. Scott Stornetta). Il loro intento iniziale non era affatto quello di coniare monete digitali private, ma piuttosto di realizzare una sorta di <strong>“notaio digitale”</strong>: un sistema crittografico sicuro che potesse vidimare e apporre marche temporali a documenti digitali, impedendo che venissero retrodatati o in qualsiasi modo manomessi.
+                            </p>
+                            <p>
+                                Nonostante l’importanza cruciale di questa invenzione, l’idea rimase sostanzialmente inutilizzata nei cassetti della crittografia accademica fino al <strong>2008</strong>, quando un personaggio o gruppo misterioso noto con lo pseudonimo di <strong>Satoshi Nakamoto</strong> (la cui vera identità è ad oggi ancora sconosciuta) la sfruttò per dare vita al Bitcoin, la prima moneta digitale decentralizzata e la prima blockchain pubblica della storia.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Section 2 -->
+                    <div class="reveal-on-scroll">
+                        <div class="flex items-center gap-3 mb-4">
+                            <span class="w-8 h-8 rounded-full bg-indigo-50 text-accent flex items-center justify-center font-bold text-sm">2</span>
+                            <h2 class="font-display text-2xl md:text-[1.75rem] font-bold text-primary">Struttura dei Blocchi</h2>
+                        </div>
+                        <div class="text-[1.05rem] text-text-medium leading-relaxed space-y-5">
+                            <p>
+                                In sintesi, la blockchain è un **registro o archivio digitale condiviso, distribuito e decentralizzato**, accessibile e consultabile in tempo reale da chiunque faccia parte della rete paritaria. È strutturato in modo da rendere i dati memorizzati virtualmente impossibili da modificare o cancellare una volta che sono stati registrati e convalidati. Il termine inglese “blockchain” significa letteralmente **“catena di blocchi”**. Ogni blocco è composto da tre elementi fondamentali:
+                            </p>
+                            <ul class="list-none space-y-3 pl-4 border-l-2 border-accent/25 my-4">
+                                <li class="flex items-start gap-2 text-[0.98rem]">
+                                    <i class="ri-database-line text-accent mt-1"></i>
+                                    <span><strong>I Dati Memorizzati:</strong> Le informazioni contenute cambiano in base all'uso della catena. Nel Bitcoin, ad esempio, contengono i dettagli delle transazioni stradate (mittente, destinatario, importo).</span>
+                                </li>
+                                <li class="flex items-start gap-2 text-[0.98rem]">
+                                    <i class="ri-fingerprint-line text-accent mt-1"></i>
+                                    <span><strong>L'Hash del Blocco:</strong> È una stringa alfanumerica calcolata algoritmicamente che funge da impronta digitale unica per quel preciso blocco e per il suo intero contenuto. Se anche un singolo bit all'interno del blocco viene alterato, l'hash cambia istantaneamente.</span>
+                                </li>
+                                <li class="flex items-start gap-2 text-[0.98rem]">
+                                    <i class="ri-links-line text-accent mt-1"></i>
+                                    <span><strong>L'Hash del Blocco Precedente:</strong> Il vero legame della catena. Ogni blocco memorizza l'impronta del blocco antecedente, creando un legame sequenziale indissolubile. Il primo blocco in assoluto, privo di predecessore, viene chiamato <strong>Genesis Block</strong> (Blocco Genesi).</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Section 3 -->
+                    <div class="reveal-on-scroll">
+                        <div class="flex items-center gap-3 mb-4">
+                            <span class="w-8 h-8 rounded-full bg-indigo-50 text-accent flex items-center justify-center font-bold text-sm">3</span>
+                            <h2 class="font-display text-2xl md:text-[1.75rem] font-bold text-primary">Meccanismi di Sicurezza: Hash e Proof of Work</h2>
+                        </div>
+                        <div class="text-[1.05rem] text-text-medium leading-relaxed space-y-5">
+                            <p>
+                                La concatenazione tramite hash garantisce una prima barriera di protezione logica: se un malintenzionato provasse a manomettere i dati all'interno del secondo blocco di una catena, il suo hash cambierebbe di conseguenza. Ciò invaliderebbe all'istante il terzo blocco, perché l'hash memorizzato in esso non corrisponderebbe più al nuovo hash calcolato sul secondo. 
+                            </p>
+                            <p>
+                                Tuttavia, la sola concatenazione non basta. I moderni calcolatori e i sistemi hardware di calcolo sono incredibilmente veloci, tanto da poter ricalcolare milioni di hash al secondo e falsificare un'intera catena in frazioni di secondo. Per scongiurare questo pericolo, è stato introdotto il meccanismo della <strong>Proof of Work (PoW)</strong>. Si tratta di un algoritmo crittografico che richiede l'esecuzione di calcoli matematici estremamente dispendiosi e asimmetrici (difficili da produrre ma facilissimi da verificare). Nella rete Bitcoin, la PoW fa sì che per minare ed aggiungere un nuovo blocco occorrano circa <strong>10 minuti</strong> di calcolo energetico globale, rendendo ogni tentativo di ricalcolo tecnologicamente e finanziariamente insostenibile.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Section 4 -->
+                    <div class="reveal-on-scroll">
+                        <div class="flex items-center gap-3 mb-4">
+                            <span class="w-8 h-8 rounded-full bg-indigo-50 text-accent flex items-center justify-center font-bold text-sm">4</span>
+                            <h2 class="font-display text-2xl md:text-[1.75rem] font-bold text-primary">La Forza della Decentralizzazione</h2>
+                        </div>
+                        <div class="text-[1.05rem] text-text-medium leading-relaxed space-y-5">
+                            <p>
+                                Il secondo pilastro che blinda la blockchain è la sua natura <strong>decentralizzata</strong>. Il registro non è conservato su un singolo server centrale di un'autorità (come una banca centrale), ma è replicato su una rete globale di nodi **peer-to-peer (P2P)**. Ciascun nodo possiede una copia identica e validata dell'intera catena. 
+                            </p>
+                            <p>
+                                Ogni volta che viene proposto un nuovo blocco, tutti i computer della rete eseguono algoritmi di consenso indipendenti per validarlo. Per compromettere con successo il registro, un hacker dovrebbe compiere un'operazione fantascientifica: alterare i blocchi locali, ricalcolare la Proof of Work per ciascuno di essi, e assumere il controllo di almeno il <strong>51% dei nodi attivi dell'intera rete globale</strong> contemporaneamente.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Section 5 -->
+                    <div class="reveal-on-scroll">
+                        <div class="flex items-center gap-3 mb-4">
+                            <span class="w-8 h-8 rounded-full bg-indigo-50 text-accent flex items-center justify-center font-bold text-sm">5</span>
+                            <h2 class="font-display text-2xl md:text-[1.75rem] font-bold text-primary">I Possibili Utilizzi Futuri</h2>
+                        </div>
+                        <div class="text-[1.05rem] text-text-medium leading-relaxed space-y-5">
+                            <p>
+                                Sebbene oggi la blockchain sia associata principalmente alle criptovalute come il Bitcoin, le sue applicazioni sono sterminate. Essa viene impiegata per registrare ed eseguire **Smart Contract** (contratti intelligenti digitali auto-eseguibili), per gestire cartelle cliniche crittografate accessibili solo al personale medico e al paziente in modo sicuro, o nel mondo dell'arte digitale tramite gli **NFT (Non-Fungible Token)**, che certificano la proprietà e l'autenticità di beni digitali intangibili.
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Right Column: Interactive Sandbox Simulator -->
+                <div class="lg:col-span-5 relative">
+                    <div class="sticky top-32 space-y-8">
+                        
+                        <!-- Blockchain Simulator Widget -->
+                        <div class="bg-bg-light border border-border-color rounded-2xl p-6 shadow-sm reveal-on-scroll">
+                            <h3 class="font-display text-lg font-bold text-primary mb-1">Blockchain Sandbox</h3>
+                            <p class="text-xs text-text-light mb-6">Modifica i dati dei blocchi e osserva la rottura della catena. Clicca su "Mine" per ricalcolare la Proof of Work.</p>
+                            
+                            <div class="space-y-6">
+                                <!-- Block 1 -->
+                                <div id="block-1-card" class="blockchain-card p-4 rounded-xl border-2 block-valid transition-colors">
+                                    <div class="flex justify-between items-center mb-3">
+                                        <span class="text-xs font-bold text-primary uppercase">Blocco 1 (Genesis)</span>
+                                        <span class="text-[0.65rem] font-semibold bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded" id="block-1-status">Valido</span>
+                                    </div>
+                                    <div class="space-y-3">
+                                        <div class="flex gap-2 items-center">
+                                            <label class="text-[0.7rem] font-bold text-text-medium w-16">Data:</label>
+                                            <input type="text" id="block-1-data" value="Alessio invia 0.5 BTC a prof." class="w-full bg-white border border-border-color rounded px-2.5 py-1 text-xs focus:outline-none focus:border-accent">
+                                        </div>
+                                        <div class="flex gap-2 items-center">
+                                            <label class="text-[0.7rem] font-bold text-text-medium w-16">Nonce:</label>
+                                            <input type="number" id="block-1-nonce" value="84" class="w-full bg-white border border-border-color rounded px-2.5 py-1 text-xs focus:outline-none focus:border-accent">
+                                        </div>
+                                        <div class="text-[0.65rem] space-y-1 pt-2 border-t border-dashed border-border-color font-mono text-text-light">
+                                            <div class="flex justify-between">
+                                                <span>Prev Hash:</span>
+                                                <span class="text-slate-400">0000000000000000000</span>
+                                            </div>
+                                            <div class="flex justify-between font-bold text-primary">
+                                                <span>Hash:</span>
+                                                <span id="block-1-hash" class="text-accent">00fa827bc82e9d...</span>
+                                            </div>
+                                        </div>
+                                        <button id="block-1-mine" class="w-full mt-2 bg-accent hover:bg-accent-hover text-white text-xs font-semibold py-1.5 rounded transition-all flex items-center justify-center gap-1">
+                                            <i class="ri-hammer-line"></i> Mine Block 1
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <!-- Link Indicator -->
+                                <div class="flex justify-center -my-3">
+                                    <div class="h-6 w-0.5 bg-accent/30 border-dashed border-l-2"></div>
+                                </div>
+
+                                <!-- Block 2 -->
+                                <div id="block-2-card" class="blockchain-card p-4 rounded-xl border-2 block-valid transition-colors">
+                                    <div class="flex justify-between items-center mb-3">
+                                        <span class="text-xs font-bold text-primary uppercase">Blocco 2</span>
+                                        <span class="text-[0.65rem] font-semibold bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded" id="block-2-status">Valido</span>
+                                    </div>
+                                    <div class="space-y-3">
+                                        <div class="flex gap-2 items-center">
+                                            <label class="text-[0.7rem] font-bold text-text-medium w-16">Data:</label>
+                                            <input type="text" id="block-2-data" value="Prof invia NFT a classe 5A." class="w-full bg-white border border-border-color rounded px-2.5 py-1 text-xs focus:outline-none focus:border-accent">
+                                        </div>
+                                        <div class="flex gap-2 items-center">
+                                            <label class="text-[0.7rem] font-bold text-text-medium w-16">Nonce:</label>
+                                            <input type="number" id="block-2-nonce" value="1092" class="w-full bg-white border border-border-color rounded px-2.5 py-1 text-xs focus:outline-none focus:border-accent">
+                                        </div>
+                                        <div class="text-[0.65rem] space-y-1 pt-2 border-t border-dashed border-border-color font-mono text-text-light">
+                                            <div class="flex justify-between">
+                                                <span>Prev Hash:</span>
+                                                <span id="block-2-prev" class="text-text-medium">00fa827bc82e9d...</span>
+                                            </div>
+                                            <div class="flex justify-between font-bold text-primary">
+                                                <span>Hash:</span>
+                                                <span id="block-2-hash" class="text-accent">00bcd732e65d8a...</span>
+                                            </div>
+                                        </div>
+                                        <button id="block-2-mine" class="w-full mt-2 bg-accent hover:bg-accent-hover text-white text-xs font-semibold py-1.5 rounded transition-all flex items-center justify-center gap-1">
+                                            <i class="ri-hammer-line"></i> Mine Block 2
+                                        </button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-primary text-white/70 py-16 border-t border-white/5">
+        <div class="max-w-[1200px] mx-auto px-6 text-center">
+            <a href="../index.html" class="font-display text-[2rem] font-extrabold text-white mb-4 inline-block tracking-[-0.03em]">
+                <span class="text-accent">A</span>S
+            </a>
+            <p class="text-sm text-white/50 mb-6">Portfolio Esame di Stato 2025/2026</p>
+            <div class="border-t border-white/10 pt-6 text-xs text-white/40">
+                <p>&copy; 2026 Alessio Saulli. Tutti i diritti riservati.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Blockchain Logic -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // SHA-256 Simulation Helper (FNV-1a based simple cryptographic string output)
+            function calculateSimHash(blockNum, data, prevHash, nonce) {
+                const rawString = blockNum.toString() + data + prevHash + nonce.toString();
+                let hash = 2166136261;
+                for (let i = 0; i < rawString.length; i++) {
+                    hash ^= rawString.charCodeAt(i);
+                    hash += (hash << 1) + (hash << 4) + (hash << 7) + (hash << 8) + (hash << 24);
+                }
+                let hex = (hash >>> 0).toString(16).padStart(8, '0');
+                
+                // Add more characters to simulate standard 64-char Hash
+                let extra = "";
+                const chars = "abcdef0123456789";
+                for (let i = 0; i < 40; i++) {
+                    let cIndex = (rawString.charCodeAt(i % rawString.length) * (i + 1) + nonce) % chars.length;
+                    extra += chars[cIndex];
+                }
+                
+                // Difficulty simulation target logic
+                // If it meets our custom mining criteria (nonce-based modulo), prepend "00" to make it valid
+                // This makes mining possible and predictable in few steps!
+                const isMined = (nonce % 73) === 17 || (data === "Alessio invia 0.5 BTC a prof." && nonce == 84) || (data === "Prof invia NFT a classe 5A." && nonce == 1092);
+                if (isMined) {
+                    return "00" + hex.substring(2) + extra.substring(0, 16);
+                } else {
+                    return "a8" + hex.substring(2) + extra.substring(0, 16);
+                }
+            }
+
+            // Elements
+            const b1Data = document.getElementById('block-1-data');
+            const b1Nonce = document.getElementById('block-1-nonce');
+            const b1Hash = document.getElementById('block-1-hash');
+            const b1Card = document.getElementById('block-1-card');
+            const b1Status = document.getElementById('block-1-status');
+            const b1MineBtn = document.getElementById('block-1-mine');
+
+            const b2Data = document.getElementById('block-2-data');
+            const b2Nonce = document.getElementById('block-2-nonce');
+            const b2Hash = document.getElementById('block-2-hash');
+            const b2Prev = document.getElementById('block-2-prev');
+            const b2Card = document.getElementById('block-2-card');
+            const b2Status = document.getElementById('block-2-status');
+            const b2MineBtn = document.getElementById('block-2-mine');
+
+            function updateBlockchain() {
+                // Block 1 Update
+                const hash1 = calculateSimHash(1, b1Data.value, "0000000000000000000", b1Nonce.value);
+                b1Hash.textContent = hash1.substring(0, 24) + "...";
+                
+                const b1IsValid = hash1.startsWith("00");
+                if (b1IsValid) {
+                    b1Card.className = "blockchain-card p-4 rounded-xl border-2 block-valid transition-colors";
+                    b1Status.textContent = "Valido";
+                    b1Status.className = "text-[0.65rem] font-semibold bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded";
+                } else {
+                    b1Card.className = "blockchain-card p-4 rounded-xl border-2 block-invalid transition-colors";
+                    b1Status.textContent = "Non Valido";
+                    b1Status.className = "text-[0.65rem] font-semibold bg-red-100 text-red-800 px-2 py-0.5 rounded";
+                }
+
+                // Block 2 Link Update
+                b2Prev.textContent = hash1.substring(0, 24) + "...";
+
+                // Block 2 Update
+                const hash2 = calculateSimHash(2, b2Data.value, hash1, b2Nonce.value);
+                b2Hash.textContent = hash2.substring(0, 24) + "...";
+
+                const b2IsValid = hash2.startsWith("00") && b1IsValid;
+                if (b2IsValid) {
+                    b2Card.className = "blockchain-card p-4 rounded-xl border-2 block-valid transition-colors";
+                    b2Status.textContent = "Valido";
+                    b2Status.className = "text-[0.65rem] font-semibold bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded";
+                } else {
+                    b2Card.className = "blockchain-card p-4 rounded-xl border-2 block-invalid transition-colors";
+                    b2Status.textContent = "Non Valido";
+                    b2Status.className = "text-[0.65rem] font-semibold bg-red-100 text-red-800 px-2 py-0.5 rounded";
+                }
+            }
+
+            // Real-time Inputs
+            b1Data.addEventListener('input', updateBlockchain);
+            b1Nonce.addEventListener('input', updateBlockchain);
+            b2Data.addEventListener('input', updateBlockchain);
+            b2Nonce.addEventListener('input', updateBlockchain);
+
+            // Mining Logic
+            b1MineBtn.addEventListener('click', function () {
+                b1MineBtn.innerHTML = "<i class='ri-refresh-line animate-spin'></i> Mining...";
+                setTimeout(() => {
+                    let nonce = 0;
+                    while (nonce < 2000) {
+                        const testHash = calculateSimHash(1, b1Data.value, "0000000000000000000", nonce);
+                        if (testHash.startsWith("00")) {
+                            b1Nonce.value = nonce;
+                            break;
+                        }
+                        nonce++;
+                    }
+                    b1MineBtn.innerHTML = "<i class='ri-hammer-line'></i> Mine Block 1";
+                    updateBlockchain();
+                }, 400);
+            });
+
+            b2MineBtn.addEventListener('click', function () {
+                b2MineBtn.innerHTML = "<i class='ri-refresh-line animate-spin'></i> Mining...";
+                setTimeout(() => {
+                    let nonce = 0;
+                    const prevHash = calculateSimHash(1, b1Data.value, "0000000000000000000", b1Nonce.value);
+                    while (nonce < 2000) {
+                        const testHash = calculateSimHash(2, b2Data.value, prevHash, nonce);
+                        if (testHash.startsWith("00")) {
+                            b2Nonce.value = nonce;
+                            break;
+                        }
+                        nonce++;
+                    }
+                    b2MineBtn.innerHTML = "<i class='ri-hammer-line'></i> Mine Block 2";
+                    updateBlockchain();
+                }, 400);
+            });
+
+            updateBlockchain(); // initial calculation
+        });
+    </script>
+    <script src="../app.js"></script>
+</body>
+
+</html>

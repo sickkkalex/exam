@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gaetano Salvemini e il Ministro della Malavita – Storia</title>
+    <meta name="description"
+        content="Analisi storica della critica di Gaetano Salvemini al sistema giolittiano, focalizzata sulle elezioni di Bitonto del 1913." />
+    
+    <!-- Google Fonts & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet" />
+
+    <!-- Tailwind & Custom Config -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#10223e',
+                        accent: '#0c75e6',
+                        'accent-hover': '#0a5db8',
+                        'accent-soft': 'rgba(12, 117, 230, 0.06)',
+                        'text-dark': '#1e293b',
+                        'text-medium': '#475569',
+                        'text-light': '#64748b',
+                        'bg-light': '#f8fafc',
+                        'border-color': '#e2e8f0',
+                        'hist-dark': '#1c1917',
+                        'hist-accent': '#e11d48'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+                        display: ['Outfit', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="../style.css" />
+    
+    <style>
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+        }
+        
+        .hero-gradient {
+            background: radial-gradient(circle at 10% 20%, rgba(225, 29, 72, 0.04) 0%, rgba(255, 255, 255, 0) 90%);
+        }
+
+        /* Timeline Animations */
+        .timeline-node {
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            cursor: pointer;
+        }
+        .timeline-node:hover {
+            transform: scale(1.15);
+            filter: drop-shadow(0 0 8px rgba(225, 29, 72, 0.4));
+        }
+        .timeline-node.active {
+            fill: #e11d48;
+            stroke: #fff;
+            stroke-width: 3px;
+        }
+        
+        .timeline-path {
+            stroke-dasharray: 8;
+            animation: dash 40s linear infinite;
+        }
+
+        @keyframes dash {
+            to { stroke-dashoffset: -1000; }
+        }
+
+        .tab-btn.active {
+            color: #e11d48;
+            border-color: #e11d48;
+            background: rgba(225, 29, 72, 0.04);
+        }
+    </style>
+</head>
+
+<body class="bg-white text-text-dark font-sans antialiased overflow-x-hidden">
+
+    <!-- Scroll Progress Indicator -->
+    <div id="scroll-progress" class="fixed top-0 left-0 h-0.5 bg-hist-accent z-[9999] transition-all duration-100 ease-out"
+        style="width: 0%;"></div>
+
+    <!-- Navigation Header -->
+    <header id="main-header"
+        class="fixed top-0 left-0 w-full z-[1000] transition-all duration-500 py-6 border-b border-transparent bg-white/90 backdrop-blur-md">
+        <div class="max-w-[1200px] mx-auto px-6 flex items-center justify-between">
+            <a href="../index.html" class="font-display text-2.2xl md:text-2.5xl font-extrabold text-primary tracking-[-0.03em]">
+                <span class="text-accent">A</span>S
+            </a>
+
+            <nav id="nav-menu" class="hidden md:block">
+                <ul class="flex items-center gap-9">
+                    <li><a href="../index.html#hero"
+                            class="nav-link text-[0.92rem] font-medium text-text-medium hover:text-primary transition-all relative py-1">Home</a>
+                    </li>
+                    <li><a href="../index.html#presentazione"
+                            class="nav-link text-[0.92rem] font-medium text-text-medium hover:text-primary transition-all relative py-1">Chi
+                            Sono</a></li>
+                    <li><a href="../nav items/edc.html"
+                            class="nav-link active text-[0.92rem] font-medium text-text-medium hover:text-primary transition-all relative py-1">Educazione Civica</a></li>
+                    <li><a href="../nav items/pcto.html"
+                            class="nav-link text-[0.92rem] font-medium text-text-medium hover:text-primary transition-all relative py-1">PCTO</a>
+                    </li>
+                    <li><a href="../nav items/capolavori.html"
+                            class="nav-link text-[0.92rem] font-medium text-text-medium hover:text-primary transition-all relative py-1">Capolavori</a>
+                    </li>
+                </ul>
+            </nav>
+
+            <div class="header-cta hidden md:block">
+                <a href="../nav items/edc.html"
+                    class="btn btn-sm btn-outline text-accent border border-accent hover:bg-accent hover:text-white px-5 py-2 rounded font-medium text-sm transition-all flex items-center gap-1.5"><i
+                        class="ri-arrow-left-line"></i> Torna a Ed. Civica</a>
+            </div>
+
+            <button
+                class="mobile-nav-toggle md:hidden bg-transparent border-0 text-2xl text-primary cursor-pointer z-[1001]"
+                id="mobile-toggle" aria-label="Apri menu">
+                <i class="ri-menu-line"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Hero Title Section -->
+    <section class="relative pt-36 pb-20 md:pt-48 md:pb-32 border-b border-border-color hero-gradient overflow-hidden">
+        <div class="max-w-[1200px] mx-auto px-6 relative z-[2]">
+            <!-- Breadcrumbs -->
+            <div class="flex items-center gap-2 mb-6 animate-fade-in-up" style="animation-delay: 100ms;">
+                <a href="../index.html" class="text-xs uppercase tracking-[0.1em] text-accent font-bold hover:underline flex items-center gap-1">
+                    <i class="ri-home-4-line"></i> Home
+                </a>
+                <span class="text-xs text-text-light"><i class="ri-arrow-right-s-line"></i></span>
+                <a href="../nav items/edc.html" class="text-xs uppercase tracking-[0.1em] text-accent font-bold hover:underline">
+                    Educazione Civica
+                </a>
+                <span class="text-xs text-text-light"><i class="ri-arrow-right-s-line"></i></span>
+                <span class="text-xs uppercase tracking-[0.1em] text-text-light font-bold">Storia & Legalità</span>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+                <!-- Text Intro -->
+                <div class="lg:col-span-7 reveal-on-scroll">
+                    <span class="text-xs uppercase tracking-[0.2em] bg-rose-50 text-hist-accent font-bold px-3 py-1.5 rounded mb-4 inline-block">
+                        Storia & Legalità
+                    </span>
+                    <h1 class="font-display text-4xl md:text-[3.5rem] font-extrabold text-hist-dark tracking-[-0.03em] leading-[1.08] mb-6">
+                        Il Ministro della <span class="text-hist-accent">Malavita</span>
+                    </h1>
+                    <p class="text-lg md:text-xl text-text-medium leading-relaxed mb-8">
+                        La crociata morale di Gaetano Salvemini contro il sistema clientelare giolittiano. Un'analisi delle elezioni truccate di Bitonto del 1913 e della corruzione dello Stato liberale nel Mezzogiorno.
+                    </p>
+                    <div class="flex gap-3 flex-wrap">
+                        <span class="text-[0.78rem] font-semibold uppercase tracking-wider bg-bg-light text-text-medium px-4 py-2 rounded border border-border-color flex items-center gap-1.5">
+                            <i class="ri-scales-3-line text-hist-accent text-sm"></i> Corruzione & Legalità
+                        </span>
+                        <span class="text-[0.78rem] font-semibold uppercase tracking-wider bg-bg-light text-text-medium px-4 py-2 rounded border border-border-color flex items-center gap-1.5">
+                            <i class="ri-map-pin-line text-hist-accent text-sm"></i> Bitonto, 1913
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Salvemini Image Portrait -->
+                <div class="lg:col-span-5 reveal-on-scroll" style="animation-delay: 200ms;">
+                    <div class="relative w-full aspect-[4/5] rounded-2xl overflow-hidden group shadow-2xl">
+                        <div class="absolute inset-0 bg-hist-dark/20 group-hover:bg-transparent transition-colors duration-500 z-10"></div>
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/2/2b/Gaetano_Salvemini_official.jpg" 
+                             alt="Ritratto Ufficiale di Gaetano Salvemini" 
+                             class="w-full h-full object-cover filter grayscale-[40%] group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700 ease-out" />
+                        
+                        <div class="absolute bottom-6 left-6 right-6 z-20 glass-panel p-4 rounded-xl opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500">
+                            <p class="text-[0.8rem] font-bold text-hist-dark uppercase tracking-wider mb-1">Gaetano Salvemini</p>
+                            <p class="text-[0.75rem] text-text-medium leading-tight">Intellettuale, antifascista e voce critica del trasformismo italiano.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content Essay -->
+    <section class="py-20 md:py-32 bg-white">
+        <div class="max-w-[1200px] mx-auto px-6">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 relative">
+                
+                <!-- Left Column: Discursive Text -->
+                <div class="lg:col-span-7 space-y-16">
+                    
+                    <div class="reveal-on-scroll">
+                        <div class="flex items-center gap-3 mb-4">
+                            <span class="w-8 h-8 rounded-full bg-rose-50 text-hist-accent flex items-center justify-center font-bold text-sm">1</span>
+                            <h2 class="font-display text-2xl md:text-[1.75rem] font-bold text-hist-dark">La Sfida a Giolitti</h2>
+                        </div>
+                        <div class="text-[1.05rem] text-text-medium leading-relaxed space-y-5">
+                            <p>
+                                Il pensiero politico di <strong>Gaetano Salvemini</strong> nacque dall'osservazione diretta delle profonde ingiustizie sociali del Mezzogiorno d'Italia. Proveniente da una famiglia modesta di Molfetta, intellettuale di rigore morale e scientifico, egli divenne uno dei più acuti critici del trasformismo giolittiano. A differenza di altri meridionalisti, Salvemini non attribuiva l’arretratezza del Sud solo a fattori economici o storici, ma la vedeva come il <em>risultato di una precisa strategia politica</em>.
+                            </p>
+                            <p>
+                                La sua denuncia più celebre è racchiusa nel pamphlet <strong>Il ministro della mala vita</strong>, pubblicato nel 1910. Il titolo, volutamente provocatorio, era un attacco frontale a Giovanni Giolitti, accusato di governare l’Italia meridionale non attraverso le leggi, ma attraverso un sistema di clientele, violenze e compromessi con la criminalità organizzata. Secondo Salvemini, Giolitti favoriva un ceto politico locale corrotto e violento in cambio di consenso elettorale, trasformando lo Stato in uno strumento di sopraffazione nelle mani di pochi privilegiati.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="reveal-on-scroll">
+                        <div class="flex items-center gap-3 mb-4">
+                            <span class="w-8 h-8 rounded-full bg-rose-50 text-hist-accent flex items-center justify-center font-bold text-sm">2</span>
+                            <h2 class="font-display text-2xl md:text-[1.75rem] font-bold text-hist-dark">Il Legame con Bitonto (1913)</h2>
+                        </div>
+                        <div class="text-[1.05rem] text-text-medium leading-relaxed space-y-5">
+                            <p>
+                                Il legame di Salvemini con <strong>Bitonto</strong> non fu episodico, ma profondo e radicato in una comunanza di ideali democratici. Fu proprio qui che si consumò uno degli episodi più emblematici della degenerazione del sistema. Nel 1913 si tennero le prime elezioni politiche a <em>suffragio quasi universale maschile</em>.
+                            </p>
+                            <p>
+                                Salvemini si candidò nel collegio di Bitonto-Terlizzi-Giovinazzo. Tuttavia, la sua popolarità si scontrò con una vera <strong>macchina del terrore</strong> organizzata dall’avversario governativo, Domenico Cioffrese, il quale, alleato con l'ex sindaco Scivittaro, armò bande di "mazzieri" per intimidire gli oppositori.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="reveal-on-scroll">
+                        <div class="flex items-center gap-3 mb-4">
+                            <span class="w-8 h-8 rounded-full bg-rose-50 text-hist-accent flex items-center justify-center font-bold text-sm">3</span>
+                            <h2 class="font-display text-2xl md:text-[1.75rem] font-bold text-hist-dark">Brogli e il "Tentato Assassinio"</h2>
+                        </div>
+                        <div class="text-[1.05rem] text-text-medium leading-relaxed space-y-5">
+                            <p>
+                                Le forze dell’ordine, il clero locale e la malavita agirono in concerto per impedire la vittoria di Salvemini. I certificati elettorali vennero distribuiti selettivamente, negandoli agli oppositori. L’episodio più drammatico fu il <strong>tentato omicidio a Terlizzi</strong>: un sicario cercò di sparargli, ma la pistola si inceppò.
+                            </p>
+                            <p>
+                                Il risultato fu una vittoria farsa per Cioffrese. Salvemini ottenne pochissimi voti, alcuni dei quali assegnati persino dagli avversari per simulare una parvenza di democrazia. L'Italia dimostrò di essere ancora dominata da poteri occulti.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="reveal-on-scroll">
+                        <div class="flex items-center gap-3 mb-4">
+                            <span class="w-8 h-8 rounded-full bg-rose-50 text-hist-accent flex items-center justify-center font-bold text-sm">4</span>
+                            <h2 class="font-display text-2xl md:text-[1.75rem] font-bold text-hist-dark">Memoria e Monito Eterno</h2>
+                        </div>
+                        <div class="text-[1.05rem] text-text-medium leading-relaxed space-y-5">
+                            <p>
+                                L’accusa di Salvemini fu profetica: sosteneva che l’abuso di potere del governo avesse preparato il terreno al fascismo, abituando il popolo alla gestione autoritaria. Anche dopo la caduta del fascismo, continuò a definire Giolitti il <strong>"ministro della mala vita"</strong>. A Bitonto, il "Centro Ricerche di Storia e Arte" continua a preservare la memoria di questa eroica candidatura.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column: Interactive Widgets -->
+                <div class="lg:col-span-5 relative">
+                    <div class="sticky top-32 space-y-8">
+                        
+                        <!-- Interactive Diagram: Cronologia Violenza -->
+                        <div class="bg-bg-light border border-border-color rounded-2xl p-6 shadow-sm reveal-on-scroll">
+                            <h3 class="font-display text-lg font-bold text-hist-dark mb-4 border-b border-border-color pb-3">Cronologia dell'Elezione Farsa (1913)</h3>
+                            
+                            <div class="relative pl-6 py-4 border-l-2 border-hist-accent/20 space-y-8" id="timeline-container">
+                                
+                                <div class="relative cursor-pointer group" onclick="document.getElementById('tl-desc').textContent = 'Vengono armate bande di delinquenti locali per terrorizzare i sostenitori di Salvemini per le strade di Bitonto e Terlizzi.'">
+                                    <div class="absolute -left-[33px] w-4 h-4 rounded-full bg-white border-2 border-hist-accent group-hover:bg-hist-accent transition-colors"></div>
+                                    <h4 class="font-bold text-hist-dark text-[0.95rem] group-hover:text-hist-accent transition-colors">I Mazzieri di Cioffrese</h4>
+                                    <span class="text-xs text-text-light font-medium uppercase tracking-wider">Intimidazione</span>
+                                </div>
+
+                                <div class="relative cursor-pointer group" onclick="document.getElementById('tl-desc').textContent = 'La commissione elettorale viene epurata e i certificati elettorali vengono consegnati esclusivamente ai seguaci del candidato governativo.'">
+                                    <div class="absolute -left-[33px] w-4 h-4 rounded-full bg-white border-2 border-hist-accent group-hover:bg-hist-accent transition-colors"></div>
+                                    <h4 class="font-bold text-hist-dark text-[0.95rem] group-hover:text-hist-accent transition-colors">Sequestro dei Certificati</h4>
+                                    <span class="text-xs text-text-light font-medium uppercase tracking-wider">Brogli Istituzionali</span>
+                                </div>
+
+                                <div class="relative cursor-pointer group" onclick="document.getElementById('tl-desc').textContent = 'Un sicario tenta di sparare a Salvemini a Terlizzi, ma l\'arma si inceppa miracolosamente. Lo Stato non interviene.'">
+                                    <div class="absolute -left-[33px] w-4 h-4 rounded-full bg-white border-2 border-hist-accent group-hover:bg-hist-accent transition-colors"></div>
+                                    <h4 class="font-bold text-hist-dark text-[0.95rem] group-hover:text-hist-accent transition-colors">Il Tentato Assassino</h4>
+                                    <span class="text-xs text-text-light font-medium uppercase tracking-wider">Violenza Armata</span>
+                                </div>
+                                
+                            </div>
+                            
+                            <!-- Dynamic Description Box -->
+                            <div class="mt-6 p-4 bg-white border border-border-color rounded-lg text-[0.85rem] text-text-medium italic h-[90px] flex items-center justify-center text-center shadow-inner">
+                                <p id="tl-desc">Clicca sui punti della linea del tempo per scoprire i dettagli della frode elettorale del 1913.</p>
+                            </div>
+                        </div>
+
+                        <!-- Chart.js Segment -->
+                        <div class="bg-bg-light border border-border-color rounded-2xl p-6 shadow-sm reveal-on-scroll" style="animation-delay: 150ms;">
+                            <h3 class="font-display text-lg font-bold text-hist-dark mb-1 text-center">Rapporto Elettorale 1913</h3>
+                            <p class="text-[0.7rem] uppercase tracking-wider text-text-light text-center mb-6">Consenso Reale vs Voti Registrati</p>
+                            <div class="max-w-[100%] mx-auto">
+                                <canvas id="historyChart" width="400" height="250"></canvas>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Educazione Civica Connection -->
+    <section class="py-20 bg-hist-dark text-white relative overflow-hidden">
+        <div class="absolute inset-0 bg-[url('../bg.jpg')] opacity-5 bg-cover bg-center"></div>
+        <div class="max-w-[1200px] mx-auto px-6 relative z-10 text-center">
+            <span class="text-xs uppercase tracking-[0.2em] text-hist-accent font-bold mb-4 inline-block">Educazione Civica</span>
+            <h2 class="font-display text-3xl font-bold mb-6">La Tutela del Processo Democratico</h2>
+            <div class="w-12 h-1 bg-hist-accent mx-auto mb-8 rounded"></div>
+            <p class="text-lg text-white/80 max-w-[800px] mx-auto leading-relaxed">
+                La denuncia di Salvemini contro le mafie e i brogli elettorali è di un'attualità sconvolgente. Essa ci insegna che il suffragio universale, da solo, non basta a garantire la democrazia se mancano la <strong>legalità, la trasparenza istituzionale e la libertà di voto</strong>. La Costituzione Italiana (Art. 48) stabilisce oggi che il voto è "personale ed eguale, libero e segreto", principi fondamentali nati proprio dal rifiuto dei sistemi clientelari del passato.
+            </p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-primary text-white/70 py-16 border-t border-white/5">
+        <div class="max-w-[1200px] mx-auto px-6 text-center">
+            <a href="../index.html" class="font-display text-[2rem] font-extrabold text-white mb-4 inline-block tracking-[-0.03em]">
+                <span class="text-accent">A</span>S
+            </a>
+            <p class="text-sm text-white/50 mb-6">Portfolio Esame di Stato 2025/2026</p>
+            <div class="border-t border-white/10 pt-6 text-xs text-white/40">
+                <p>&copy; 2026 Alessio Saulli. Tutti i diritti riservati.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Initialization Scripts -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Setup Chart.js per la statistica dei voti
+            const ctx = document.getElementById('historyChart').getContext('2d');
+            
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Sostegno Popolare Stimato', 'Voti Ufficiali Scrutinati'],
+                    datasets: [
+                        {
+                            label: 'G. Salvemini (Candidato Antigiolittiano)',
+                            data: [85, 5],
+                            backgroundColor: 'rgba(12, 117, 230, 0.8)',
+                            borderRadius: 4
+                        },
+                        {
+                            label: 'D. Cioffrese (Candidato Governativo)',
+                            data: [15, 95],
+                            backgroundColor: 'rgba(225, 29, 72, 0.8)',
+                            borderRadius: 4
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                font: { family: 'Inter', size: 10 },
+                                color: '#475569',
+                                boxWidth: 12
+                            }
+                        },
+                        tooltip: {
+                            backgroundColor: '#1c1917',
+                            titleFont: { family: 'Inter', size: 12 },
+                            bodyFont: { family: 'Inter', size: 11 },
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 100,
+                            ticks: { callback: function(value) { return value + "%" } },
+                            grid: { color: 'rgba(226, 232, 240, 0.5)' }
+                        },
+                        x: {
+                            grid: { display: false }
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+    <script src="../app.js"></script>
+</body>
+
+</html>
