@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>English & Cybersecurity – Malware and Safe Internet</title>
+    <meta name="description"
+        content="Interdisciplinary English topic about malware threats (viruses, spyware, phishing, botnets) and safety measures (firewalls, software updates, protection programs)." />
+
+    <!-- Google Fonts & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Outfit:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet" />
+
+    <!-- Tailwind & Custom Config -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#10223e',
+                        accent: '#8b5cf6', // Violet
+                        'accent-hover': '#7c3aed',
+                        'accent-soft': 'rgba(139, 92, 246, 0.06)',
+                        'text-dark': '#1e293b',
+                        'text-medium': '#475569',
+                        'text-light': '#64748b',
+                        'bg-light': '#f8fafc',
+                        'border-color': '#e2e8f0',
+                        'purple-dark': '#2e1065',
+                        'purple-accent': '#c084fc'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+                        display: ['Outfit', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="../style.css" />
+
+    <style>
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+        }
+
+        .hero-gradient {
+            background: radial-gradient(circle at 10% 20%, rgba(139, 92, 246, 0.05) 0%, rgba(255, 255, 255, 0) 90%);
+        }
+
+        .toggle-btn-active {
+            background: #8b5cf6;
+            color: #ffffff;
+            border-color: #8b5cf6;
+        }
+
+        .switch-checkbox:checked+.switch-label {
+            background-color: #8b5cf6;
+        }
+
+        .switch-checkbox:checked+.switch-label .switch-dot {
+            transform: translateX(1.5rem);
+        }
+    </style>
+</head>
+
+<body class="bg-white text-text-dark font-sans antialiased overflow-x-hidden">
+
+    <!-- Scroll Progress Indicator -->
+    <div id="scroll-progress" class="fixed top-0 left-0 h-0.5 bg-accent z-[9999] transition-all duration-100 ease-out"
+        style="width: 0%;"></div>
+
+    <!-- Navigation Header -->
+    <header id="main-header"
+        class="fixed top-0 left-0 w-full z-[1000] transition-all duration-500 py-6 border-b border-transparent bg-white/90 backdrop-blur-md">
+        <div class="max-w-[1200px] mx-auto px-6 flex items-center justify-between">
+            <a href="../index.html"
+                class="font-display text-2.2xl md:text-2.5xl font-extrabold text-primary tracking-[-0.03em]">
+                <span class="text-accent">A</span>S
+            </a>
+
+            <nav id="nav-menu" class="hidden md:block">
+                <ul class="flex items-center gap-9">
+                    <li><a href="../index.html#hero"
+                            class="nav-link text-[0.92rem] font-medium text-text-medium hover:text-primary transition-all relative py-1">Home</a>
+                    </li>
+                    <li><a href="../index.html#presentazione"
+                            class="nav-link text-[0.92rem] font-medium text-text-medium hover:text-primary transition-all relative py-1">Chi
+                            Sono</a></li>
+                    <li><a href="../nav items/edc.html"
+                            class="nav-link active text-[0.92rem] font-medium text-text-medium hover:text-primary transition-all relative py-1">Educazione
+                            Civica</a></li>
+                    <li><a href="../nav items/pcto.html"
+                            class="nav-link text-[0.92rem] font-medium text-text-medium hover:text-primary transition-all relative py-1">PCTO</a>
+                    </li>
+                    <li><a href="../nav items/capolavori.html"
+                            class="nav-link text-[0.92rem] font-medium text-text-medium hover:text-primary transition-all relative py-1">Capolavori</a>
+                    </li>
+                </ul>
+            </nav>
+
+            <div class="header-cta hidden md:block">
+                <a href="../nav items/edc.html"
+                    class="btn btn-sm btn-outline text-accent border border-accent hover:bg-accent hover:text-white px-5 py-2 rounded font-medium text-sm transition-all flex items-center gap-1.5"><i
+                        class="ri-arrow-left-line"></i> Torna a Ed. Civica</a>
+            </div>
+
+            <button
+                class="mobile-nav-toggle md:hidden bg-transparent border-0 text-2xl text-primary cursor-pointer z-[1001]"
+                id="mobile-toggle" aria-label="Open menu">
+                <i class="ri-menu-line"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative pt-36 pb-20 md:pt-48 md:pb-32 border-b border-border-color hero-gradient overflow-hidden">
+        <div class="max-w-[1200px] mx-auto px-6 relative z-[2]">
+            <!-- Breadcrumbs -->
+            <div class="flex items-center gap-2 mb-6 animate-fade-in-up" style="animation-delay: 100ms;">
+                <a href="../index.html"
+                    class="text-xs uppercase tracking-[0.1em] text-accent font-bold hover:underline flex items-center gap-1">
+                    <i class="ri-home-4-line"></i> Home
+                </a>
+                <span class="text-xs text-text-light"><i class="ri-arrow-right-s-line"></i></span>
+                <a href="../nav items/edc.html"
+                    class="text-xs uppercase tracking-[0.1em] text-accent font-bold hover:underline">
+                    Educazione Civica
+                </a>
+                <span class="text-xs text-text-light"><i class="ri-arrow-right-s-line"></i></span>
+                <span class="text-xs uppercase tracking-[0.1em] text-text-light font-bold">English &
+                    Cybersecurity</span>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+                <!-- Text Intro -->
+                <div class="lg:col-span-7 reveal-on-scroll">
+                    <span
+                        class="text-xs uppercase tracking-[0.2em] bg-violet-50 text-accent font-bold px-3 py-1.5 rounded mb-4 inline-block">
+                        English & Digital Citizenship
+                    </span>
+                    <h1
+                        class="font-display text-4xl md:text-[3.5rem] font-extrabold text-primary tracking-[-0.03em] leading-[1.08] mb-6">
+                        Malware & <span class="text-accent">Cybersecurity</span>
+                    </h1>
+                    <p class="text-lg md:text-xl text-text-medium leading-relaxed mb-8">
+                        An exploration of digital threats and defenses. Learn how malicious software spreads across
+                        networks and what core measures you must take to protect systems, privacy, and sensitive data
+                        online.
+                    </p>
+                    <div class="flex gap-3 flex-wrap">
+                        <span
+                            class="text-[0.78rem] font-semibold uppercase tracking-wider bg-bg-light text-text-medium px-4 py-2 rounded border border-border-color flex items-center gap-1.5">
+                            <i class="ri-shield-keyhole-line text-accent text-sm"></i> Threat Defense
+                        </span>
+                        <span
+                            class="text-[0.78rem] font-semibold uppercase tracking-wider bg-bg-light text-text-medium px-4 py-2 rounded border border-border-color flex items-center gap-1.5">
+                            <i class="ri-global-line text-accent text-sm"></i> Safe Navigation
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Portrait Graphic -->
+                <div class="lg:col-span-5 reveal-on-scroll" style="animation-delay: 200ms;">
+                    <div class="relative w-full aspect-[4/5] rounded-2xl overflow-hidden group shadow-2xl">
+                        <div
+                            class="absolute inset-0 bg-purple-dark/20 group-hover:bg-transparent transition-colors duration-500 z-10">
+                        </div>
+                        <img src="https://www.2001systems.com/wp-content/uploads/2019/10/Firewall-e-antivirus.jpg"
+                            alt="Cybersecurity Firewall & Antivirus"
+                            class="w-full h-full object-cover group-hover:scale-105 transition-all duration-700 ease-out" />
+
+                        <div
+                            class="absolute bottom-6 left-6 right-6 z-20 glass-panel p-4 rounded-xl opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500">
+                            <p class="text-[0.8rem] font-bold text-primary uppercase tracking-wider mb-1">Defense
+                                Architecture</p>
+                            <p class="text-[0.75rem] text-text-medium leading-tight">Firewalls and antivirus scanners
+                                acting together to block external hacks.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Essay Content -->
+    <section class="py-20 md:py-32 bg-white">
+        <div class="max-w-[1200px] mx-auto px-6">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 relative">
+
+                <!-- Left Column: Discursive Text -->
+                <div class="lg:col-span-7 space-y-16">
+
+                    <!-- Section 1 -->
+                    <div class="reveal-on-scroll">
+                        <div class="flex items-center gap-3 mb-4">
+                            <span
+                                class="w-8 h-8 rounded-full bg-violet-50 text-accent flex items-center justify-center font-bold text-sm">1</span>
+                            <h2 class="font-display text-2xl md:text-[1.75rem] font-bold text-primary">What is Malware?
+                            </h2>
+                        </div>
+                        <div class="text-[1.05rem] text-text-medium leading-relaxed space-y-5">
+                            <p>
+                                <strong>Malware</strong> is the general term used to describe malicious software
+                                designed to infiltrate computers and networks to steal data, encrypt files, or disable
+                                systems. The word is a blend of <em>malicious</em> and <em>software</em>, reflecting its
+                                harmful purpose.
+                            </p>
+                            <p>
+                                Rather than acting in isolation, modern malware spreads rapidly by exploiting various
+                                channels:
+                            </p>
+                            <ul class="list-none space-y-3 pl-4 border-l-2 border-accent/25 my-4">
+                                <li class="flex items-start gap-2 text-[0.98rem]">
+                                    <i class="ri-mail-send-line text-accent mt-1"></i>
+                                    <span><strong>Email Services:</strong> Malicious links and infected attachments sent
+                                        directly to user inboxes.</span>
+                                </li>
+                                <li class="flex items-start gap-2 text-[0.98rem]">
+                                    <i class="ri-global-line text-accent mt-1"></i>
+                                    <span><strong>Online Services:</strong> Compromised websites hosting automatic
+                                        downloads or fake advertisements.</span>
+                                </li>
+                                <li class="flex items-start gap-2 text-[0.98rem]">
+                                    <i class="ri-share-line text-accent mt-1"></i>
+                                    <span><strong>Peer-to-Peer Sharing:</strong> Shared files on torrent websites
+                                        embedding hidden malicious payloads.</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Section 2 -->
+                    <div class="reveal-on-scroll">
+                        <div class="flex items-center gap-3 mb-4">
+                            <span
+                                class="w-8 h-8 rounded-full bg-violet-50 text-accent flex items-center justify-center font-bold text-sm">2</span>
+                            <h2 class="font-display text-2xl md:text-[1.75rem] font-bold text-primary">Common Types of
+                                Malware & Threats</h2>
+                        </div>
+                        <div class="text-[1.05rem] text-text-medium leading-relaxed space-y-5">
+                            <p>
+                                Cybercriminals employ various software types, each tailored for a specific attack vector
+                                or criminal goal. The most common threats include:
+                            </p>
+
+                            <div class="space-y-4 my-6">
+                                <div
+                                    class="bg-bg-light p-5 rounded-xl border border-border-color hover:border-accent/30 transition-all">
+                                    <div class="flex items-center gap-2 mb-2">
+                                        <i class="ri-virus-line text-accent text-lg"></i>
+                                        <h4 class="font-bold text-primary text-[0.95rem] uppercase tracking-wide">Virus
+                                        </h4>
+                                    </div>
+                                    <p class="text-xs text-text-medium leading-relaxed">
+                                        A program that infiltrates a computer and causes it to malfunction, acting as
+                                        though the system were "ill". It typically requires human action to propagate by
+                                        attaching itself to clean files.
+                                    </p>
+                                </div>
+
+                                <div
+                                    class="bg-bg-light p-5 rounded-xl border border-border-color hover:border-accent/30 transition-all">
+                                    <div class="flex items-center gap-2 mb-2">
+                                        <i class="ri-spy-line text-accent text-lg"></i>
+                                        <h4 class="font-bold text-primary text-[0.95rem] uppercase tracking-wide">
+                                            Spyware</h4>
+                                    </div>
+                                    <p class="text-xs text-text-medium leading-relaxed">
+                                        A secret program that observes and reports on a user's online behavior without
+                                        their knowledge, usually for advertising or data brokerage. It can also hijack
+                                        display or pop-up settings.
+                                    </p>
+                                </div>
+
+                                <div
+                                    class="bg-bg-light p-5 rounded-xl border border-border-color hover:border-accent/30 transition-all">
+                                    <div class="flex items-center gap-2 mb-2">
+                                        <i class="ri-mail-unread-line text-accent text-lg"></i>
+                                        <h4 class="font-bold text-primary text-[0.95rem] uppercase tracking-wide">Spam
+                                        </h4>
+                                    </div>
+                                    <p class="text-xs text-text-medium leading-relaxed">
+                                        Unwanted bulk emails sent to mass audiences, primarily for advertisement. While
+                                        often just a nuisance, they can carry dangerous virus attachments or links to
+                                        phishing pages.
+                                    </p>
+                                </div>
+
+                                <div
+                                    class="bg-bg-light p-5 rounded-xl border border-border-color hover:border-accent/30 transition-all">
+                                    <div class="flex items-center gap-2 mb-2">
+                                        <i class="ri-bug-line text-accent text-lg"></i>
+                                        <h4 class="font-bold text-primary text-[0.95rem] uppercase tracking-wide">Worm
+                                        </h4>
+                                    </div>
+                                    <p class="text-xs text-text-medium leading-relaxed">
+                                        An autonomous program that invades network computers and buries itself deep
+                                        within the software. It replicates itself over the network to avoid deletion,
+                                        clogging operations.
+                                    </p>
+                                </div>
+
+                                <div
+                                    class="bg-bg-light p-5 rounded-xl border border-border-color hover:border-accent/30 transition-all">
+                                    <div class="flex items-center gap-2 mb-2">
+                                        <i class="ri-treasure-map-line text-accent text-lg"></i>
+                                        <h4 class="font-bold text-primary text-[0.95rem] uppercase tracking-wide">Trojan
+                                        </h4>
+                                    </div>
+                                    <p class="text-xs text-text-medium leading-relaxed">
+                                        A malicious program that disguises itself as an innocent or useful application.
+                                        Once active inside a system, it opens a backdoor to let attackers take control
+                                        and steal credit cards or passwords.
+                                    </p>
+                                </div>
+
+                                <div
+                                    class="bg-bg-light p-5 rounded-xl border border-border-color hover:border-accent/30 transition-all">
+                                    <div class="flex items-center gap-2 mb-2">
+                                        <i class="ri-robot-line text-accent text-lg"></i>
+                                        <h4 class="font-bold text-primary text-[0.95rem] uppercase tracking-wide">Botnet
+                                        </h4>
+                                    </div>
+                                    <p class="text-xs text-text-medium leading-relaxed">
+                                        A large group of infected computers controlled remotely by a criminal gang
+                                        without the owners' knowledge. These "zombie" systems are coordinated to launch
+                                        large cyber attacks.
+                                    </p>
+                                </div>
+
+                                <div
+                                    class="bg-bg-light p-5 rounded-xl border border-border-color hover:border-accent/30 transition-all">
+                                    <div class="flex items-center gap-2 mb-2">
+                                        <i class="ri-bank-card-line text-accent text-lg"></i>
+                                        <h4 class="font-bold text-primary text-[0.95rem] uppercase tracking-wide">
+                                            Phishing</h4>
+                                    </div>
+                                    <p class="text-xs text-text-medium leading-relaxed">
+                                        A fraudulent method of tricking users into revealing sensitive data like bank
+                                        details, credentials, or pins. It takes the form of emails mimicking trusted
+                                        institutions (e.g., banks or shipping companies).
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Section 3 -->
+                    <div class="reveal-on-scroll">
+                        <div class="flex items-center gap-3 mb-4">
+                            <span
+                                class="w-8 h-8 rounded-full bg-violet-50 text-accent flex items-center justify-center font-bold text-sm">3</span>
+                            <h2 class="font-display text-2xl md:text-[1.75rem] font-bold text-primary">How to Protect
+                                Yourself</h2>
+                        </div>
+                        <div class="text-[1.05rem] text-text-medium leading-relaxed space-y-8">
+                            <p>
+                                To protect your computer and personal information, it is critical to implement defense
+                                strategies. Unit 15 outlines the four essentials of cybersecurity:
+                            </p>
+
+                            <!-- 1. Install a Firewall -->
+                            <div class="space-y-3">
+                                <h3 class="text-lg font-bold text-primary flex items-center gap-2">
+                                    <span class="text-accent">1.</span> Install a Firewall
+                                </h3>
+                                <p class="text-sm">
+                                    A firewall acts as a defensive wall around your computer (built into hardware or
+                                    software). It checks incoming and outgoing traffic from the Internet and either
+                                    blocks or allows data packages to pass based on configured security rules,
+                                    preventing hackers from scanning open ports.
+                                </p>
+                            </div>
+
+                            <!-- 2. Keep Software Up to Date -->
+                            <div class="space-y-3">
+                                <h3 class="text-lg font-bold text-primary flex items-center gap-2">
+                                    <span class="text-accent">2.</span> Keep Software Up to Date
+                                </h3>
+                                <p class="text-sm">
+                                    Cybercriminals frequently exploit known security vulnerabilities in operating
+                                    systems and third-party plugins (such as Java). Installing security updates offered
+                                    by software providers (like Microsoft Windows Updates) patches these holes,
+                                    neutralizing exploits.
+                                </p>
+                            </div>
+
+                            <!-- 3. Use Protection Software -->
+                            <div class="space-y-3">
+                                <h3 class="text-lg font-bold text-primary flex items-center gap-2">
+                                    <span class="text-accent">3.</span> Use Protection Software
+                                </h3>
+                                <p class="text-sm">
+                                    Keep active security suites running:
+                                </p>
+                                <ul class="list-disc pl-6 text-sm space-y-1 my-2">
+                                    <li><strong>Anti-virus software:</strong> Scans incoming emails, downloads, and
+                                        files for viruses, worms, and Trojans, isolating them before damage occurs.</li>
+                                    <li><strong>Anti-spyware programs:</strong> Alerts the user when spyware attempts to
+                                        install, removing existing tracking programs.</li>
+                                </ul>
+                                <div
+                                    class="bg-red-50 text-red-900 border border-red-200 p-4 rounded-xl text-xs flex items-start gap-3 my-4">
+                                    <i class="ri-alert-line text-red-500 text-lg flex-shrink-0 mt-0.5"></i>
+                                    <div>
+                                        <strong>Warning:</strong> Never install anti-virus software in response to a
+                                        pop-up advertisement. There are dozens of fake anti-virus applications designed
+                                        to simulate fake infection alerts on your screen, demanding credit card payments
+                                        or installing actual ransomware.
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- 4. Take Special Care with Email -->
+                            <div class="space-y-3">
+                                <h3 class="text-lg font-bold text-primary flex items-center gap-2">
+                                    <span class="text-accent">4.</span> Take Special Care with Email
+                                </h3>
+                                <p class="text-sm">
+                                    Email is the most common infiltration point. Practice these precautions:
+                                </p>
+                                <ul class="list-none space-y-3 pl-4 border-l-2 border-accent/25 my-4">
+                                    <li class="flex items-start gap-2 text-[0.98rem]">
+                                        <i class="ri-attachment-2 text-accent mt-1"></i>
+                                        <span><strong>Attachments:</strong> Never open email attachments from unknown
+                                            senders, as they are a primary source of infection.</span>
+                                    </li>
+                                    <li class="flex items-start gap-2 text-[0.98rem]">
+                                        <i class="ri-link text-accent mt-1"></i>
+                                        <span><strong>Hyperlinks:</strong> Avoid clicking links blindly, especially
+                                            inside messages asking you to confirm security data (phishing).</span>
+                                    </li>
+                                    <li class="flex items-start gap-2 text-[0.98rem]">
+                                        <i class="ri-filter-line text-accent mt-1"></i>
+                                        <span><strong>Filters:</strong> Set up aggressive spam filters. Never respond to
+                                            a spam email—not even to click "unsubscribe"—as it confirms to the spammer
+                                            that your address is active.</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Right Column: Interactive Simulator & Infection Vector Chart -->
+                <div class="lg:col-span-5 relative">
+                    <div class="sticky top-32 space-y-8">
+
+                        <!-- Security Shield Simulator -->
+                        <div class="bg-bg-light border border-border-color rounded-2xl p-6 shadow-sm reveal-on-scroll">
+                            <h3 class="font-display text-lg font-bold text-primary mb-1">Security Shield Simulator</h3>
+                            <p class="text-xs text-text-light mb-6">Toggle your digital defenses to calculate your
+                                real-time protection score.</p>
+
+                            <!-- Toggle switches -->
+                            <div class="space-y-4 mb-6">
+                                <!-- 1. Firewall -->
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center gap-2.5">
+                                        <div
+                                            class="w-8 h-8 rounded-lg bg-violet-50 text-accent flex items-center justify-center">
+                                            <i class="ri-shield-line"></i></div>
+                                        <div>
+                                            <p class="text-xs font-bold text-primary">Firewall Enabled</p>
+                                            <p class="text-[0.65rem] text-text-light">Blocks unauthorized external
+                                                network connections</p>
+                                        </div>
+                                    </div>
+                                    <div
+                                        class="relative inline-block w-11 h-6 align-middle select-none transition duration-200 ease-in">
+                                        <input type="checkbox" name="firewall" id="sw-firewall"
+                                            class="switch-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 border-slate-200 appearance-none cursor-pointer focus:outline-none transition-all duration-300" />
+                                        <label for="sw-firewall"
+                                            class="switch-label block overflow-hidden h-6 rounded-full bg-slate-200 cursor-pointer transition-colors duration-300">
+                                            <span class="switch-dot block w-0 h-0"></span>
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <!-- 2. Software Updates -->
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center gap-2.5">
+                                        <div
+                                            class="w-8 h-8 rounded-lg bg-violet-50 text-accent flex items-center justify-center">
+                                            <i class="ri-refresh-line"></i></div>
+                                        <div>
+                                            <p class="text-xs font-bold text-primary">System Updates Active</p>
+                                            <p class="text-[0.65rem] text-text-light">Patches critical OS
+                                                vulnerabilities automatically</p>
+                                        </div>
+                                    </div>
+                                    <div
+                                        class="relative inline-block w-11 h-6 align-middle select-none transition duration-200 ease-in">
+                                        <input type="checkbox" name="updates" id="sw-updates"
+                                            class="switch-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 border-slate-200 appearance-none cursor-pointer focus:outline-none transition-all duration-300" />
+                                        <label for="sw-updates"
+                                            class="switch-label block overflow-hidden h-6 rounded-full bg-slate-200 cursor-pointer transition-colors duration-300">
+                                            <span class="switch-dot block w-0 h-0"></span>
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <!-- 3. Anti-virus & Anti-spyware -->
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center gap-2.5">
+                                        <div
+                                            class="w-8 h-8 rounded-lg bg-violet-50 text-accent flex items-center justify-center">
+                                            <i class="ri-shield-flash-line"></i></div>
+                                        <div>
+                                            <p class="text-xs font-bold text-primary">Antivirus Protection</p>
+                                            <p class="text-[0.65rem] text-text-light">Scans files and software in
+                                                real-time</p>
+                                        </div>
+                                    </div>
+                                    <div
+                                        class="relative inline-block w-11 h-6 align-middle select-none transition duration-200 ease-in">
+                                        <input type="checkbox" name="antivirus" id="sw-antivirus"
+                                            class="switch-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 border-slate-200 appearance-none cursor-pointer focus:outline-none transition-all duration-300" />
+                                        <label for="sw-antivirus"
+                                            class="switch-label block overflow-hidden h-6 rounded-full bg-slate-200 cursor-pointer transition-colors duration-300">
+                                            <span class="switch-dot block w-0 h-0"></span>
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <!-- 4. Email Caution -->
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center gap-2.5">
+                                        <div
+                                            class="w-8 h-8 rounded-lg bg-violet-50 text-accent flex items-center justify-center">
+                                            <i class="ri-mail-lock-line"></i></div>
+                                        <div>
+                                            <p class="text-xs font-bold text-primary">Email Safety Practices</p>
+                                            <p class="text-[0.65rem] text-text-light">Never open suspicious links or
+                                                unknown attachments</p>
+                                        </div>
+                                    </div>
+                                    <div
+                                        class="relative inline-block w-11 h-6 align-middle select-none transition duration-200 ease-in">
+                                        <input type="checkbox" name="email" id="sw-email"
+                                            class="switch-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 border-slate-200 appearance-none cursor-pointer focus:outline-none transition-all duration-300" />
+                                        <label for="sw-email"
+                                            class="switch-label block overflow-hidden h-6 rounded-full bg-slate-200 cursor-pointer transition-colors duration-300">
+                                            <span class="switch-dot block w-0 h-0"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Shield Score Result -->
+                            <div class="mt-8 pt-6 border-t border-border-color space-y-4">
+                                <div class="flex justify-between items-center">
+                                    <span class="text-xs font-bold text-text-medium uppercase tracking-wider">Shield
+                                        Protection Level</span>
+                                    <span class="text-3xl font-extrabold text-red-500" id="shield-score">0%</span>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span
+                                        class="text-xs font-bold text-text-medium uppercase tracking-wider">Vulnerability
+                                        Status</span>
+                                    <span class="text-sm font-bold text-red-500 uppercase tracking-wider"
+                                        id="vulnerability-status">Critical</span>
+                                </div>
+
+                                <!-- Dynamic Feedback Box -->
+                                <div id="feedback-box"
+                                    class="text-[0.78rem] leading-relaxed p-4 rounded-xl border border-red-200 bg-red-50/20 text-red-900">
+                                    You have no security protections enabled. Your computer is open to simple automated
+                                    scans and immediate infections.
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Infection Vectors Distribution Chart -->
+                        <div class="bg-bg-light border border-border-color rounded-2xl p-6 shadow-sm reveal-on-scroll"
+                            style="animation-delay: 150ms;">
+                            <h3 class="font-display text-lg font-bold text-primary mb-1 text-center font-display">
+                                Malware Infection Channels</h3>
+                            <p class="text-[0.7rem] uppercase tracking-wider text-text-light text-center mb-6">How
+                                threats typically penetrate personal and business networks</p>
+
+                            <div class="max-w-[85%] mx-auto">
+                                <canvas id="vectorsChart" width="300" height="300"></canvas>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-primary text-white/70 py-16 border-t border-white/5">
+        <div class="max-w-[1200px] mx-auto px-6 text-center">
+            <a href="../index.html"
+                class="font-display text-[2rem] font-extrabold text-white mb-4 inline-block tracking-[-0.03em]">
+                <span class="text-accent">A</span>S
+            </a>
+            <p class="text-sm text-white/50 mb-6">Portfolio Esame di Stato 2025/2026</p>
+            <div class="border-t border-white/10 pt-6 text-xs text-white/40">
+                <p>&copy; 2026 Alessio Saulli. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Interactive Simulation Scripts -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Simulator Inputs
+            const swFirewall = document.getElementById('sw-firewall');
+            const swUpdates = document.getElementById('sw-updates');
+            const swAntivirus = document.getElementById('sw-antivirus');
+            const swEmail = document.getElementById('sw-email');
+
+            // Simulator Outputs
+            const shieldScore = document.getElementById('shield-score');
+            const vulnerabilityStatus = document.getElementById('vulnerability-status');
+            const feedbackBox = document.getElementById('feedback-box');
+
+            function updateSimulator() {
+                let score = 0;
+                let warnings = [];
+
+                if (swFirewall.checked) {
+                    score += 25;
+                } else {
+                    warnings.push("Firewall is disabled (anyone can scan and access open network ports)");
+                }
+
+                if (swUpdates.checked) {
+                    score += 25;
+                } else {
+                    warnings.push("Software is unpatched (vulnerable to known exploits and zero-day threats)");
+                }
+
+                if (swAntivirus.checked) {
+                    score += 25;
+                } else {
+                    warnings.push("Antivirus scanner inactive (payloads can run unchecked in the background)");
+                }
+
+                if (swEmail.checked) {
+                    score += 25;
+                } else {
+                    warnings.push("Caution is low (clicking random attachments/links will immediately trigger downloads)");
+                }
+
+                // Update score display
+                shieldScore.textContent = score + "%";
+
+                // Update status and colors
+                if (score === 100) {
+                    shieldScore.className = "text-3xl font-extrabold text-emerald-500";
+                    vulnerabilityStatus.textContent = "Safe";
+                    vulnerabilityStatus.className = "text-sm font-bold text-emerald-500 uppercase tracking-wider";
+                    feedbackBox.className = "text-[0.78rem] leading-relaxed p-4 rounded-xl border border-emerald-200 bg-emerald-50/20 text-emerald-950";
+                    feedbackBox.innerHTML = "<div class='flex items-center gap-1.5 font-bold mb-1'><i class='ri-checkbox-circle-line text-emerald-500 text-base'></i> Max Protection Active</div> All critical security parameters are enabled. Your system is prepared against automated intrusions, system exploits, and common human-error malware vectors.";
+                } else if (score >= 75) {
+                    shieldScore.className = "text-3xl font-extrabold text-indigo-500";
+                    vulnerabilityStatus.textContent = "Low Risk";
+                    vulnerabilityStatus.className = "text-sm font-bold text-indigo-500 uppercase tracking-wider";
+                    feedbackBox.className = "text-[0.78rem] leading-relaxed p-4 rounded-xl border border-indigo-200 bg-indigo-50/20 text-indigo-950";
+                    feedbackBox.innerHTML = "<div class='font-bold mb-1'>Good Defense:</div> You have robust security. However, note: <strong>" + warnings[0] + "</strong>. Address this to close the final vulnerability gap.";
+                } else if (score >= 50) {
+                    shieldScore.className = "text-3xl font-extrabold text-amber-500";
+                    vulnerabilityStatus.textContent = "Medium Risk";
+                    vulnerabilityStatus.className = "text-sm font-bold text-amber-500 uppercase tracking-wider";
+                    feedbackBox.className = "text-[0.78rem] leading-relaxed p-4 rounded-xl border border-amber-200 bg-amber-50/20 text-amber-950";
+                    feedbackBox.innerHTML = "<div class='font-bold mb-1'>Partial Protection:</div> Your shield is vulnerable. Key issues: <ul class='list-disc pl-4 mt-1 space-y-1'><li>" + warnings.join("</li><li>") + "</li></ul>";
+                } else if (score >= 25) {
+                    shieldScore.className = "text-3xl font-extrabold text-amber-600";
+                    vulnerabilityStatus.textContent = "High Risk";
+                    vulnerabilityStatus.className = "text-sm font-bold text-amber-600 uppercase tracking-wider";
+                    feedbackBox.className = "text-[0.78rem] leading-relaxed p-4 rounded-xl border border-amber-300 bg-amber-50/10 text-amber-900";
+                    feedbackBox.innerHTML = "<div class='font-bold mb-1'>Insufficient Shield:</div> Highly vulnerable to script kiddies and simple automated worms. Critical issues: <ul class='list-disc pl-4 mt-1 space-y-1'><li>" + warnings.join("</li><li>") + "</li></ul>";
+                } else {
+                    shieldScore.className = "text-3xl font-extrabold text-red-500";
+                    vulnerabilityStatus.textContent = "Critical";
+                    vulnerabilityStatus.className = "text-sm font-bold text-red-500 uppercase tracking-wider";
+                    feedbackBox.className = "text-[0.78rem] leading-relaxed p-4 rounded-xl border border-red-200 bg-red-50/20 text-red-900";
+                    feedbackBox.textContent = "You have no security protections enabled. Your computer is open to simple automated scans and immediate network infections.";
+                }
+            }
+
+            // Bind events
+            swFirewall.addEventListener('change', updateSimulator);
+            swUpdates.addEventListener('change', updateSimulator);
+            swAntivirus.addEventListener('change', updateSimulator);
+            swEmail.addEventListener('change', updateSimulator);
+
+            // Initialize simulator values
+            updateSimulator();
+
+            // Infection Vectors Pie Chart
+            const ctx = document.getElementById('vectorsChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Email Attachments', 'Malicious Websites', 'P2P File Sharing', 'Unpatched Software', 'External USB Drives'],
+                    datasets: [{
+                        data: [45, 25, 15, 10, 5],
+                        backgroundColor: [
+                            '#8b5cf6', // Violet
+                            '#a855f7', // Purple
+                            '#c084fc', // Light Purple
+                            '#6b7280', // Gray
+                            '#4b5563'  // Dark Gray
+                        ],
+                        borderWidth: 1,
+                        borderColor: '#ffffff'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                font: { family: 'Inter', size: 9 },
+                                color: '#475569',
+                                boxWidth: 10
+                            }
+                        }
+                    },
+                    cutout: '60%'
+                }
+            });
+        });
+    </script>
+    <script src="../app.js"></script>
+</body>
+
+</html>
